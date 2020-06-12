@@ -1,0 +1,895 @@
+---
+title: "R 4 Finance"
+subtitle: "Un curso práctico"
+author: "Gibrán Peniche"
+date: "(versión 0.0.1) - 2020/06/05"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "style.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: TRUE
+      countIncrementalSlides: TRUE
+      self_contained: TRUE
+      ratio: '16:9'
+    seal: false
+editor_options: 
+  chunk_output_type: console
+---
+class: title-slide, right, middle
+.pull-left[ `r knitr::include_graphics( 'figs/bottom_img.png') `]
+<br>
+<br>
+<br>
+
+# R4Finanace
+### J. Gibrán Peniche
+### Versión 0.0.1
+### 2020/06/05
+####  <i class="fab fa-github"></i> [jgpeniche](https://github.com/jgpeniche)
+####  <i class="fab fa-twitter"></i> [PenicheGibran](https://twitter.com/PenicheGibran)
+####  <i class="fab fa-google"></i> jgpeniche@gmail.com
+---
+
+class: inverse, center, middle
+
+# ¿Qué es R?
+
+```{r setup, include=FALSE}
+
+options(htmltools.dir.version = FALSE)
+```
+---
+
+# ¿Qué es R?
+
+--
+
+<br>
+<br>
+
+## R es un **lenguage** de programación para computación estadística
+
+--
+ 
+### $\cdot$ (No lo digo yo... está en su página) [r-project](https://www.r-project.org/)
+
+---
+
+<br>
+<br>
+<br>
+```{r rlogo, echo=FALSE, fig.align='center'}
+
+knitr::include_graphics('figs/rlogo.png')
+
+```
+
+---
+
+class: inverse, center, middle
+
+# ¿Qué es RStudio?
+
+---
+
+# ¿Qué es RStudio?
+
+--
+
+## $\cdot$ Es un **IDE**
+
+--
+  
+## $\cdot$ Esto es (versión corta) un editor de texto: R, C++, Python, Julia...
+
+--
+  
+## $\cdot$ Pero en realidad es (versión larga) Un ambiente de desarrollo:
+---
+
+<br>
+<br>
+
+```{r hexes, echo=FALSE, out.height='500px', out.width='900px', fig.align='center'}
+knitr::opts_chunk$set(eval = TRUE)
+knitr::include_graphics('figs/hexes.png')
+```
+---
+class: center, middle
+
+# En conclusión...
+
+---
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```{r notequal, echo=FALSE}
+knitr::include_graphics('figs/not_equal.png')
+```
+
+---
+class: center, middle
+# **NO** son lo mismo
+
+---
+
+# R vs. Python: ¿Cuál es la diferencia?
+ 
+--
+
+### R es un lenguage de **dominio específico** $\Longrightarrow$ que ha tratado de migrar a un lenguage de **dominio general**
+
+--
+    
+  a. Shiny para aplicaciones y dashboards
+
+--
+  
+  b. Rmarkdown para documentos word, pdf, powerpoint (o Xaringan como esta presentación), html, etc..
+
+--
+  
+### Python es un lenguage de **dominio general** $\Longrightarrow$ que ha tratado de migrar hacia un lenguage de **dominio específico**
+
+--
+  
+  a. Pandas para manipulación de datos
+
+--
+
+  b. SciKitLearn para modelaje estadístico
+  
+---
+
+# ¿Y en qué si son parecidos?
+
+--
+<br>
+
+## ¡Son gratis!
+
+
+
+--
+
+
+## Tanto como el lenguage y el IDE son **open source**
+
+
+  
+--
+
+## Son bastante lentos
+---
+
+class: inverse, center, middle
+# ¿Por qué migrar hacia el open source? 
+# 3 razones
+
+---
+
+class: center, middle
+
+# 1
+
+---
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+```{r r1, echo=FALSE, fig.align='center'}
+knitr::include_graphics('figs/r1.png')
+```
+
+---
+
+class: center, middle
+
+# 2
+
+---
+
+<br>
+<br>
+<br>
+
+```{r r2, echo=FALSE, fig.align='center'}
+
+knitr::include_graphics('figs/precios.png')
+
+```
+
+---
+
+class: center, middle
+# 3
+
+---
+
+<br>
+<br>
+<br>
+```{r r3, echo=FALSE, fig.align='center'}
+
+knitr::include_graphics('figs/final_final.png')
+
+```
+
+---
+
+# Más razones...
+
+--
+
+### 4. No son **reproducibles**
+
+--
+
+### 5. Es difícil versionarlos
+
+--
+
+### 6. Son lentísimos
+  
+---
+
+# Más razones
+
+### 7. Los modelos complejos requieren de un esfuerzo titánico para programárse (¿alguna vez han programado un verosimilitud?)
+  
+--
+
+### 8. Colaborar es muy difícil
+
+--
+
+### 9. Es difícil darles mantenimiento
+
+--
+
+### 10. Casi nunca están documentados
+---
+
+class: inverse, center, middle
+# Razón $\{ n, n+1, ... \}$
+
+--
+
+# ¡ODIO     EXCEL!
+
+---
+
+class: center, middle
+# En mi opinion...
+
+--
+
+### Son populares porque se requiere ser mínimo funcional para utilizarlos
+
+---
+
+class: center, middle, inverse
+# ¿Qué ganamos si cambiamos a lenguajes de programación avanzados?
+
+---
+
+class: center, middle
+### Separar la **estrucutura (tabular) de los datos** de la **estructura (lineal) del ambiente del trabajo**  
+
+---
+
+# Más razones...
+
+--
+
+### Potencia de computo
+
+--
+
+### Control de Versiones
+--
+
+### Modelos más complejos
+  
+--
+
+### Una apreciación en el orden de K*1e-3 en su salario
+  
+---
+
+# Entonces... ¿R o Python?
+
+--
+
+### 3 Razones para usar R y no Python
+
+--
+
+$1$ `tidyverse` 
+
+--
+
+  a. Pipe operator `%>% ` y sus amigos de `magrittr`
+--
+  
+  b. Gramática de las visualizaciones con `ggplot2`
+--
+  
+  c. Sintaxis SQL para manipulación de datos tabulares `dplyr`
+---
+# Entonces... ¿R o Python? 
+### 3 Razones para usar R y no Python
+
+$2$ `tidymodels`
+
+--
+  
+  a. Resumenes
+--
+  
+  b. calibración y;
+--
+  
+  c. ajuste de modelos todo en el esquema de **datos limpios** (Tidy Data)
+---
+# Entonces... ¿R o Python?
+### 3 Razones para usar R y no Python
+
+$3$ `rstanarm`
+
+--
+
+  a. Integración entre R y la libreria más estable para métodos bayesianos
+
+---
+
+
+class: center, middle
+# ¿Qué vamos a aprender en el curso?
+
+---
+
+# Temario
+
+--
+  
+  1. Sintaxis básica 
+
+--
+
+  2. Manipulación de datos con *dplyr*
+  
+--
+
+  3. Visualización de datos con *ggplot2*
+
+--
+
+  4. Lectura de datos
+
+--
+
+  5. Manipulación de datos financieros con `tidyquant`
+
+--
+
+  6. Modelos estadísticos en el contexto de tidy data con *tidymodels*
+  
+--
+
+  7. Versionamiento semántico y colaboración con Git
+  
+--
+
+  8. Reportes en RMarkdown
+
+--
+  
+  9. Apps y Dashboards con shiny
+  
+---
+
+class: inverse, center, middle
+# 1. Sintaxis Básica
+
+
+---
+
+# Programación en R 101
+
+--
+
+``` 
+# Declarar texto como comentario
+```
+
+--
+
+```
+# Asignar una variable
+a <- 4
+```
+
+--
+
+`# Utilizar <- e = es 'casi' equivalente`
+
+--
+
+`# Al utilizar = se crea un duplicado en la memoria`
+
+--
+
+`# Te da igual si trabajas con pocos megas de datos`
+
+--
+
+`# Procura utilizar <- algún día vas a estar trabajando con gigas de datos`
+
+--
+
+ +, - , /, \* todas funcionan de manera **vectorizada** sobre los objetos
+  
+---
+
+# Más sintaxis básica
+
+--
+
+Creamos vectores con la función `c()` con cada elemento separado por una ' , '. (OJO también es posible crear vectores vacios)
+
+--
+
+El tipo de los elementos puede ser:
+
+--
+
+  1. Número ( `double` )
+
+--
+
+  2. Texto ( `string` )
+  
+--
+
+  3. Boolean (`TRUE` / `FALSE`)
+
+---
+
+# Más sintaxis básica
+
+--
+
+Ciclos *for*
+
+--
+
+```
+
+for(i in algun_objeto){
+
+  # Hacer cosas
+
+}
+
+```
+
+---
+
+# Más sintaxis básica
+
+
+Declaracion *if*
+
+--
+
+```
+
+if( alguna_condición ){
+
+# Hacer cosas
+
+}else{
+
+# Hacer más cosas
+
+}
+
+```
+---
+
+# Más sintaxis básica
+
+
+Declarar funciones
+
+--
+
+```
+
+f <- function(x, y, z, ...){
+
+# Hacer cosas
+
+return(resultado)
+
+}
+
+```
+---
+
+# *Primer* en  funciones
+
+##Hay dos maneras de llamar argumentos de una función en R
+
+--
+
+<br>
+Sea $f( \alpha , \beta )$ una función
+
+--
+
+<br>
+$\rightarrow$ Podemos declarar los argumentos de una función
+
+--
+
+  1. Por **nombre** ` f(alpha = a, beta = b) `
+  
+--
+
+  2. Por **orden** `f(a, b)`
+--
+    
+    - Es buena práctica llamar los argumentos por nombre para que tu trabajo sea **legible** y **reproducible**
+---
+
+# Data Frames
+
+--
+
+### Toda la infraestructura de R está diseñada para trabajar sobre una clase de objeto en particular: el **Data Frame** 
+
+--
+
+Es alrededor de este objeto que se realiza todo el modelaje estadístico y la razón por la que R es ideal para hacer análisis de datos
+
+--
+
+
+```{r df, verbose = FALSE, results='hide', message=FALSE}
+
+# Requerimos una libreria
+library(dplyr)
+
+#Siempre recuerden sembrar su semilla!!!
+set.seed(666)
+
+#Creamos un Data Frame
+df <- tibble(
+  x_norm = rnorm( n = 100, mean = 0, sd = 1),
+  x_exp = rexp(n = 100, rate = 1.5),
+  x_seq = seq(from = 1, to = 7.897, length.out = 100)
+)
+
+```
+---
+
+class: inverse, center, middle
+# Chela al que me diga que hacen las funciones
+## 'rnorm', 'rexp', 'seq'
+
+---
+
+class: center, middle
+# Antes de continuar recuerden...
+
+--
+## '?' es mi pastor
+
+--
+### Todas las funciones y paquetes en R están documentadas
+
+---
+
+# Data Frames
+
+--
+### Podemos accesar al contenido de un df de 2 maneras:
+
+--
+
+**1** Con [ ] y llamando elementos por su posición dentro del df (la estructura básica es basicamente una matriz)
+
+--
+    - `abs(df[i, j])` llama al valor en el renglón *i* y en la columna *j* y toma el valor absoluto
+--
+
+    - `mean(df[,column])` llama a todos los renglones de la columna *column* y después tomamos la media
+--
+
+    - `sd(df[row,])`llama a todas las columnas del renglón *row* y luego calcula su desviación estándar
+---
+
+# Data Frames
+
+### Podemos accesar al contenido de un df de 2 maneras:
+
+--
+**2** Con el operador $ que despliega una lista de los nombres de las variables contenidas en el df
+  
+--
+    - `summary(df$x_norm)`
+---
+
+class: center, middle
+
+# El hecho de que cada columna sea una variable es algo reelvante que vale la pena discutir
+
+---
+
+# Datos limpios
+
+--
+
+### En computación existe algo llamado la *tercera forma normal de Codd*, tiene que ver con bases de datos relacionadas, pero en términos estadísticos significa:
+
+--
+
+  1. Cada variable es una columna
+--
+
+  2. Cada renglón es una observación
+--
+
+  3. Cada tabla es una unidad observacional
+
+--
+
+Todo el *framework* sobre el que vamos a trabajar parte del concepto de **tidy data**
+
+--
+
+La idea central de este tipo de forma de trabajar es que la **estructura** de los datos conrrespondan a la **semántica** de los mismos
+
+--
+
+Esto hace que el análisis y las funciones sean más eficientes
+
+--
+
+En la práctica, **80%** de su tiempo lo van a utilizar para llevar hojas de cálculo en excel a este formato
+
+---
+
+class: center, middle
+# Sintáxis Avanzada
+
+---
+
+# *Pipe* Operator
+
+--
+
+Una de las razones por la que R es tan poderoso para hacer análisis de datos es su **sintaxis**
+
+--
+
+El primer caso importante (de hecho en python se incorporó a pandas) es el **operador pipa** ` %>% `de *magrittr* (no olvides que su atajo de teclado es CTRL/CMND + SHIFT + M)
+
+--
+
+En nuestros ejemplos anteriores se vería asi:
+
+--
+
+`mean(df$x_norm)`
+
+--
+
+`# Es equivalente a`
+
+--
+
+```
+library(magrittr)
+
+df %>% mean(x_norm)
+```
+
+--
+
+La *pipa* simplemente toma el argumento de la izquierda y lo usa como primer argumento de la función de la derecha
+
+--
+
+Esto hace el código mucho más *legible*, *mantenible* y *reprodocible*
+
+---
+
+# Sintáxis Avanzada
+
+--
+
+### Otro ejemplo de lo poderosa que es esta sintaxis es el *subseting pipe*
+
+--
+
+Esto: 
+
+`cor(df$x_norm, df$x_exp)`
+
+--
+
+Se puede escribir así:
+
+`df %$% cor(x_norm, x_exp)`
+
+---
+# Exploremos algunos datos
+
+--
+
+  1. Abre un nuevo script
+  
+--
+
+  2. Llama a las liberias *dplyr* y *magrittr* con la función `library()`(Si no tienes instalados los paquetes instálalos)
+  
+--
+
+  3. Llama a la memoria la base de datos 'EuStockMarkets' (Solo tienes que escribir el nombre y asignarlo porque la base de datos ya viene precargada en R) y asignala a una nueva variable como un Data Frame con la función `as_tibble()`
+
+--
+
+  4. Revisa el contenido del objeto con la función `glimpse()` (recuerda usar la sintaxis avanzada)
+
+--
+
+  5. Realiza un análisis exploratorio de datos con la función `str()`
+
+--
+
+  6. Programa una función `retorno()` que reciba como argumento un vector precios y calcule los retornos
+  
+--
+
+  7. Prueba tu función con los precios del DAX
+  
+---
+
+class: inverse, center, middle
+# Antes de empezar
+--
+
+## Pro Tip
+
+---
+
+<br>
+<br>
+
+### Mucho a lo que te vas a enfrentar programando, es precisamente a no poder hacerlo
+
+--
+
+<br>
+<br>
+<br>
+
+### ¡Usa las herramientas a tu disposición! La documentación de las funciones, buscar en StackOverflow, etc...
+
+--
+<br>
+<br>
+<br>
+
+### Corre tiempo...
+
+---
+
+
+# Exploremos algunos datos
+
+
+  1. Abre un nuevo script
+  
+
+  2. Llama a las liberias *dplyr* y *magrittr* con la función `library()`(Si no tienes instalados los paquetes instálalos)
+  
+
+  3. Llama a la memoria la base de datos 'EuStockMarkets' (Solo tienes que escribir el nombre y asignarlo porque la base de datos ya viene precargada en R) y asignala a una nueva variable como un Data Frame con la función `as_tibble()`
+
+
+  4. Revisa el contenido del objeto con la función `glimpse()` (recuerda usar la sintaxis avanzada)
+
+
+  5. Realiza un análisis exploratorio de datos con la función `summary()`
+
+
+  6. Programa una función `retorno()` que reciba como argumento un vector precios y calcule los retornos
+  
+
+  7. Prueba tu función con los precios del DAX
+
+```{r timer, echo=FALSE}
+
+library(countdown)
+countdown(minutes = 10)
+
+```
+
+---
+
+# Solución
+
+```{r sol1, warning = FALSE, results='hide'}
+
+library(dplyr)
+library(magrittr)
+
+# Cargamos base de datos a la memoria
+
+stocks <- EuStockMarkets %>% 
+  as_tibble() %>% 
+  janitor::clean_names()
+
+stocks %>% 
+  glimpse()
+
+stocks %>% 
+  summary()
+
+```
+
+---
+
+# Solución 
+
+```{r sol2, warning = FALSE, results='hide'}
+retorno <- function(precios){
+  # Creamos vector vacio de retornos
+  retornos <- c() 
+  
+  # Para un vector de n precios tenemos n - 1 retornos
+    for(i in 1:length(precios)){
+    
+    if (i == 1){
+      
+      retornos[i] <- 0
+      
+    }else{
+      
+      retornos[i] <- log(precios[i]) - log(precios[i-1])
+      
+    }
+  }
+  
+  return(retornos)
+}
+
+```
+---
+
+# Solución 
+
+```{r sol3, results = 'hide'}
+
+retornos_dax <- stocks$dax %>% 
+  retorno()
+
+
+```
+

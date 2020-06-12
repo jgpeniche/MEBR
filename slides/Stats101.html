@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos con R
+## Stats 101
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-06-09
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+
+class: inverse, center, middle
+# ¿Porqué Estadística?
+
+
+---
+
+# Según [Drew Conway]([http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram)
+
+&lt;img src="figs/ds_diagram.png" width="500px" height="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# ¿Qué es la estadística?
+
+---
+
+class: middle, center
+
+
+
+# En palabras de Manuel Mendoza...
+
+
+---
+
+class: middle
+
+.pull-left[
+
+&lt;img src="figs/mendoza.jpg" width="300" height="300" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+.pull-right[
+
+## "Un conjunto de **técnicas** para describir **fenómenos** que se manifiestan a través de **datos** que presentan **aleatoriedad**"
+
+]
+
+---
+
+# Un conjunto de técnicas...
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+## Entendemos que describirmos estos fenómenos a través de **resúmenes** que deben ser **suficentes** y **minimales**
+
+---
+
+class: inverse, middle, center
+# Pero... ¿Para que "hacemos estadística"?
+---
+
+class: center, middle
+
+## El fin último de la inferencia es **proveer** de información **confiable** para la **toma de decisiones** 
+
+--
+
+## En otras palabras las inferencias deben ser **ÓPTIMAS**
+
+---
+
+class: inverse, center, middle
+
+# Algunos problemas con la estadística frecuentista...
+
+---
+
+class: center, middle, inverse
+
+# 1
+
+---
+
+# ¿Qué es la probabilidad para la escuela de Fisher y Neyman?
+--
+
+`\(\rightarrow\)` Es el **límite** de **frecuencias relativas** al repetir un experimento en las **mismas condiciones** una infinidad de veces
+
+--
+
+`$$P(A) = \lim_{N\to\infty} \frac{a \epsilon A}{N}$$`
+--
+
+`\(\rightarrow\)` Esta definición proviene del **positivismo** de Auguste Comte
+
+--
+
+`\(\rightarrow\)` En esta corriente se entiende a la **experiencia** cómo la **única** fuente de conociento.
+
+---
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+## **Pregunta:**
+
+### *¿Cuál es la probabilidad de que Benito Juárez haya nacido en Jueves?*
+
+--
+
+### ¿Acaso Benito Juárez puede nacer a veces en Jueves, otras en Domingo y algunas otras en Lunes?
+
+---
+
+class: center, middle, inverse
+# 2
+
+---
+
+# `\(X \sim Bernoulli( \theta)\)`
+--
+
+**Problema:**
+
+
+Estimar por regiones, usando el método pivotal, a `\(\theta\)` suponiendo que tiene una muestra de tamaño `\(n\)` donde **todas** las observaciones fueron exitos...
+
+--
+
+Sabemos que `\(\overline{X} = \hat{\theta} = 1\)`
+
+--
+
+`\(\rightarrow\)` ¿Concluimos que **no** hay incertidumbre sobre nuestro parámetro?
+
+--
+
+`\(\rightarrow\)` ¿Cómo incorporamos al procedimiento de inferencia que nosotros sabemos que el valor real del parámetro debe estar alrededor del 75%?
+
+--
+
+`\(\rightarrow\)` ¿Disminuimos `\(\overline{X}\)` a pesar de que en los datos no hay información sobre este hecho? ¿Y la incertumbre? ¿Cómo la incorporamos?
+
+---
+
+# `\(X \sim Bernoulli( \theta)\)`
+
+Además, por el método pivotal...
+
+$$ \frac{X - \theta}{\sqrt{ \theta \cdot (1 - \theta)}} \sim ?$$
+--
+
+`\(\rightarrow\)` Sabemos que esto definitivamente **NO** es normal
+
+--
+
+
+`\(\rightarrow\)` Si hacemos trampa, suponemos que es normal y resolviendo la ecuasión de segundo grado para `\(\theta\)` vamos a obtener que `\(\theta \epsilon [ 1 \pm Z_{(1 -  \frac{ \alpha}{2})} \sqrt{\frac{1}{n^4}} ]\)`
+
+--
+
+`\(\rightarrow\)` ¿Truncamos el intervalo en 1? (De hecho si  `\(n \rightarrow \infty\)` se colapsa en 1)
+
+--
+
+`\(\rightarrow\)` Este resultado persiste para otras aproximaciones al intervalo
+
+---
+
+class: center, middle, inverse
+# 3
+
+---
+
+# Teorema de Fieller para cociente de medias
+
+--
+
+**Problema:** 
+
+
+Estimar por regiones el cociente de medias para dos muestras con distribución normal...
+
+--
+
+**Problema más grande**
+
+--
+
+Se puede probar que
+
+
+### `$$\exists (1 - \alpha) &lt; 1 .,. \rho = \frac{\mu_1}{\mu_2} \epsilon \mathbb{R}$$`
+
+--
+
+`\(\rightarrow\)` Tenemos un intervalo de confianza **FIJO** al nivel `\((1 - \alpha) \cdot\)` 100% `\(&lt; 1\)` que abarca todo el espacio parametral
+
+---
+
+# Más problemas
+
+--
+
+`\(\cdot\)` Existen 2 estimadores **NO** Máximo Verosímiles que funcionan mejor en la práctica estimar la mediana la distribución *lognormal* que el estimador de MV
+
+--
+
+`\(\cdot\)` Se puede probar que hay estimadores **insesgados** que estiman con probabilidad 0 eventos que en la distribución teórica tienen probabilidad distinta de 0
+
+--
+
+`\(\cdot\)` La estimación de un fenómeno **aleatorio** en regresión líneal se reduce. o es equivalente, a un problema **geométrico** en el método tradicional de mínimos cuadrados, que además por el *Teorema de Gauss* los estimadores que obtenemos son únicos y además son insesgados
+
+--
+
+`\(\cdot\)` En *teoría de valores extremos*, la estimación de los parametros se hace generalmente con estádisticas que no necesariamente son insesgadas o Máximo Verosímiles
+
+---
+
+# En conclusión
+
+--
+
+### La escuela frecuentista de Fisher - Neyman - Pearson nos da una serie de **criterios de optimalidad** (insesgamiento, consistencia en ECM, etc) 
+
+--
+
+### Estos criterios los entendemos en términos del **problema matemático** (Por eso se le conoce como **Estadística Matemática**) pero no en el contexto del *¿para qué?* de la inferencia
+
+---
+
+# En conclusión
+
+### Además, estos criterios **dependen del problema de inferencia** que estemos tratando
+
+--
+
+### No tenemos un **procedimiento general** para hacer inferencia, ni un criterio general de optimalidad para nuestras inferencias
+
+--
+
+### Los padres de la estadística clásica **no lograron** establecer un cuerpo axiomático para consolidar a la estadística cómo una teoría en el primer cuarto del siglo XX
+---
+
+# El problema de toma de decisiones en ambiente de incertudumbre
+
+--
+
+&lt;br&gt; 
+
+### Lo que nos generalmente nos interesa como profesionistas (economistas, actuarios, financieros, politologos, etc) es tener un **número** con el que podamos decidir nuestro siguiente paso y nos gustaría tener algún grado de certidumbre sobre ese número
+
+---
+
+class: center, middle
+
+## **¿Cuál es la manera óptima de tomar decisiones en ambiente de incertidumbre?**
+--
+
+## **¿Existe algún criterio que nos asegure, sin importar las circunstancias, que nuestra inferencia es óptima?**
+---
+
+class: inverse, center, middle
+
+# La Estadística Bayesiana nos provee de un procedimiento de inferencia ÓPTIMO para la toma de decisiones ante un ambiente de incertidumbre
+
+---
+
+class: center, middle
+
+## **(Que si lo piensan bien, en realidad es nuestro día a día)**
+---
+
+# ¿Qué es la Estadística Bayesiana?
+
+--
+
+### Una **teoría de inferencia** para la toma de decisiones en el ambiente de incertidumbre
+
+--
+
+### Proviene de la corriente filosófica del **idealismo trascendetal** de Immanuel Kant en el siglo XIX
+
+--
+
+### Esta corriente (a grandes rasgos) propone conciliar a la razón y a la experiencia como fuentes de conocimiento
+
+--
+
+### Partiendo de lo anterior la Teoría Bayesiana entiende la probabilidad como una **medida de la ignorancia de uno mismo** con respecto a algún fenómeno, razón por la cual históricamente se la ha conocido cómo *probabilidad subjetiva*
+
+---
+
+# La necesidad de una teoría estadística
+
+--
+
+### Un indicador unívoco de la madurez de una **técnica** es cuando esta logra consolidarse cómo una teoría a través de la construcción un cuerpo axiomático
+
+--
+
+### En mi opinión la estadística es la herramienta por excelencia de la ciencia, ya que a través de ella se enfrenta la abstracción con el mundo real
+
+--
+
+### Al final, muchas decisiones (políticas públicas, medidas de control de medicamentos, regulación bancaria/financiera) descansan en tener cierto grado de certidumbre y de ellas dependen a veces millones de dolares/miles de empleos/ la salud de cierta población, etc...
+
+--
+
+### La estadística es la rama verdaderamente práctica de las matemáticas
+
+---
+
+# ¿Qué NO es la Estadística Bayesiana?
+
+--
+
+  + **NO** es tratar a los parámetros como variables aleatorias (El parámetro es **SIEMPRE FIJO** y **DESCONOCIDO**)
+
+--
+
+  + **NO** es `model.bayesian.fit`, hay que conocer la teoría detrás del procedimiento de inferencia (esto también es por ética profesional)
+
+--
+
+  + **NO** es *MCMC go prrrrrr*, hay que conocer sobre la teoría que está detrás de los métodos númericos (También aplica para la ciencia en general)
+  
+---
+class: center, middle
+# Breviario Histórico de los Bayesianos
+
+---
+
+# Un poco de historia...
+
+--
+
+### "Bayesianos" era un término que Fisher utilizaba para referirse despectivamente a los partidiarios de esta escuela
+
+--
+
+### Aunque hoy en día el teorema a partir del cual se contruye el procedimiento de inferencia que vamos aestudiar lleva por nombre el apellido del reverendo **Thomas Bayes**, fue en realidad **Pierre-Simon Laplace** quien desarrolló la expresión que hoy utlizamos en los cursos de cálculo de probabilidades y quien fué el verdadero precursor de esta corriente
+
+--
+
+### Aunque hoy en día la estadística bayesiana se ha vuelto popular debido a los avances en materia de poder de computo y consecuentemente a la popularización de los modelos de Machine Learning e Intelgencia artificial, lo cierto es que siempre ha estado allí...
+---
+
+# Un poco de historia...
+
+ - Fue con métodos bayesianos que se descifraron los códigos ENIGMA alemanes (WWII)
+
+--
+
+ - Se uso ampliamente en la milicia en los manuales de artillería Ingleses y Americanos para apuntar cañones
+ 
+--
+
+ - Se utilizó para encontrar bombas nucleares perdidas en la guerra fría y para trazar trayectorias de balística contra submarinos rusos
+  
+--
+
+ - Ha sido el común denominador entre la ciencias actuariales desde los tiempos de Edmun Halley
+ 
+--
+
+ - La BBC usó durante 20 años métodos bayesianos para estudiar la probabilidad de éxito de los condidatos a la presidencia de Estados Unidos
+ 
+--
+
+ - Personajes como Robert Schailfer desarrollaron manuales de negocios en Harvard con principios Bayesianos de Teoría de Decisión
+ 
+---
+class: middle, center
+
+### **Obviamente, toda esta infromación era secreta...**
+--
+
+### **...mientras tanto Fisher y anexos se encargaron de desacreditar sistemáticamente esta corriente por muchos, muchos años**
+
+---
+
+# ¿Qué sigue?
+
+### En las siguientes sesiones vamos a aprender:
+
+--
+
+  1. La definición de problema de decisión
+  
+--
+
+  2. Los axiomas de coherencia
+  
+--
+
+  3. Concluiremos que de acuerdo a los axiomas el criterio óptimo de toma de decisiones es el de **utilidad esperada**
+  
+--
+
+  4. La inferencia cómo problema de decisión
+
+--
+
+  5. Estimadores de Pérdida Mínima, estimación puntual y por regiones (Modelos Conjugados)
+  
+--
+
+  6. Pruebas de hipótesis
+
+--
+
+  7. Pronóstico
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

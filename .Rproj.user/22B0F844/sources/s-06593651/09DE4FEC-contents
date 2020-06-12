@@ -1,0 +1,91 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css");
+@import url('https://fonts.googleapis.com/css2?family=Changa+Alternates&display=swap');
+
+/* Formato Title slide */
+.title-slide {
+    background-color: #FFFFFF;
+}
+
+
+.title-slide h1{
+    font-family: 'Bitter', serif;
+    font-weight: bold;
+    text-align: right;
+    color: #4292C6;
+}
+
+.title-slide h2{
+    font-family: 'Bitter', serif;
+    font-weight: bold;
+    font-size: 28px;
+    text-align: right;
+    color: #4292C6;
+}
+
+ .title-slide h3{
+     font-family: 'Bitter', serif;
+    font-weight: normal;
+    font-size: 24px;
+    text-align: right;
+    color: #4292C6;
+}
+
+.title-slide h4{
+    font-family: 'Bitter', serif;
+    font-weight: normal;
+    color: #F28705;
+    font-size: 20px;
+    text-align: right;
+
+}
+
+/* Body slides */
+
+h1{
+    
+    font-family: 'Bitter', serif;
+    font-weight: bold;
+    color: #F28705;
+}
+
+h2, h3{
+    font-family: 'Bitter', serif;
+    font-weight: normal;
+    color: #30588C;
+}
+
+a:link {
+  color: #F28705;
+}
+
+.remark-slide-content {
+    font-family: 'Bitter', serif;
+    font-weight: normal;
+    font-size: 26px;
+    color: #30588C;
+}
+
+.inverse {
+  background-color: #F29F05;
+  color: #FFFFFF;
+}
+
+.inverse h1, .inverse h2, .inverse h3{
+  color: #FFFFFF ;
+}
+
+
+li {
+  
+  font-family: 'Bitter', serif;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+.remark-slide-number {
+  font-size: 10pt;
+  margin-bottom: -11.6px;
+  margin-right: 10px;
+  color: #FFFFFF; /* white */
+  opacity: 1; /* default: 0.5 */
+}
