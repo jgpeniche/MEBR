@@ -27,7 +27,7 @@ knitr::opts_chunk$set(eval = TRUE)
 class: title-slide, middle
 
 .pull-left[ 
-# Métodos Estadísticos con R
+# Métodos Estadísticos Bayesianos con R
 ## Stats 101
 ### Gibrán Peniche
 ### v. 0.0.1
@@ -102,7 +102,7 @@ knitr::include_graphics('figs/mendoza.jpg')
 <br>
 <br>
 <br>
-## Entendemos que describirmos estos fenómenos a través de **resúmenes** que deben ser **suficentes** y **minimales**
+## Entendemos que describirmos estos fenómenos a través de **resúmenes** que deben ser **suficientes** y **minimales**
 
 ---
 
