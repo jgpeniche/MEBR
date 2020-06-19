@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Problemas de Decisión
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-06-15
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+# La sesión pasada
+
+--
+
+### Platicamos sobre la finalidad de la inferencia
+
+--
+
+### Expusimos algunos de los problemas de la estadística frecuentista
+
+--
+
+### Concluimos que la estadística bayesiana no es una serie de técnicas, es una Teoría de Inferencia
+
+---
+
+# Agenda
+
+--
+
+###  1. ¿Qué es un problema de decisión?
+
+--
+
+###  2. Criterios de decisión
+  
+--
+
+###  3. Teoría de decisión
+
+--
+
+###  4. Utilidad canónica
+
+--
+
+### 5. Probabilidad subjetiva
+  
+---
+
+# Algunos problemas de decisión...
+
+--
+
+### ¿Qué platillo ordenar a la hora de la comida?
+
+--
+
+### ¿Qué alcohol comprar para la fiesta?
+
+--
+
+### ¿Qué ropa ponerse?
+
+--
+
+### ¿A qué hora levantarse en domingo?
+
+???
+
+_Comentar sobre las preferencias_
+
+---
+
+class: center, middle, inverse
+# Formalizando el problema de decisión
+
+---
+
+# Formalizando el problema de decisión
+
+--
+
+¿Cómo formalizariamos matemáticamente el problema de decisión?
+
+--
+
+  - Un conjunto de *opciones* `\(\mathbb{D} = \{d_1 , ..., d_k \}\)` que debe ser **exhaustivo** y **excluyente**
+  
+--
+
+  - Un conjunto de consecuencias `\(\mathbb{C} = \{c_1, ... , c_k \}\)` a través de las cuales podemos evaluar la i-ésima decisión. Esto implica que para cada decisión hay **una y solo una** consecuencia ( `\(d_i\)` `\(\rightarrow\)` `\(c_i\)` )
+  
+--
+
+Cabe resaltar que una condición necesaria para la *existencia* del problema de decisión es que exista una **una relación de preferencia** entre las consecuencias
+
+--
+
+  - Una relación binaria `\(\prec\)` (o bien `\(\sim\)`) que indica que consecuencia es más *preferida* (*igualmente preferida*) que otra
+  
+???
+
+_Comentar que esto sugiere que estas preferencias deben de tener ciertas características_
+
+--
+
+De esta manera nuestra definición *parcial* de un problema de decisón es la siguiente: `$$(\mathbb{D}, \mathbb{C}, \prec)$$` 
+
+--
+
+Y un agente al que llamaremos el **tomador de decisiones**
+  
+---
+
+# Un problema sin incertidumbre
+
+**Problema**:
+
+El tomador de decisiones debe de elegir **uno y solo un** elemento de `\(d_i\)` `\(\epsilon\)` `\(\mathbb{D}\)` evaluandolo **a través de su consecuencia** `\(c_i\)` `\(\epsilon\)` `\(\mathbb{C}\)`
+
+--
+
+Si, en particular, nos enfrentaramos a un problema de decisión dónde hubiera **certidumbre** alrededor de todas las consecuencias la cosa es fácil:
+
+--
+
+  1. Identificar la consecuancia más preferida
+  
+--
+
+  2. Identificar la opción que conduce a dicha consecuencia
+  
+--
+
+  3. Elegir esa opción
+
+--
+
+A la representación visual de nuestro problema, se le conoce como *arbol de decisión* y en el caso de no incertidumbre se ve de la siguiente manera:
+
+---
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="figs/arbol1.png" width="600" height="400" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: center, middle
+# ¡Break!
+
+---
+
+# Robert O. Schlaifer
+
+--
+
+  - Era autoridad en esclavitud griega y motores de aviones en el siglo XIX
+  
+--
+
+  - Solo tomó una curso de matemáticas a nivel licenciatura en su vida
+  
+--
+
+  - Apasionado de resolver problemas prácticos 
+  
+--
+
+  - Interesado en teoría de negocios: "Under uncertainty, the business man is forced, in effect, to gamble.."
+  
+--
+
+  - Publicó *Probability and statistics for business decisions*, un libro de decisiones de negocios desde el punto de vista bayesiano
+  
+--
+
+  - Inventó los árboles de decisión
+  
+---
+
+# Un problema con incertidumbre
+
+--
+
+En nuestro día a día casi nunca tenemos certeza sobre las consecuencias del conjunto `\(\mathbb{C}\)`
+
+--
+
+La mayoría de las veces tenemos que enfrentarnos al problema de decisión, en el mejor de los casos, con poca información de lo que puede pasar...
+
+--
+
+Por esta razón incorporamos esta incertidumbre a nuestra definición matemática del problema de decisión...
+
+--
+
+  - `\(\mathfrak{E} = \{ E_1, ..., E_{n_1},..., E_k, ... ,E_{n_k} \}\)` el conjunto de eventos inciertos
+  
+--
+
+Así, nuestro problema de decisión queda formalmente definido por: $$(\mathbb{D}, \mathbb{C},\mathfrak{E} , \prec) $$
+
+---
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="figs/arbol2.png" width="700" height="350" style="display: block; margin: auto;" /&gt;
+---
+
+class: inverse, center, middle
+# Resolviendo el problema de decisión
+
+---
+
+# Resolviendo el problema de decisión
+
+--
+
+Andamos buscando mecanismos/técnicas para " *podar* " nuestro arbol y solucionar nuestro problema de decisión
+
+--
+
+Algunas ideas son:
+
+--
+
+  1. Criterio **optimista**
+
+--
+
+  2. Criterio **pesimista**
+
+--
+
+  3. Consecuencia **más probable**
+  
+--
+
+  4. Consecuencia **promedio**
+  
+--
+
+  5. Consecuencia **esperada**
+  
+???
+
+_Se poda el arbol dejando las peores consecuencias y se elije la menos peor_
+  
+--
+
+### ¿Cuál de todos estos criterios es el mejor?
+
+---
+
+class: inverse, center, middle
+# Teoría Axiomática de decisión
+
+---
+class: center, middle
+# Objetivo:
+--
+
+## Contestar a la pregunta ¿cómo se debe resolver un problema de decisión en ambiente de incertidumbre?
+
+---
+
+# Axiomas de coherencia
+
+???
+
+_Comentar que no fueron tan egolatras para llamarlos de "racionalidad"_
+
+--
+
+### En 1954 Leonard J. Savage publicó *The foundations of statistics* el texto que propuso por primera vez una receta general para tomar decisiones
+
+--
+
+### Fué un matemático de la universidad de Michigan que trabajó de cerca con Milton Friedman
+
+--
+
+### En palabras de Friedman: " *one of the few people I have met whom I would unhesitatingly call a genius* "
+
+--
+
+### No es coincidencia que los axiomas que vamos a estudiar estén fuermente influenciados por la teoría de juegos y la teoría de utilidad
+
+
+???
+
+_mencionar que vamos a discutir los axiomas, que si se dan por aceptados ya no hay vuelta de hoja_
+---
+
+class: inverse, center, middle,
+# 1
+
+--
+
+## COMPARABILIDAD
+
+---
+
+# Axioma de Comprabilidad
+--
+
+La relación de preferencia del tomador de decisiones es tal que para `\(d_i\)` y `\(d_j\)` `\(\epsilon\)` `\(\mathbb{D}\)` `\(\Longrightarrow\)` necesariamente ocurre **una y solo una de las siguientes** :
+
+--
+
+  i. `\(d_i\)` es más preferible que  `\(d_j\)` ( `\(d_i \prec d_j\)` )
+  
+--
+
+  ii. `\(d_i\)` es menos preferible que `\(d_j\)` ( `\(d_j \prec d_i\)` )
+  
+--
+
+  iii. `\(d_i\)` es igualmente preferible que `\(d_j\)` ( `\(d_i \sim d_j\)` )
+  
+--
+
+Adicionalmente `\(\exists\)` `\(c_*\)` y `\(c^*\)` `\(\epsilon\)` `\(\mathbb{C}\)` *.,.* `\(c_* \preceq c\)` y `\(c \preceq c^*\)` `\(\forall\)` `\(c\)` `\(\epsilon\)` `\(\mathbb{C}\)`
+
+???
+
+_Comentar sobre la existencia de cotas de preferencia, y bautizar al cielo y al infierno_
+
+---
+
+class: inverse, middle, center
+# 2
+--
+
+## TRANSITIVIDAD
+
+---
+
+# Axioma de Transitividad
+
+--
+
+La relación de preferencias del tomador de decisiones es tal que para `\(\{ d_i, d_j, d_k \}\)` `\(\epsilon\)` `\(\mathbb{D}\)` ocurre que si `\(d_i \prec d_j\)` y `\(d_j \prec d_k\)` `\(\Longrightarrow\)` necesariamente `\(d_i \prec d_k\)`
+
+--
+
+Equivalentemente decimos que si `\(d_i \sim d_j\)` y `\(d_j \sim d_k\)` `\(\Longrightarrow\)` necesariamente `\(d_i \sim d_k\)`
+
+
+---
+
+class: inverse, center, middle
+# 3
+--
+
+## SUSTITUIBILIDAD
+
+---
+
+# Axioma de Sustituibilidad
+
+--
+
+También se le conoce cómo principio de la cosa segura
+
+--
+
+Para `\(\{d_i, d_j \}\)` `\(\epsilon\)` `\(\mathbb{D}\)` y `\(A\)` es un suceso incierto. Si ocurre que `\(d_i \prec d_j | A\)` y  `\(d_i \prec d_j | A^c\)` `\(\Longrightarrow\)` `\(d_i \prec d_j\)`
+
+???
+
+_Comentar que estamos partiendo de que nuestro tomador de decsiones en nuestro mundo es capaz de hacer todo lo anterior_
+
+
+---
+
+class: center, middle, inverse
+# 4
+--
+
+## EVENTOS DE REFERENCIA
+
+---
+
+# Axioma de Eventos de Referencia
+
+--
+
+El tomador de decisiones puede imaginar un mecanismo para generar puntos en el cuadrado unitario `\(I\)` `\(\epsilon\)` `\(\mathbb{R}^2\)` de tal manera que si `\(R_1\)` y `\(R_2\)` con dos regiones de `\(I\)` `\(\Longrightarrow\)` el evento `\(\{ z\)` `\(\epsilon\)` `\(R_1 \}\)` es más **creible** que el evento `\(\{ z\)` `\(\epsilon\)` `\(R_2 \}\)` `\(\Longleftrightarrow\)` Área( `\(R_1\)` ) &gt; Área( `\(R_2\)` )
+
+&lt;br&gt;
+
+--
+&lt;img src="figs/i.png" width="200" height="200" style="display: block; margin: auto;" /&gt;
+
+
+--
+
+&lt;br&gt;
+**OJO**: La ocurrencia de esto eventos del tipo 'z' es *independiente* de los eventos inciertos de nuestro problema de decisión
+
+???
+
+_Confrontarlos con que es el más raro, pero el punto es que si ellos se lo pueden imaginar_
+
+---
+
+class: center, inverse, middle
+# UTILIDAD
+
+---
+
+# Utilidad 
+
+--
+
+Habíamos dicho más atrás que el *tomador de decisiones* **EVALÚA** cada opción a partir de su consecuencia
+
+--
+
+Lo que no puntualizamos más atrás es el **CÓMO** realiza esta evaluación...
+
+--
+
+**Def: UTILIDAD CANÓNICA** 
+
+--
+
+Sea `\(c\)` una consecuencia cualquiera en `\(\mathbb{C}\)`. Definimos entonces la *utilidad canónica* `\(u_0\)` de `\(c\)` como el área de una región `\(R\)` `\(\epsilon\)` `\(I\)` .,.
+
+--
+
+`$$u_0(c) = Área(R)$$`
+
+--
+
+`$$u_0: \mathbb{C} \rightarrow [0,1]$$`
+---
+
+# Utilidad conónica
+
+**Pregunta:**
+
+--
+
+¿Porqué se llama *utilidad* y se apellida *canónica*?
+
+--
+
+**R:** La función `\(u_0\)` tal cómo está definida es una función monótona que **respeta el ordenamiento de la preferencias** dado por `\(\prec\)`, además esta función **existe** y es **única** como consecuencia de los axiomas de coherencia 
+
+--
+
+**TEO**
+
+Sean `\(c_i\)` y `\(c_j\)` `\(\epsilon\)` `\(\mathbb{C}\)` `\(\Longrightarrow\)` `\(c_i\)` `\(\prec\)` `\(c_j\)` `\(\Longleftrightarrow\)` `\(u_o(c_i)\)` &lt; `\(u_0(c_j)\)`
+
+--
+
+Además `\(u_0(c_*) = 0\)` y `\(u_0(c^*) = 1\)`
+
+---
+
+# Probabilidad subjetiva
+
+--
+
+Tampoco hemos hablado de los eventos inciertos de nuestro problema de decisión ni de los mecanismos que tiene el tomador de decisiones para cuantificar el nivel de incertidumbre asociado a los mismos
+
+--
+
+**Def: PROBABILIDAD SUBJETIVA**
+
+--
+
+Sea `\(E\)` `\(\epsilon\)` `\(\mathfrak{E}\)` un evento incierto relevante. Definimos la probailidad subjetiva del evento `\(E\)` como el área de `\(R\)` `\(\subseteq\)` `\(I\)` .,.
+
+--
+
+`$$P(E|H) = Área(R)$$`
+
+--
+
+`\(H\)` denota la **información** con la que cuenta el tomador de decisiones con respecto del evento incierto `\(E\)` al momento de tomar la decisión
+
+--
+
+Esta proabilidad **existe** y es **única** como consecuencia de los axiomas de coherencia
+
+---
+
+# Probabilidad Subjetiva
+
+**TEO**
+
+La función de probabilidad `\(P(E|H)\)` definida sobre los eventos inciertos, satisface los axiomas de Kolmogorov
+
+
+---
+
+class: center, middle
+# ¡¡¡ `\(\Longrightarrow\)` los axiomas de Kolmogorov son una consecuencia de los axiomas de coherencia !!!
+
+---
+
+class: center, middle, inverse
+# ¿Qué sigue?
+
+---
+
+# ¿Qué sigue?
+
+--
+
+**PRIMERO**
+
+--
+
+Deducir el criterio óptimo para tomar decisiones con base en nuestro recién creado cuerpo axiomático
+
+--
+
+**SEGUNDO**
+
+--
+
+Aterriar nuestra teoría al caso de inferencia
+
+--
+
+**TERCERO**
+
+--
+
+Hacer inferencia bayesiana
+
+---
+
+class: center, middle, inverse
+# Ya no se echarse para atrás
+
+--
+
+## Tampoco hacer menjurjes...
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
