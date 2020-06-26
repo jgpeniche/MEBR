@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Criterio Óptimo
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-06-25
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+# La sesión pasada
+
+--
+
+### Formalizamos el problema de Decisión
+
+--
+
+- `\((\mathbb{D}, \mathbb{C}, \mathfrak{E}, \prec)\)`
+
+--
+
+### Árboles de decisión
+
+--
+
+### Axiomas de Coherencia
+
+--
+
+1. Axioma de Comparabilidad
+
+--
+
+2. Axioma de Transitividad
+
+--
+
+3. Axioma de Sustituibilidad
+
+--
+
+4. Axioma de Eventos de Referencia
+
+---
+
+# Agenda
+
+--
+
+###  1. Criterio Óptimo de Decisión
+
+---
+
+# Resolviendo el problema de Decisión
+
+--
+
+### Sea `\((\mathbb{D}, \mathbb{C}, \mathfrak{E}, \prec)\)` un problema de decisión en **ambiente de incertidumbre** que enfrenta el *tomador de decisiones*
+
+--
+
+&lt;img src="figs/arbol2.png" width="250" height="250" style="display: block; margin: auto;" /&gt;
+
+
+--
+
+
+### ¿Cómo Resolvemos el problema?
+
+---
+
+class: inverse, center, middle
+# 1
+--
+
+## 'Amplificamos' `\(\mathbb{D}\)`
+
+---
+
+# Amplificando `\(\mathbb{D}\)`
+
+--
+
+Comenzamos por definir `\(\mathbb{D}_1\)` *.,.* `\(\mathbb{D} \subseteq \mathbb{D}_1\)` donde añadimos las opciones **ficticias** de la forma `\(d_c = \{c | \Omega \}\)` `\(\forall\)` *c* `\(\epsilon\)` `\(\mathbb{C}\)`
+
+--
+
+Estas son una colección de opciones que conducen a la consecuencia *c* de forma *segura*
+
+--
+
+En otras palabras estas opciones son **ciertas**
+
+--
+
+
+**OJO:** Esta colección de opciones **NO** está disponible para el tomador de decisiones
+
+---
+&lt;br&gt;
+
+&lt;img src="figs/arbol3.png" width="600" height="450" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: inverse, center, middle
+# 2
+--
+
+## Amplificamos `\(\mathbb{D}_1\)`
+
+---
+
+# Amplificando `\(\mathbb{D}_1\)`
+
+--
+
+Definimos `\(\mathbb{D}_2\)` *.,.* `\(\mathbb{D}_1 \subseteq \mathbb{D}_2\)` donde añadimos las opciones **ficticias** de la forma `\(d_E = \{c_* | E^c, c^*|E \}\)` `\(\forall\)` *E* `\(\epsilon\)` `\(\mathfrak{E}\)`
+
+--
+
+Estas son una colección de opciones *binarias* del 'tipo volado' que solo conducen al cielo o al infierno
+
+---
+
+&lt;br&gt;
+
+&lt;img src="figs/arbol4.png" width="750" height="450" style="display: block; margin: auto;" /&gt;
+---
+
+class: inverse, center, middle
+# 3
+
+--
+
+## Amplificamos `\(\mathbb{D}_2\)`
+
+---
+
+# Amplificando `\(\mathbb{D}_2\)`
+
+--
+
+Definimos `\(\mathbb{D}_3\)` *.,.* `\(\mathbb{D}_2 \subseteq \mathbb{D}_3\)` donde añadimos las opciones **ficticias** de la forma `\(d_R = \{c_* | R^c, c^*|R \}\)` `\(\forall\)` *R* `\(\subseteq\)` `\(I\)`
+
+--
+
+Estamos ante un 'abuso' de notación ya que orginalmente definimos (Axioma IV) las regiones en términos de un evento aleatorio `\(z\)`
+
+--
+
+Sin embargo, para aliviar la notación definimos `\(d_{R_z} = d_R\)`
+
+---
+
+background-image: url('figs/jungla.jpg')
+background-position: center
+background-size: contain
+
+---
+
+# Algunas observaciones
+
+--
+
+- Tenemos ahora tantas ramas en nuestro arbol como regiones en `\(I\)` que es infinita no-mumerable
+
+--
+
+A pesar de esto, por construcción, todos nuestros axiomas siguen aplicando en nuestro conjunto amplificado `\(\mathbb{D}_3\)`
+
+--
+
+- Notamos que podemos expresar a la opción `\(d_i\)` en términos de las consecuencias y los eventos inciertos como `\(d_i = \{ c_{i,1} |E_{i,1}, ..., c_{i,n_i}|E_{i,n_i} \}\)`
+
+--
+
+- Para resolver nuestro problema nosostros andamos buscando `\(d^*\)` `\(\epsilon\)` `\(\mathbb{D}\)` (no en `\(\mathbb{D}_3\)`) *.,.* `\(d \preceq d^*\)` `\(\forall\)` `\(d\)` `\(\epsilon\)` `\(\mathbb{D}\)`
+
+--
+
+### ¡Resolvamos el problema!
+
+---
+
+class: center, middle
+# Pero antes...
+--
+
+# Un axioma técnico
+
+---
+
+class: inverse, center, middle
+# Axioma 5
+--
+
+## DENSIDAD
+
+---
+
+# Axioma de Densidad
+
+El conjunto de opciones `\(d_R\)`, con `\(R \subseteq I\)`, es *densa* respecto de la relación de preferencia en `\(\mathbb{D}_3\)`
+
+--
+
+Esto es `\(\forall d\)` `\(\epsilon\)` `\(\mathbb{D}_3\)` `\(\exists\)` `\(d_R\)` *.,.* `\(d \sim d_R\)`
+
+--
+
+Esto lo que quiere decir es que podemos encontrar una equivalencia entre las opciones y las regiones en `\(R\)` para medir preferencias
+
+---
+
+# Algunas consecuencias del Axioma 5
+
+--
+
+Ahora, gracias al axioma V sabemos que podemos una región lo suficientemente **creible** *.,. nos de lo mismo* que una opción **segura**, esto es:
+
+--
+
+`$$\Longrightarrow \{c|\Omega \} \sim \{c_*|R^c, c^*|R \}$$`
+
+--
+
+`\(\forall\)` `\(c\)` `\(\epsilon\)` `\(\mathbb{C}\)` y `\(R\)` `\(\subseteq\)` `\(I\)`
+
+--
+
+Más aún, podemos encontrar siempre una región *.,.*
+
+--
+
+`$$\Longrightarrow d_E = \{c_* | E^c, c^* | E \} \sim  \{ c_* | R^c, c^* | R \} = d_R$$`
+
+--
+
+`\(\forall\)` `\(E\)` `\(\epsilon\)` `\(\mathfrak{E}\)` y `\(R\)` `\(\subseteq\)` `\(I\)`
+
+---
+
+# Más consecuencias del Axioma 5
+
+--
+
+&lt;img src="figs/i2.png" width="300" height="300" style="display: block; margin: auto;" /&gt;
+
+--
+
+Las `\(Area(R_x) = x\)` `\(\therefore\)`
+
+--
+
+  + `\(Area(R_x) = 0\)` `\(\Longleftrightarrow\)` `\(x = 0\)` `\(\Longleftrightarrow\)` `\(d_{R_0} = \{ c_* | \Omega \} = c_*\)`
+  
+--
+
+  + `\(Area(R_x) = 1\)` `\(\Longleftrightarrow\)` `\(x = 1\)` `\(\Longleftrightarrow\)` `\(d_{R_1} = \{ c^* | \Omega \} = c^*\)`
+  
+---
+
+class: inverse, center, middle
+# Resolvamos el problema
+
+---
+
+# Resolviendo el problema de decisión
+
+--
+
+Consideremos `\(d\)` `\(\epsilon\)` `\(\mathbb{D}\)` `\(\subseteq\)` `\(\mathbb{D}_3\)` *.,.* `\(d = \{c_1|E_1, ... , c_k |E_k \}\)`
+
+--
+
+&lt;img src="figs/arbol5.png" width="400" height="200" style="display: block; margin: auto;" /&gt;
+
+--
+
+Sabemos que `\(\exists\)` `\(R_1 \subseteq I\)` *.,.* `\(c_1 \sim R_1\)` ( `\(c_1 \sim \{c_*|R^c , c^* | R \}\)` y `\(Area(R_1) = u_0(c_1)\)` )
+
+---
+
+# Resolviendo el problema de decisión
+
+Sea `$$d^{(1)} = \{d_{R_1}|E_1, c_2|E_2, ... , c_k | E_k  \}$$`
+
+--
+
+`$$= \{ [c_*|R_1^c, c^*|R_1]|E_1, c_2|E_2, ... , c_k | E_k  \}$$`
+--
+
+&lt;img src="figs/arbol6.png" width="400" height="200" style="display: block; margin: auto;" /&gt;
+---
+
+# Resolviendo el problema de decisión
+
+Si ocurre `\(E_1\)` ó `\(E_1^c\)` `\(d\)` y `\(d^{(1)}\)` son igualmente preferibles
+
+--
+
+`\(\Longrightarrow\)` por **AIII** (Sustituibilidad) `\(d_1\)` `\(\sim\)` `\(d^{(1)}\)` (OJO: `\(d\)` `\(\neq\)` `\(d^{(1)}\)` )
+
+--
+
+Además, notamos que:
+
+&lt;img src="figs/arbol7.png" width="600" height="200" style="display: block; margin: auto;" /&gt;
+
+--
+
+`$$\Longrightarrow d^{(1)} = \{ c_* | E_1 \cap R_1^c , c^* | E_1 \cap R_1, c_2 |E_2, ... , c_k |E_k \}$$`
+
+---
+
+# Resolviendo el problema de decisión
+
+Analogamente `\(\exists\)` `\(R_2 \subseteq I\)` *.,.* `\(c_2 \sim \{c_* | R_2^c , c^* | R_2 \}\)`
+
+--
+
+Repitiendo el procedimiento anterior definimos `\(d^{(2)} = \{ c_* | E_1 \cap R_1^c , c^* | E_1 \cap R_1, c_* | E_2 \cap R_2^c , c^* | E_2 \cap R_2, ... , c_k |E_k  \}\)`
+
+--
+
+Por **AIII** `\(d^{(2)} \sim d^{(1)}\)` pero `\(d^{(1)} \sim d_1\)` y por **AII** (Transitividad) `\(d^{(2)} \sim d_1\)`
+
+--
+
+Realizando el mismo procedimiento k - veces, obtenemos `$$d^{(k)} = \{ c_* | E_1 \cap R_1^c , c^* | E_1 \cap R_1, c_* | E_2 \cap R_2^c , c^* | E_2 \cap R_2, ... , c_* | E_k \cap R_k^c , c^* | E_k \cap R_k  \}$$`
+
+--
+
+`$$= \{ [c_* | R_1^c , c^* | R_1] | E_1, ... , [c_* | R_k^c , c^* | R_k] | E_k  \}$$`
+
+--
+
+`$$= \{ c_* | A^c , c^* | A\}$$`
+
+---
+
+# Resolviendo el problema de decisión
+
+Donde `\(A = \cup_{i=1}^{k} (R_i \cap E_i)\)`
+
+--
+
+Más aún `\(A_j = \cup_{i=1}^{k_j} (R_{j,i} \cap E_{j,i})\)` `\(\forall\)` `\(j = 1, ..,k\)`
+
+---
+
+class: center, middle
+# ¿Bajo qué condiciones `\(d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2\)`?
+
+---
+
+# ¿Bajo qué condiciones `\(d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2\)`?
+
+`\(d_1^{(k)} \prec d_1^{(k)}\)` `\(\Longleftrightarrow\)` `\(A_1\)` es **más** *creible* que `\(A_2\)`
+
+--
+
+`\(\Longleftrightarrow\)` `$$P(A_1 | H) &lt; P(A_2 | H) = P(A_1) &lt; P(A_2)$$`
+
+---
+
+# ¿Bajo qué condiciones `\(d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2\)`?
+
+
+Pero `$$P(A_j) = P[ \cup_{i=1}^{k_i = 1}(E_{j,i} \cap R_{j,i} )]$$`
+
+--
+
+`$$= \sum_{i=1}^{k_i} P(E_{j,i} \cap R_{j,i})$$` 
+
+
+---
+
+# ¿Bajo qué condiciones `\(d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2\)`?
+
+Por probabilidad condicional
+
+`$$= \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i}|E_{j,i})$$` Por independencia
+
+
+--
+
+`$$= \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i})$$`
+
+---
+
+# ¿Bajo qué condiciones `\(d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2\)`?
+
+--
+
+Por otro lado sabemos que `\(P(R_{j,i})= A(R_{j,i})\)`
+
+--
+
+Pero, por definición, `\(A(R_{j,i}) = u_o(c_{j,i})\)` (pues `\(c_{j,i} \sim R_{j,i}\)` )
+
+--
+
+`$$\therefore d_1 \prec d_2$$`
+
+--
+
+`$$\Longleftrightarrow P(A_1) &lt; P(A_2)$$`
+
+--
+
+`$$\Longleftrightarrow \sum_{i=1}^{k_1}P(E_{1,i})P(R_{1,i}) &lt; \sum_{i=1}^{k_1}P(E_{2,i})P(R_{2,i})$$`
+
+--
+
+`$$\Longleftrightarrow \sum_{i=1}^{k_1}P(E_{1,i})u_0(c_{1,i}) &lt; \sum_{i=1}^{k_1}P(E_{2,i})u_0(u_{2,i})$$`
+
+
+---
+
+class: center, middle
+# `\(d_1 \prec d_2  \Longleftrightarrow\)`
+
+--
+
+# `\(\mathbb{E} \{u_0(d_1,E) \} &lt; \mathbb{E} \{u_0(d_2,E) \}\)`
+
+---
+
+class: inverse, center, middle
+# TEO
+
+--
+
+# Dados los axiomas de coherencia la *decisión óptima* en `\(\mathbb{D}\)` es la que maximiza la utilidad (canónica) esperada
+
+---
+
+# ¡Resolvamos el problema de decisión!
+
+--
+
+Del teorema anterior se desprende lo siguiente
+
+--
+
+- Toda forma de incertidumbre se debe y se puede cuantificar con una función de probabilidad subjetiva
+
+--
+
+- La preferencia de toda consecuencia se debe y se puede cuantificar con una función de utilidad
+
+--
+
+- El algoritmo para resolver el problema de decisión es el siguiente
+
+--
+
+  1. Asignar la probabilidad subjetiva de todo evento incierto reelevante en el problema
+
+--
+
+  2. Asignar la utilidad canónica de toda consecuencia en el problema
+
+--
+
+  3. Maximizar la utilidad esperada
+
+---
+
+class: inverse, center, middle
+# ¿Cuál es el problema de inferencia?
+
+--
+
+# Escoger `\(d_{\theta}\)` que conduzca a `\(\theta\)` en el espacio parametral `\(\Theta\)`
+
+---
+
+# ¿Qué hemos logrado hasta ahora?
+
+--
+
+Hasta ahora nuestro algoritmo de 3 pasos se ocupa de colecciones finitas de `\(( \mathbb{D}, \mathbb{C} ,\mathfrak{E})\)`
+
+--
+
+Sin embargo, el problema de inferencia generalmente involucra un conjunto infinito y posiblemente no numerable de elementos en el espacio de opciones
+
+--
+
+A pesar de esto sabemos que `\(u_0\)` siempre va a existir y va a estar acotada y el problema es equivalente a encontrar el supremo
+
+--
+
+Para esto podemos aproximar el conjunto finito numerable de `\(E_{i,j}\)` mediante un *familia paramétrica*
+
+---
+
+# ¿Qué sigue?
+
+--
+
+1. Hablar del problema de inferencia
+
+
+--
+
+
+2. Definir la correspondencia entre utilidad y pérdida
+
+--
+
+3. Estimación puntual 
+
+--
+
+4. Modelos conjugados
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
