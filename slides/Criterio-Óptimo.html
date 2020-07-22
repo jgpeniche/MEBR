@@ -246,7 +246,7 @@ Esto lo que quiere decir es que podemos encontrar una equivalencia entre las opc
 
 --
 
-Ahora, gracias al axioma V sabemos que podemos una región lo suficientemente **creible** *.,. nos de lo mismo* que una opción **segura**, esto es:
+Ahora, gracias al axioma V sabemos que podemos encontrar una región lo suficientemente **creible** *.,. nos de lo mismo* que una opción **segura**, esto es:
 
 --
 
@@ -325,7 +325,7 @@ Sea `$$d^{(1)} = \{d_{R_1}|E_1, c_2|E_2, ... , c_k | E_k  \}$$`
 
 # Resolviendo el problema de decisión
 
-Si ocurre `\(E_1\)` ó `\(E_1^c\)` `\(d\)` y `\(d^{(1)}\)` son igualmente preferibles
+Si ocurre `\(E_1\)` ó `\(E_1^c\)` `\(\longrightarrow\)` `\(d\)` y `\(d^{(1)}\)` son igualmente preferibles
 
 --
 
@@ -386,7 +386,11 @@ class: center, middle
 
 # ¿Bajo qué condiciones `\(d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2\)`?
 
-`\(d_1^{(k)} \prec d_1^{(k)}\)` `\(\Longleftrightarrow\)` `\(A_1\)` es **más** *creible* que `\(A_2\)`
+`\(d_1^{(k)} \prec d_2^{(k)}\)` `\(\Longleftrightarrow\)` `\(A_1\)` es **más** *creible* que `\(A_2\)` 
+
+--
+
+Esto se debe a que estamos comparando decisiones binarias del tipo volado
 
 --
 
@@ -410,7 +414,11 @@ Pero `$$P(A_j) = P[ \cup_{i=1}^{k_i = 1}(E_{j,i} \cap R_{j,i} )]$$`
 
 Por probabilidad condicional
 
-`$$= \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i}|E_{j,i})$$` Por independencia
+`$$= \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i}|E_{j,i})$$`
+
+--
+
+Por independencia
 
 
 --

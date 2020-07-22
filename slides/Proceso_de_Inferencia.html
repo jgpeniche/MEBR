@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Proceso de Inferencia
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-06-25
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+# La sesión pasada
+
+--
+
+### Encontramos el criterio óptimo de decisión
+
+--
+
+- `\(d_i \prec d_2\)` `\(\Longleftrightarrow\)` `\(\mathbb{E} \{u_0(d_1,E) \} &lt; \mathbb{E} \{u_0(d_2,E) \}\)`
+
+--
+
+### Caracterizamos el problema de inferencia como problema de decisión
+
+--
+
+- Buscamos `\(d_{\theta}^*\)` *.,.* `\(\mathbb{E} \{ u_0(d_{\theta}, E) \} &lt; \mathbb{E} \{ u_0(d_{\theta}^*, E) \}\)` `\(\forall\)` `\(\theta\)` `\(\epsilon\)` `\(\Theta\)`
+
+---
+
+# Agenda
+
+--
+
+### 1. Pérdida esperada
+
+--
+
+### 2. Probabilidad condicional y el proceso de aprendizaje
+
+--
+
+### 3. Proceso de Inferencia Bayesiano
+
+---
+
+class: inverse, center, middle
+# 1
+
+--
+
+## Pérdida esperada
+
+---
+
+# Pérdida Esperada
+
+--
+
+- Generalmente pensamos que entre más lejos este la estimación del verdadero valor `\(\Longrightarrow\)` la estimación es más *inútil*
+
+--
+
+- Nos gustaría que entonces que `\(u(c(\hat{\theta}, \theta)) = \mathcal{L}( distancia \quad entre \quad \theta \quad y \quad \hat{\theta} )\)`
+
+--
+
+- El *como* cuantificar esta distancia y las consecuencias de elegir alguna forma en particular las estudiaremos más adelante 
+
+--
+
+### TEO: Sea `\(u'(c) = u'(d,E) = a \cdot u(d,E) + b\)` con *a*, *b* ctes. `\(\Rightarrow\)` a `\(\cdot\)` `\(\mathbb{E}\{ u_0(d,E) \} + b\)` se maximiza en `\(d^*\)` si a es positiva y se minimiza en `\(d^*\)` si a es negativa 
+
+--
+
+- A partir de ahora nosotros nosotros vamos a hablar de pérdidas esperadas
+
+---
+
+class: center, middle, inverse
+# 2
+
+--
+
+## Probabilidad condicional
+
+---
+
+# Probabilidad condicional
+
+--
+
+Al definir el problema de inferencia como el problema de elegir un átomo del espacio parametral `\(\Theta\)` implicitamente tenemos que definir una relación univoca entre `\(\theta\)` y `\(P(\theta)\)` (con `\(P(\theta)\)` aproximada a través de una familia paramétrica)
+
+--
+
+Sin embargo, la naturaleza del problema **NO** es *estática* y nos gustaría con respecto a la probabilidad es poder recoger información nueva dejando la estrucutura del problema tal y cómo está
+
+--
+
+La herramienta para "actualizar" nuestra incertidumbre con nueva información es el *Teorema de Bayes*
+
+---
+
+# Incorporando nueva información
+
+Inicialmente..
+
+--
+
+`$$P(E) = P(E|H) \quad y \quad u_0(c)$$`
+y la solución `\(d^*\)` es .,. `$$\mathbb{E}\{\mathcal{L}(d,E) \} &lt; \mathbb{E}\{\mathcal{L}(d^*,E) \}$$` 
+
+`\(\forall \quad d \quad \epsilon \quad \mathbb{D}\)` 
+
+--
+
+Consideremos *u* **fijo** y sea `\(z :=\)` datos **nuevos reelevantes** sobre los eventos inciertos en `\(\mathbb{E}\)` (En el caso del problema de inferencia sobre `\(P(\theta)\)`)
+
+--
+
+Queremos `\(P(E|H,z) \quad y \quad u(c) \longrightarrow\)` queremos `\(d^{**} \quad .,.\)`  `$$\mathbb{E} \{ \mathcal{L}(d^*, E) \} \leq \mathbb{E} \{ \mathcal{L}(d^{**}, E) \}$$`
+
+---
+
+# Incorporando nueva información
+
+Queremos transitar de `\(P(E|H)\)` Inicial/*a priori* `\(\longrightarrow\)` a `\(P(E|H,z)\)` Final/*a posteriori*
+
+--
+
+*z* tiene que ver `\(\Longleftrightarrow\)` `\(P(z|E,H)\)` es la función de probabilidad conjunta de *z*
+
+--
+
+Así, si tenemos `\(P(E|H)\)` y `\(P(z|E,H)\)` utilizando el *Teorema de Bayes* tenemos...
+
+--
+
+`$$P(E|H,z) = \frac{P(E \cap Z | H)}{P(Z|H)}$$`
+
+--
+
+`$$\frac{P(Z|E,H)P(E|H)}{P(Z|H)}=f(E)$$`
+--
+
+`\(\Longrightarrow \quad P(E|H,z) \propto P(z|E,H)P(E|H)\)`
+
+---
+
+# Incorporando nueva información
+
+Y en el contexto del problema de inferencia `\(P(E)\)` es `\(P(\theta)\)` `\(\Longrightarrow\)`
+
+--
+
+`$$P(\theta | z) \propto P(z| \theta)P(\theta)$$`
+--
+
+**PREGUNTA:** ¿Qué es `\(z\)` en el contexto del problema de inferencia?
+
+--
+
+**R:** Recordemos que `\(z\)` es nueva información y la información se manifiesta a través de *datos* y en particular `\(z\)` son los datos que **observamos**, sin en particular estos datos provienen de una *muestra aleatoria* tenemos que:
+
+--
+
+`$$z = X_{\underline{(n)}}$$`
+
+--
+
+`\(\Longrightarrow \quad P(\theta | X_{\underline{n}}) \propto P(X_{\underline{(n)}}| \theta)P(\theta)\)` 
+
+---
+
+class: center, middle
+# ¡Todavía hay más!
+--
+
+# Wait for it...
+
+--
+
+# `\(P(X_{\underline{(n)}}| \theta)\)` es la VEROSIMILITUD
+
+---
+
+class: center, middle
+
+# `\(P(\theta | X_{\underline{(n)}}) \propto \mathbb{L}(X_{\underline{(n)}}| \theta)P(\theta)\)`
+
+---
+
+class: inverse, center, middle
+# 3
+--
+
+## Proceso de Inferencia
+
+---
+
+# Proceso de Inferencia
+
+--
+
+Noten que la notación es más que solo notación...
+
+--
+
+- Partimos de que `\(P(\theta)\)` establece una relación unívoca entre `\(\theta\)` y `\(\mathbb{E}\)` y el resultado de aplicar el Teorema de Bayes a `\(P(\theta)\)` y `\(X_{(n)}\)` es `\(P(\theta|X_{(n)})\)` es una **función de distribución de probabilidad** (al igual que `\(P(\theta)\)`)
+
+--
+
+¡Tenemos toda una función de probabilidad para escoger un valor de `\(\theta\)`!
+
+--
+
+- En este sentido, la función de distribución describe la **incertdumbre** asociada a `\(\theta\)` después de haber observado los datos
+
+--
+
+- Esto **NO IMPLICA QUE `\(\theta\)` SEA UNA VARIABLE ALEATORIA**, `\(\theta\)` es un valor FIJO y DESCONOCIDO del espacio parametral `\(\Theta\)`
+
+--
+
+Teniendo esto en mente, la notación sugiere que `\(P(\theta) = f(\theta)\)`
+
+---
+
+# Inferencia Bayesiana Paramétrica: Estimación Puntual
+
+--
+
+Retomando nuestro agoritmo de 3 pasos para resolver un problema de decisión en ambiente de incertidumbre, tenemos lo siguiente:
+
+--
+
+1. Definir una función de pérdida `\(\mathcal{L}\)` y cuantifcar la incertidumbre asociada a `\(\theta\)` con `\(f(\theta)\)` *a priori*
+
+--
+    
+  1.1. En caso de existir información adicional (datos - verosimilitud) incorporarlos a través de Teorema de Bayes y obtener `\(P(\theta| X_{(n)})\)`
+  
+--
+
+2. Minimzar la *pérdida esperada* `\(\int_{\Theta} \mathcal{L(\theta, \hat{\theta})}P(\theta| X_{(\underline{n})})\)` (en el caso **discreto**: `\(\sum_{\Theta} \mathcal{L(\theta, \hat{\theta})}P(\theta| X_{(\underline{n})})\)` )
+
+--
+
+3. Escoger `\(d_{\hat{\theta}}\)` que minimice dicha pérdida
+
+---
+
+
+class: center, middle
+# Algunas observaciones...
+
+---
+
+# Inferencia *a priori*
+
+--
+
+El procedimiento de inferencia bayesiano **no es dependiente de la incorporación de datos**
+
+--
+
+Esto implica que ¡puedo hacer inferencia *a priori*! sin necesidad de contar con observaciones (datos - verosimilitud)
+
+--
+
+**OJO:** Que esto sea posible no quiere decir que para fines de toma de decisiones esto sea adecuado
+
+---
+
+# Inferencia *a posteriori*
+
+--
+
+Además, puedo actualizar `\(P(\theta | X_{(\underline{n})})\)` (como la nueva infromación *a priori*) con algún `\(X_{(\underline{m})}^{(2)}\)` y hasta `\(X_{(\underline{m})}^{(k)}\)` sucesivamente de la misma manera con la regla de Bayes
+
+---
+
+# ¿Qué sigue?
+
+--
+
+1. ¿Cómo determinamos `\(P(\theta)\)`?
+
+--
+
+2. Distintas funciones de pérdida
+
+--
+
+3. Modelos conjugados
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
