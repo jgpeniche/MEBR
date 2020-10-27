@@ -1,0 +1,49 @@
+---
+title: "Inferencia Bayesiana"
+author: "Gibrán Peniche"
+date: "9/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+library(tidyverse)
+```
+
+```{r import, include=FALSE}
+
+entradas_salidas <- here::here('data', 'entradas_salidas.csv') %>% 
+  read_csv()
+
+```
+
+# Inferencia Bayesiana sobre la probabilidad de Graduación
+
+## Problema de Inferencia 
+
+Consideremos una $X_{\underline{(n)}}$ una muestra aleatoría tal que, $x \sim Bernoulli(\theta)$.
+
+Donde consideramos a cada alumno como un éxito si el alumno se gradua (si está dentro los graduados) y un fracaso si no.
+
+Nos interesa hacer inferencia sobre la probabilidad de éxito $\theta$.
+
+## Problema desde el punto de vista frecuentista
+
+El estimador máximo verósimil es $\overline{x}$
+
+```{r, freq, echo=FALSE}
+
+entradas_salidas <- entradas_salidas %>% 
+  mutate(entradas_acum = cumsum(ingresos),
+         salidas_acum = cumsum(salidas),
+         x_bar = salidas_acum/entradas_acum)
+
+entradas_salidas %>% 
+  ggplot() +
+  aes(x = generacion, y = x_bar) +
+  geom_line()
+````
+
+$$\pi(\theta) \propto L(\theta)P(\theta)$$

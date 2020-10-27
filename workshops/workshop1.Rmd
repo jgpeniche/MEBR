@@ -1,0 +1,36 @@
+---
+title: "Workshop 1"
+author: "Gibrán Peniche"
+date: "8/21/2020"
+output: pdf_document
+---
+
+## Instrucciones
+
+  1. Crea una carpeta llamada *'Workshop_TuNombre'* y dentro de esta carpeta crea:
+    
+  a. Un archivo tipo .Rproj
+  b. Una carpeta llamada *'data'* donde guardes el archivo *entradas_salidas.csv*
+  c. Una carpeta que se llame *src* donde vas a crear un archivo tipo .Rmd (formato html), cuyo título sea *'Inferencia Paramétrica sobre probabilidades de sálida'* 
+  
+  2. El archivo *entradas_salidas.csv* contiene los ingresos y los graduados por generación de cierta escuela. Nos interesa hacer inferencia sobre la probabilidad de que un alumno que entre a este escuela concluya exitosamente sus estudios. En el archivo .Rmd deberás detallar un reporte que contenga lo siguiente:
+  
+  a. Plantea el problema de inferencia sobre el parámetro $\theta$ de interés (de preferencia usando LaTex)
+  b. A partir de tu planteamiento exhibe el estimador máximo verosímil y cálcula la evolución de la probabilidad de salida para cada generación
+  c. A partir de tu planteamiento del problema exhibe la distribución de referencia de Jeffreys' y cálcula el estimador bayesiano de la probabilidad de salida para cada generación (HINT: Trabaja sobre el mismo data frame y calcula los diferentes estimadores utilzando *dplyr::mutate()*)
+  d. Gráfica la evoluión en el tiempo de la probabilidad de salida para ambos estimadores y comenta si existen diferencis entre cada uno
+  e.Realiza una estimación por regiones al 95% de confianza para el estimador frecuentista y al 95% de credibilidad para el estimador bayesiano y exhibe un *caterpillar plot*, comenta sobre las diferencias entre ambias estimaciones por regiones 
+  
+  3. Considera el siguiente escenario: La escuela en cuestión acaba de cambiar a modalidad en línea. Bajo estas nuevas circunstancias ¿qué crees que vaya a ocurrir con la probabilidad de salida?
+  
+  a. Incorpora tu hipótesis sobre el futuro comportamiento de la probabilidad de salidad en tu estimador máximo verosími
+  b. Incorpora tu hipótesis sobre el futuro comportamiento de la probabilidad de salida en tu estimador bayesiano
+  c. Comenta sobre la manera en que incorporaste esta hipótesis en ambos casos
+    
+  4. Realiza un grid de tamaño 5 de valores de los hiperparámetros de tu distribución *a priori* del inciso 3 tal que el valor que tomaste como estimación puntual (de acuerdo a la función de pérdida que determinaste) aumente en cada espacio del grid 10%. Mide cuanto cambia tu estimador *a posterior* ante estos cambios.
+  
+  5. Con base en el inciso anterior comenta que tan sensible es tu estimación ante cambios en la infromación *a priori*
+  
+  6. Oprime **knit** y verifica que se genere el archivo html correctamtente, lo único que debe ser visible es tu planteamiento del problema y los gráficos **NO TU CÓDIGO**
+  
+  7. Comprime la carpeta y envíamela por Whatsapp

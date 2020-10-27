@@ -1,0 +1,45 @@
+---
+title: "Workshop 3"
+author: "Métodos Estadísticos Bayesianos con R"
+date: "2020/10/15"
+output: pdf_document
+---
+
+1. Crea una nueva carpeta llamada *reg_bayesiana*, crea un proyecto y crea el *layout* ('src', ´data´, etc...)
+
+2. Crea un nuevo script llamado *life_expectancy*
+
+3. Carga la base de datos de *life_exp.csv* (Te recomiendo correr un `janitor::clean_names()`)
+
+4. Realiza un análisis exploratorio de datos (incluye un correlograma en ggplot)
+
+4. Crea un objeto llamado *life_recipe* utilizando el workflow de **tidymodels** (checa la vignette [aqui](https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/)) a partir de un `initial_time_split` al 75%
+
+  - Especifica explicar la esperanza de vida con todos los regresores
+  - Crea variables dummy si es que hay variables nominales
+  - Scala y centra los predictores (excepto las variables dummy, introduce un filtro de correcalción (checa las funcioanes de recipe [aquí](https://recipes.tidymodels.org/reference/index.html))
+  
+5. Revisa el `summary()` de tu objeto tipo *recipe* para que analizar si hubo colinealidad y se descartaron algunos predictores
+
+6. utiliza un workflow similar a este 
+
+```
+recipe_train <- linear_reg() %>%
+  set_engine("stan",
+             iter = 5000, 
+             chains = 4, 
+             seed = 666, 
+             warmup = 500, 
+             cores = 4) %>%
+  fit('Life Expectancy'~ ., data = life_recipe %>%  juice() )
+
+```
+
+7. Utiliza `recipe_train %>%  pluck('fit') %>%  as_tibble() %>% bayesplot::mcmc_areas()` para hacer un resumen visual de las posteriores 
+
+8. Utiliza `recipe_train %>%  pluck('fit') %>% summary()` para extraer las estimaciones de los coeficientes y los diagnosticos de convergencia
+
+9. Repite todo el proceso anterior pero ahora excluye de la receta el filtro de correlación y compara tus resultados
+
+
+

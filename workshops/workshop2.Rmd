@@ -1,0 +1,36 @@
+---
+title: "Workshop 2"
+author: "Métodos de Inferencia Bayesianos con R"
+date: "8/21/2020"
+output: pdf_document
+---
+
+## Instrucciones
+
+  1. Crea una carpeta llamada *'Workshop2_TuNombre'* y dentro de esta carpeta crea:
+    
+  a. Un archivo tipo .Rproj
+  b. Una carpeta llamada *'data'* donde guardes el archivo *materias.csv*
+  c. Una carpeta que se llame *src* donde vas a crear un archivo tipo .Rmd (formato html), cuyo título sea *'Inferencia Paramétrica sobre materias reprobadas'* 
+  
+  2. El archivo *materias.csv* contiene el total de materias reprobadas y dadas de baja por generación
+  
+  a. Plantea el problema de inferencia sobre el parámetro $\theta$ de interés (de preferencia usando LaTex)
+  b. A partir de tu planteamiento exhibe el estimador máximo verosímil y cálcula la evolución del número de materias reprobadas para cada generación
+  c. A partir de tu planteamiento del problema exhibe la distribución de referencia de Jeffreys' y cálcula el estimador bayesiano de la probabilidad de salida para cada generación (HINT: Trabaja sobre el mismo data frame y calcula los diferentes estimadores utilzando *dplyr::mutate()*)
+  d. Gráfica la evoluión en el tiempo delnúmero de materias recursadas para ambos estimadores y comenta si existen diferencias entre cada uno
+  e.Realiza una estimación por regiones al 95% de confianza para el estimador frecuentista y al 95% de credibilidad para el estimador bayesiano y exhibe un *caterpillar plot*, comenta sobre las diferencias entre ambias estimaciones por regiones 
+  
+  3. Considera el siguiente escenario: La escuela en cuestión acaba de cambiar a modalidad en línea. Bajo estas nuevas circunstancias ¿qué crees que vaya a ocurrir con el número de materias recursadas?
+  
+  a. Incorpora tu hipótesis sobre el futuro comportamiento del número de materias recursadas en tu estimador máximo verosími
+  b. Incorpora tu hipótesis sobre el futuro comportamiento del número de materias recursadas en tu estimador bayesiano
+  c. Comenta sobre la manera en que incorporaste esta hipótesis en ambos casos
+    
+  4. Realiza un grid de tamaño 5 de valores de los hiperparámetros de tu distribución *a priori* del inciso 3 tal que el valor que tomaste como estimación puntual (de acuerdo a la función de pérdida que determinaste) aumente en cada espacio del grid 10%. Mide cuanto cambia tu estimador *a posterior* ante estos cambios.
+  
+  5. Con base en el inciso anterior comenta que tan sensible es tu estimación ante cambios en la información *a priori*
+  
+  6. Oprime **knit** y verifica que se genere el archivo html correctamtente, lo único que debe ser visible es tu planteamiento del problema y los gráficos **NO TU CÓDIGO**
+  
+  7. Comprime la carpeta y envíamela por Whatsapp
