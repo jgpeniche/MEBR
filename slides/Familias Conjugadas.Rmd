@@ -204,7 +204,7 @@ $\theta^{\sum x_i + \frac{1}{2}}(1 - \theta)^{n- \sum x_i + \frac{1}{2}} \sim \b
 
 --
 
-2. $\pi(\theta) \sim \beta(\theta| a = \sum x_i + a_1, b =n- \sum x_i + b_1$
+2. $\pi(\theta) \sim \beta(\theta| a = \sum x_i + a_1, b =n- \sum x_i + b_1)$
 
 ---
 
@@ -283,15 +283,15 @@ class: center, middle
 
 # Sistema Normal (media conocida) - $\Gamma$
 
-Considere $X_{(\underline{n})}$ m.a.  .,. $x_i \sim N(\mu, \sigma^2)$ con $\sigma^2$ conocida 
+Considere $X_{(\underline{n})}$ m.a.  .,. $x_i \sim N(\mu, \sigma^2)$ con $\mu$ conocida 
 
 --
 
-a. La inicial de Jeffreys está dada por $P_J(\mu) \propto \frac{1}{\sigma}$
+a. La inicial de Jeffreys está dada por $P_J(\sigma) \propto \frac{1}{\sigma}$
 
 --
 
-b. Si $P(\sigma) \sim \Gamma(\tau |\alpha, \beta) \quad \Longrightarrow \quad \pi(\sigma^2) ~ \sim \Gamma(\tau | \alpha + \frac{1}{2}, \beta + \frac{1}{2} \sum (x_i - \mu))$
+b. Si $P(\tau) \sim \Gamma^{-1}(\tau |\alpha, \beta) \quad \Longrightarrow \quad \pi(\tau) ~ \sim \Gamma^{-1}(\tau | \alpha + \frac{1}{2}, \beta + \frac{1}{2} \sum (x_i - \mu))$
 
 --
 
