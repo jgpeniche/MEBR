@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Estimación por regionaes, predicción y pruebas de hipótesis
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-10-01
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+# La sesión pasada...
+
+--
+
+- Enunciamos una manera de introducir distribuciones iniciales de referencia a través de la inicial de Jeffreys
+
+--
+
+- Definimos algunos sistemas conjugados
+
+---
+
+# Agenda
+
+--
+
+1. Estimación por regiones
+
+--
+
+2. Predicción
+
+--
+
+3. Pruebas de hipóteis
+
+---
+
+class: center, inverse, middle
+# 1
+
+--
+
+# Estimación por regiones
+
+---
+
+# Estimación por regiones
+--
+
+Desde el punto de vista frecuentista utilizamos el método pivotal...
+
+--
+
+Por ejemplo: `\(\frac{x - \overline{x}}{\hat{\sigma}} \sim t_{n-1}\)`
+
+Dónde `\(\hat{\sigma} \sim \mathfrak{X}^2_{n-1}\)` y `\(x_i \sim N(\mu, \sigma^2)\)` ambos desconocidos
+
+--
+
+A partir del cual construimos un intervalo de confianza para la cantidad desconocida `\(\mu\)`, donde con un nivel de **confianza** del `\((1 - \alpha)\)`% la cantidad desconocida `\(\mu \quad \epsilon \quad [\overline{x} \pm t_{(1 - \frac{\alpha}{2})} \cdot \hat{\sigma}]\)` para una muestra **fija** el `\((1 - \alpha)\)`% de las veces
+
+--
+
+Algunos problemas (para variar)...  
+
+--
+
+  1. El método pivotal requiere de una distribución **conocida** para el cociente
+
+--
+
+  2. Por lo anterior, generalmente se recurre al teorema del límite central y genera comportamientos extraños
+  
+---
+
+# Estimación por regiones
+
+Desde el punto de vista bayesiano...
+
+--
+
+Hacemos inferencia sobre `\(\theta\)` a partir de la distribución posterior `\(\pi(\theta) = p(\theta|X_{(\underline{n})})\)` y elegimos un estimador puntual `\(\hat{\theta}\)` a partir de cierta función de pérdida `\(\mathfrak{L}(\hat{\theta}, \theta)\)`
+
+--
+
+Por construcción las afirmaciones que hacemos sobre `\(\theta\)` son de naturaleza **probabilistica** y son carcterizadas por `\(\pi(\theta)\)`
+
+--
+
+`\(\longrightarrow\)` El intervalo de **credibilidad** para `\(\theta\)` al nivel `\((1-\alpha)\)` está dado por `\(q_{\pi,a}\)` y `\(q_{\pi,b}\)` .,. `\(p_{\pi}(a &lt; \theta &lt; b) = 1 - \alpha\)`. Donde `\(q\)` representa un **cuantil** de cierto orden de `\(\pi(\theta)\)`
+
+--
+
+Noten como a diferencia de los intervalos de *confianza*. los intervalos de *credibilidad* no tienen por que ser simétricos (como tampoco tiene porque serlo la distribución posterior)
+
+---
+
+class: inverse, center, middle
+# 2
+
+--
+
+# Predicción
+
+---
+
+# Predicción
+
+Tal vez la utilidad prinicpal de la inferencia sea resolver el problema de predicción de una cantidad `\(x^*\)` que **aún no se ha observado**
+
+--
+
+Desde el punto de vista frecuentista se introduce `\(\hat{\theta}\)` en `\(p(x | \theta)\)` y el *intervalo de pronóstico* se construye por el método pivotal
+
+--
+
+Por ejemplo: `\(\frac{x - x^*}{\hat{\sigma}}\)` para el caso que discutimos anteriormente
+
+---
+
+# Predicción
+
+Desde el punto de vista Bayesiano tenemos otra herramienta. la distribucción **posterior predictiva**
+
+--
+
+La idea que rodea este concepto es que queremos una descripción de la incertidumbre asociada a `\(x^*\)` dados los datos `\(X_{(\underline{n})}\)` y la incertidumbre asociada a `\(\theta\)`, esto es `\(p(x^* | X_{(\underline{n})})\)`
+
+--
+
+`$$p(x^* | X_{(\underline{n})}) = \int_{\Theta} p(x^* | \theta ) \pi(\theta) d \theta$$`
+-- 
+
+En cristiano, es un promedio sobre `\(p(x^*)\)` dada la incertudumbre *a posteriori* de `\(\theta\)` (algo como un `\(\mathbb{E}[g(x)]\)`)
+
+---
+
+# Posteriores predictivas conjugadas
+
+--
+
+1. `\(Poisson - \Gamma\)` `\(\Rightarrow\)` Binomial Negativa
+
+--
+
+2. `\(Bernoulli - \beta\)` `\(\rightarrow\)` Distribución - Beta Bernoulli
+
+--
+
+3. `\(Normal - Normal\)` `\(\rightarrow\)` Normal (sigma conocida)
+
+--
+
+Entre otras ...
+
+---
+
+class: inverse, center, middle
+# 3
+
+--
+
+# Pruebas de hipótesis
+
+---
+
+# Pruebas de hipótesis
+
+--
+
+Otro de los grandes problemas de la inferencia es contrastar valores alternativos de `\(\theta\)` para un modelo
+
+--
+
+Desde el punto de vista frecuentista usamos el *Lema de Neyman-Pearson* del **conciente de verosimilitudes generalizado** (que tiene que ver con la función potencia de la prueba `\(\alpha\)`(x))  los errores Tipo I y Tipo II. Que involucra una demostración complejisima y concluye que el examen debe hacerse en el **supremo máximo verosímil** bajo cada hipótesis.
+
+--
+
+Desde el punto de vista bayesiano simplemte operamos `\(\pi(\theta)\)` en términos de **probabilidad** (Fun fact también se puede hacer *a priori*)
+
+---
+
+class: center, middle
+# ¿Qué pasa cuando no estamos en el caso conjugado?
+
+---
+
+# Inferencia Bayesiana computacional
+
+--
+
+1. Cadenas de Markov
+
+--
+
+2. Simulación estocástica Markov Chain Monte Carlo (MCMC)
+
+--
+
+3. Stan
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
