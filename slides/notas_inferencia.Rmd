@@ -1,0 +1,233 @@
+---
+title: "Introducción al modelado estadístico"
+subtitle: "Inferencia Estadística Paramétrica Frecuentista"
+author: "Gibrán Peniche"
+date: "10/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+ knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(gt)
+```
+
+
+# Introducción
+
+## Estadística... ¿Para qué?
+
+Sin duda la herramienta por excelencia de la ciencia es la estadística, ya que es precisamente la estadísca el conducto por el cual se confrontan los modelos que viven en el plano de lo abstracto con los fenómenos que se manifiestan en el plano de tangible.
+
+Entonces, tal vez la primera pregunta que dberíamos contestar es **¿Qué es la estadística?**
+
+De acuerdo con el profesor Manuel Mendoza$^1$ la estadística es:
+
+  > Un conjunto de técnicas cuyo fin es **describir** fenómenos que se manifiestan a través de *datos* que presentan **aleatoriedad**
+
+El estudio de la estadística se divide en dos grandes ramas:
+
+```{r stats, ec}
+
+tibble(
+  Rama = c('Descriptiva', 'Inferencia'),
+  Objeto = c('Poblaciones', 'Muestras')
+) %>% 
+  gt()
+
+```
+
+Vale la pena destacar que en ambos casos el fenómeno de estudio sigue manifestandose de a través de la misma clase datos, la diferencia radica en que el caso de la estadística descriptiva contamos con **información completa**, es decir tenemos acceso a todas y cada una de las manifestaciones del fenomeno lo que nos permite *describir* el fenómeno de forma integral.
+
+Por su parte la *inferencia estadística* se ocupa del caso de la **información incompleta** done a través de un proceso **deductivo** buscamos emitir juicios o conclusiones (inferir) de la población a través de la información contenida en la muestra. En este sentido solo podemos aspirar a hacer descripciones **aproximadas** del fenómeno de estudio y nos gustaría que estos fueran resúmenes **suficientes** y **minimales**.
+
+
+## Fenómenos inciertos
+
+Ahora bien, como análistas, requerimos de una manera de representar la incertidumbre asociada a un fenómeno. Existen dos acercamientos a la caracterización de esta incertidumbre: 
+  
+  1. Estadística Paramétrica
+  2. Estadística No Paramétrica
+
+En el caso que nos compete (Estadística Paramétrica) echamos mano del cálculo de probabilidades y decidimos describir la incertidumbre asociada a dicho fenómeno utilizando una *familia paramétrica*. Matematicamente la incertidumbre asociada a cierto fenómeno $\mathfrak{f}$ tiene una forma funcional pertenciente a una familia de *densidades de probabilidad* $\mathfrak{F}$ y queda queda perfectamente defiinida por un vector $\theta$ de parámetros. Esto es $$\mathfrak{F} = \{ \quad  f_X(x ; \theta) \quad | \quad \theta \quad \epsilon \quad \Theta \subseteq \mathbb{R}^n \quad \}$$
+
+
+Con esta representación el problema de la **inferencia estadística** se reduce a encontrar el vector de parámetros desconocido $\theta$ que caracteriza la incertidumbre del fenómeno para cierta familia $\mathfrak{F}$
+
+## ¿Porqué hacemos inferencia?
+
+A pesar de que el estudio de la estadística tiene un fin muy claro ¿Cuál es el objeto de análisar datos y reportar *media*, *varianza*, *rango intercuarílico*, *mediana*, *moda*, *sesgo*, *curtósis*, *error cuadrático medio*, *error absouto porcentual medio*, etc? ¿Porque nos interesa caraceterizar la incertidumbre?
+
+Como analista es necesario tener presente que las empresas no destinarían recursos al área de analytics (o cualquiera que sea el nombre de la misma) si el trabajo que realizaramos fuera ocioso, es decir, no ajustamos modelos simplemente "porque podemos".
+
+Entonces ¿cuál es el objeto de la inferencia? De acuerdo con Robert Schlaifer$^2$, en el contexto de negocios, el principal problema al que se enfrentan la administración de la empresa es  **la toma de decisiones en ambiente de incertidumbre**, en otras palabras, el problema al que se enfrentan directores y gerentes es al de tomar decisiones **hoy** sujetas a eventos inciertos del día de **mañana**. Luego entonces, es precisamente por la razón que acabamos de exhibir que las empresas destinan recursos económicos al área de *analytics* y el rol de los analistas es:
+
+  > Proveer de información para la toma de decisiones (en un ambiente de incertidumbre)
+
+## La estadística como herramienta de pronóstico
+
+Con lo anterior dicho se hace evidentemente que el tener una descripción de la incertidumbre asociada a cierto fenómeno se requiere para escalarse y hacer delcraciones de índole **probabilistica** sobre eventos futuros que no se han manifestado aún. 
+
+Al final en el contexto de los negocios el fin último de la estadística es precisamente el de tener "*solid grounds to stand on when making a desicion*" y el output final requerido para la toma de una decisión en la mayoría de los casos va a ser un **pronóstico**
+
+
+## Modelado Estadístico 101
+
+El modelado estadístico es un problema contenido en el problema general de *inferencia estadística paramétrica* que se ocupa de:
+
+  1. La elección de la familia paramétrica $\mathfrak{F}$
+  2. Métodos para inferir el vector desconocidos de parámetros $\theta$
+  3. Proponer criterios de **optimalidad** sobre estos métodos de inferencia
+  
+La solución al estudio del modelado estadístico como lo acabamos de presentar, comprende lo siguiente:
+
+  1. Estimación puntual
+  2. Estimación por regiones
+  3. Contraste de Hipótesis
+  4. Pronóstico
+  5. Validación de supuestos
+  
+# Contexto Histórico
+
+Aunque parece que nos estámos ocupando de un problema fundamentalmente técnico, lo cierto es que el problema de "hacer inferencia" es una discusión fundamentalmente filósófica, particularmente sobre la manera de concebir el concepto de probabilidad, que dio luz a dos escuelas de inferencia. La escuela frecuentista o de la Estadística Matemática y la escuela Bayesiana.
+
+En lo subsecuente nos ocuparemos de estudiar la primera no sin hacer breve mención de aquellas diferencias con la escuela Bayesiana
+
+## Probabilidad frecuentista
+
+Recordemos que durante la segunda mitad del siglo XIX cobró auge el *positivismo científico* de *Auguste Comte* y *Henri de Saint Simon*, bajo esta corriente filosófica cuyo discurso lógico descansa basicamente en el empiricísmo se entiende a la experiencia como fuente última del conociento científico. Bajo esta corriente los científicos entienden la probabilidad como la *frecuencia relativa* de un evento de interés al realizar un experimento una infinidad de veces en las misma condiciones, esto es: $$P(A) = \lim{n \to \infty} \frac{\# (A)}{n}$$
+
+Hijos de esta corriente filosófica y todavía con inercia de la misma, durante la primera mitad del siglo XX un grupo de científicos desarrollaron la corriente de la *Estadística Matemática* como una alternativa con pies y cabeza para hacer inferencia de manera formal. Entre ellos destacan Ronald A. Fisher, Jerzy Neyman, Karl Pearson, Egon Pearson y C. Radhakrishna Rao.
+
+Estos personajes desarrollaron una serie **procedimientos inferencia** partiendo de un conjunto de **criterios de optimalidad** que hoy conocemos como Estadística Matemática. Cabe resaltar que si bien esta manera de hacer inferencia tiene un sabor práctico y una construcción elegantemente sencilla que la popularizo entre profesionales sin formción matemática nunca logró consolidarse como una teoría de inferencia (a diferencia de su media hermana la probabilidad con la publicación de los axiomas de probabilidad de Andréi Kolmogorov en 1928). Esto podría considerarse el mayor fracaso de la escuela frecuentista en cuanto al estatus de la Estadísctica como una Teoría, pero tambien la carencia de un cuerpo axiomático deriva en la falta de homogeneidad en el proceso de inferencia (muchas solucions *ad-hoc*) y múltiples patologías.
+
+
+# Estadística Matemática
+
+La construcción del proceso de inferencia debe incorporar explícitamente nuestro deseo de que nuestras inferecnia sean **óptimas**. En todo caso cualquier persona puede dar un número de la inflación esperada para el siguiente año en Grecia, el reto radica en que el proceso detrás de la obtencipon de ese número tenga sustancia teoríca y además cumpla, por construcción estos criterios de *optimalidad*. La diferencia entre ambas escuelas de inferencia se encuentra en la manera de construir estos criterios (además de la concepción básica de la probabilidad).
+
+## Criterios de optamilidad
+
+Llamemos a nuestro **estimador** para cierta cantidad desconocida $\theta$ como $\hat{\theta} = f(X_{(n)})$ donde $X_{(n)}$ representa la información en forma de datos (nuestra muestra).
+
+  > <center> ¿Qué características debe cumplir $\hat{\theta}$ para concluir que es un buen estimador de la cantidad desconocida $\theta$? 
+
+En la corriente de la estadística matemática resolvemos la pregunta anterior de la siguiente manera:
+
+  > <center> $\hat{\theta}$ es buen estimador para $\theta$ si: 
+
+  >> 
+  1. Es una *estadística* (función de los datos) **SUFICENTE**: Cumple el criterio de factorización de Fisher-Neyman
+  2. Es **INSESGADO**: $\mathbb{E}[\hat{\theta}] = \theta$
+  3. Es **CONSISTENTE EN ERROR CUADRÁTICO MEDIO** $\epsilon = \theta - \mathbb{E}[\hat{\theta}] \longrightarrow 0$ conforme $n \longrightarrow \infty$ es decir converge en probabilidad al verdadero valor conforme la muestra se hace más grande
+  4. Es **EFICIENTE** su varianza en el límite alcanza la menor varianza posible (En otras palabras alcanza la cota inferior de Crámer y Rao)
+  
+Si bien nos gustaría que todos y cada uno de nuestros estimadores cumpliera todas estas características, es más, que nuestro proceso de inferencia nos llevara unívocamente a estimadores con ests cracterístiscas, una de las críticas más grandes a la escuela frecuentista es que en la mayoría de los casos esto no sucede.
+
+## Estimación Puntual {.tabset}
+
+Considere una muestra $\underline{X}_{(n)}$ tal que $x_i \sim N(\mu, \sigma^2)$, $\mu$ y $\sigma^2$ desconocidos. ¿Cómo hacemos inferencia sobre estos parámetros?
+
+Si bien en la estadística matemática existen varias técnicas *ad-hoc* la principal herramienta de inferencia la propuso Ronald A. Fisher y parte de algo conocido como el **principio de máxima verosimilitud**. En palabras llanas, este principio sugiere que $\hat{\theta}$ es el valor que haga **más probable** la manifestación aleatoria de la muestra con la que estamos tratando. La propuesta de Fisher para hacer inferencia paramétrica es **maximizar** la *función de verosimilitud* $\mathbb{L}[\theta ; \underline{X}_{(n)}]$
+
+La notación sugiere, inituitivamente, que el problema de maximización tiene como función objetivo a $\mathbb{L}$ *como si* la denisdad conjunta de la muestra fuera una función de los datos y no del parámtero. Debe llamar la atención que el lingüe *problema de maximización* (como un criterio de optimalidad) y *función objetivo* se toman directamente del cálculo y son precisamente estas las directrices "matemáticas" del proceso de inferencia, razón por la cual se le da el nombre de "Estadística Matemática".
+
+Ahora bien, definimos la función de verosimilitud como $$\mathbb{L}[\theta ; \underline{X}_{(n)}] = f(\underline{X}_{(n)} ; \theta)$$
+
+Si además nuestra muestra es **independiente** (en los subsecuente nos referiremos a $\underline{X}_{(n)}$ como una **muestra aleatoria**, es decir una colección de variables aleatorias independientes identicamente distribuidas), la verosimilitud/función de densidad conjunta está dada por:
+
+$$f(\underline{X}_{(n)} ; \theta) = f(\underline{X}_{(n)} ; \theta)$$
+
+  >> Aunque el concepto de muestreo aleatorio parece trivial fue una de las grandes aportaciones de Fisher a la estadística
+  
+Continuenado con nuestro ejemplo si tenemos un muestreo normal independiente la verosimilitud está dada por la siguiente expresión:
+
+$$f(\underline{X}_{(n)} ; \theta) = \prod_{i = 1}^n (2 \pi \sigma^2)^{-\frac{1}{2}} e^{-\frac{(x_i - \mu)^2}{2 \sigma^2}} = (2 \pi \sigma^2)^{-\frac{n}{2}} e^{-\frac{\sum (x_i - \mu)^2}{2 \sigma^2}}$$
+
+Lo que nos resta, de acuerdo con el procedimiento propuesto por Fisher es maximizar la función haciendo uso del cálculo diferencial.
+
+Para las familias exponenciales es conveniente aplicar el logaritmo a la verosimilitud y operar el problemaa e maximización equivalente de la *log-verosimilitud* (Simplemente hace el algebra más sencilla). Así la log verosimiltud $\mathcal{l}(\theta)$ está dada por: $$\mathcal{l}(\theta) = -\frac{n}{2}ln(2\pi \sigma^2) -\sum\frac{(x_i - \mu)^2}{2\sigma^2}$$
+
+### Estimación puntual de la media
+
+Tomando la derivada con respecto a $\mu$:
+
+$$\frac{\partial l}{\partial \mu} = \frac{1}{\sigma^2}\sum(x_i - \mu) = \sum x_i - n \mu =0 $$
+$\therefore$
+
+$$\hat{\mu} = \frac{\sum x_i}{n} = \overline{x}$$
+
+### Estimación puntual de la varianza
+
+Tomando la derivada con respecto a $\sigma^2$:
+
+$$\frac{\partial l}{\partial \sigma^2} = -\frac{n}{2 \sigma^2} + [\frac{1}{2}\sum(x_i - \mu)^2]\frac{1}{\sigma^4} = \frac{1}{2 \sigma^2}[\frac{1}{\sigma^2} \sum(x_i - \mu)^2-n] = 0 $$
+$\therefore$
+
+$$\hat{\sigma}^2 = \frac{\sum (x_i - \hat{\mu})^2}{n}$$
+
+### Distribución muestral de los estimadores
+
+  - $\hat{\mu} \sim N(\mu, \frac{\sigma^2}{n})$
+  - $\frac{n\hat{\sigma}^2}{\sigma^2} \sim \mathfrak{X}^2_{n-1}$
+
+### Suficiencia 
+
+Según el criterio de factorización de Fisher-Neyman
+
+  > Sea  $f_(x; \theta)$ entonces $T = T(\underline{X}_{(n)})$ es un estadístico suficiente para $\theta$ si y solo si se puden encontrar dos funciones no-negativas $g$ y $h$ tales que: $$f(x; \theta) = h(x)g_{\theta}(T(x))$$
+  
+Es decir si si se puede descompner la densidad de tal suerte que depende solo de un factor $h(x)$ que no dependa $\theta$ y otra función $g$ que solo dependa de los datos a través de $T(x)$
+
+Para nuestro ejemplo
+
+$$f(\underline{X_{(n)}} | \theta) = (2 \pi \sigma^2)^{-\frac{n}{2}} e^{-\frac{1}{2}\sum (x_i - \overline{x})^2} e^{-\frac{n}{2\sigma^2}(\mu - \overline{x})}$$
+
+  1. $h(x) = (2 \pi \sigma^2)^{-\frac{n}{2}} e^{-\frac{1}{2}\sum (x_i - \overline{x})^2}$
+  2. $g_{\theta}(x) =  e^{-\frac{n}{2\sigma^2}(\mu - \overline{x})}$
+  3. $T(x) = \overline{x}$
+  
+Además 
+
+$$f(\underline{X_{(n)}} | \theta) = (2 \pi \sigma^2)^{-\frac{\hat{n}}{2}} e^{-\frac{\hat{\sigma}^2}{2 n \sigma^2}} e^{-\frac{n}{2\sigma^2}(\mu - \overline{x})}$$
+Por lo que es trivial observar que el vector $\hat{\theta}= (\overline{x}. \hat{\sigma}^2)$ es un estadistico suficiente para $\theta = (\mu, \sigma^2)$
+
+### Insesgamiento
+
+  - $\hat{\mu}: \mathbb{E}[\hat{\mu}] = \mathbb{E}[\frac{\sum x_i}{n}] = \sum \mathbb{E}[\frac{x_i}{n}] = \sum \frac{\mu}{n} = \frac{n \mu}{n} = \mu$
+  
+  - $\hat{\sigma}^2: \mathbb{E}[\hat{\sigma}^2] = \mathbb{E}[\frac{\sum(x_i - \overline{x})^2}{n}] = \mathbb{E}[\sum x_i^2 - N \overline{x}^2 = \mathbb{E}[x^2] - \mathbb{E}[\overline{x}^2] = \frac{n-1}{n} \sigma^2$
+  
+Noten que el estimador $\hat{\sigma}^2$ no es insesgado pero $\tilde{\sigma}^2 = \frac{n}{n-1}\hat{\sigma}^2$ si lo es
+
+### Consistencia 
+
+  - $P[|\overline{x}- \mu| \geq \epsilon] = P[\frac{\sqrt{n}|\overline{x}-\mu|}{\sigma} \geq \sqrt{n} \epsilon/\sigma] = 2(1 - \Phi(\frac{\sqrt{n} \epsilon}{\sigma})) \longrightarrow 0$
+  
+  - $\tilde{\sigma} = \frac{n}{n-1}[\frac{1}{n}\sum x_i^2 - (\frac{1}{n}\sum x_i)^2]$. Por el resultado de la media sabemos que $$\frac{1}{n} \sum x \longrightarrow \mathbb{E}[x]$$ y $$\frac{1}{n} \sum x^2 \longrightarrow \mathbb{E}[x^2]$$ $\therefore$ $$\tilde{\sigma^2} \longrightarrow 1 \cdot \mathbb{E}[x^2] - \mathbb{E}^2[x] = \sigma^2$$ $\therefore$ $$P[|\tilde{\sigma^2} - \sigma^2| \geq \epsilon] \longrightarrow 0$$
+  
+
+### Eficiencia 
+
+Definimos *la cota inferior de Cramér y Rao* como $$\frac{1}{I(\hat{\theta)}}$$
+Donde $I(\theta)$ denota la **información de Fisher** que defnimos como:
+
+$$I(\theta) = n \mathbb{E}[(\frac{\partial l(x; \theta)}{\partial \theta})^2] = -n \mathbb{E}[\frac{\partial^2l(x ; \theta)}{\partial \theta^2}]$$
+Así decimos que un estimador es **eficiente** $\Longleftrightarrow$ $Var(\hat{\theta}) \geq CRLB$ o bien el error $e(\hat{\theta}) = \frac{I^{-1}(\hat{\theta})}{VaR(\hat{\theta})} \longrightarrow = 1$
+
+  - $I(\hat{\mu}) = \frac{n}{\sigma^2}$ $\Longrightarrow$ $$e(\hat{\mu}) = \frac{\sigma^2}{n} \frac{n}{\sigma^2} = 1$$
+  - $I(\tilde{\sigma^2}) = \frac{n}{2 \theta}$ $\Longrightarrow$ $$e(\tilde{\sigma}^2) = \frac{2 \sigma^2}{n - 1} \frac{n}{2 \sigma}  \longrightarrow 1$$
+
+## Comentarios
+
+A pesar que la inferencia vía Máxima Verosimilitud funciona la mayoría de las veces no garantiza el insesgamienta ni la eficiencia y hay casos en los que es necesario buscar un estimador **no-verosímil** como la $x_{[n]}$ (la enésima estadística de órden) para el parámetro $b$ de una uniforme. Además hay 2 estimdores no-máximo-verosímiles en el caso log-normal que funcionan mejor en la práctica. Además muchas veces la verosimilitud no tiene forma cerrada en muchos casos (t, Fiser, Ji-cuadrada, Gamma) y se requiere optimización numérica de la verosimilitud sin necesidad de considerar modelos multivariados.
+
+# Estimación por regiones
+
+# Bibliografía
+  
+  1. Mendoza, M. *Estadística Bayesiana*. [ITAM](http://allman.rhon.itam.mx/~lnieto/index_archivos/NotasBayesMR.pdf)
+  2. Schlaifer, R. *Probability and Statistics for Business Decisions*. McGraw-Hill, 1959
+
+
+
