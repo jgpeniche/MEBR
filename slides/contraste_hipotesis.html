@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Contraste de Hipótesis
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-10-19
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+# La sesión pasada...
+
+--
+
+- Abordamos el problema de regresión lineal
+
+--
+
+  1. Recordamos la solución frecuentista
+  
+--
+
+  2. Desarrollamos la solución conjugada
+  
+--
+
+  3. Hechamos un vistazo a la solución computacional
+
+---
+
+# Agenda
+
+--
+
+  1. Historia de la controversia del contraste de hipópetesis frecuentista
+  
+--
+
+  2. Desarrollar las dos teorias de contraste de hipótesis
+  
+--
+
+  3. Desarrollar la teoría de contraste de hipótesis bayesiana
+
+---
+
+class: center, middle, inverse
+# 1
+
+--
+
+# Fisher vs. Neyman &amp; Pearson
+
+---
+
+# Fisher vs. Neyman &amp; Pearson
+
+--
+
+Tal vez la discusión más acalorada en la historia de la estadística irónicamente no fue la de frecuentistas contra bayesianos, si no las que libró Ronald A. Fisher en el ceno de la estadística matemática
+
+--
+
+La que vamos a estudiar en la sesión de hoy es la discusión entre Ronald A. Fisher, Jersy Neyman y Karl Pearson sobre el enfoque "correcto" hacia lo que hoy conocemos como "Contraste de Hipótesis"
+
+--
+
+Antes de 1908 cuando **William Gosset** (aka "*El Estudiante*") ingeniero en Guinnes Brewing Company descubriera la distribución del cociente de una normal y una Ji cuadrada se disponía del TCL para realizar aproximaciones a la variable pivotal que resultaban en comportamientos extraños de los intervalos de confianza
+
+---
+
+# Fisher vs. Neyman &amp; Pearson
+
+Con el descubrimiento de dicha distribución, comenzó con ímpetu a desarrollarse una rama de la estadística matemática conocida como *Null Hypothesis Significance Testing* (NHST) 
+
+--
+
+Esta área de estudio se preocupa por contrastar dos (o más) hipótesis científicas (o en lenguage de inferencia **2 modelos**)
+
+--
+
+En esta discplina dicidieron el enfoque propuesto por Fisher los propuestos por Neyman Y Pearson
+
+---
+
+class: inverse, center, middle
+
+# 2
+
+--
+
+# Dos teorías 
+
+---
+
+# Dos teorías
+
+--
+
+
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#dcnrwcuaal .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dcnrwcuaal .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dcnrwcuaal .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dcnrwcuaal .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dcnrwcuaal .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dcnrwcuaal .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dcnrwcuaal .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dcnrwcuaal .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dcnrwcuaal .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dcnrwcuaal .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dcnrwcuaal .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dcnrwcuaal .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dcnrwcuaal .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#dcnrwcuaal .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dcnrwcuaal .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dcnrwcuaal .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dcnrwcuaal .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#dcnrwcuaal .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dcnrwcuaal .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#dcnrwcuaal .gt_left {
+  text-align: left;
+}
+
+#dcnrwcuaal .gt_center {
+  text-align: center;
+}
+
+#dcnrwcuaal .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dcnrwcuaal .gt_font_normal {
+  font-weight: normal;
+}
+
+#dcnrwcuaal .gt_font_bold {
+  font-weight: bold;
+}
+
+#dcnrwcuaal .gt_font_italic {
+  font-style: italic;
+}
+
+#dcnrwcuaal .gt_super {
+  font-size: 65%;
+}
+
+#dcnrwcuaal .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="dcnrwcuaal" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">-</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Fisher</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Neyman-Pearson</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">Base Logica</td>
+      <td class="gt_row gt_center">Razonamiento Inductivo</td>
+      <td class="gt_row gt_center">Reglas de conducta basa en un modelo quasi-deductivo</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">Hipótesis evaluadas</td>
+      <td class="gt_row gt_center">Solo hay hipótesis nula</td>
+      <td class="gt_row gt_center">Hipótesis nula y alternativa</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">Objetivo</td>
+      <td class="gt_row gt_center">El P-value se usa como evidencia informal de la hipótesis nula</td>
+      <td class="gt_row gt_center">Niveles pre-experimentales de alpha y beta para controlar los errores Tipo I y Tipo II</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">Conclusión</td>
+      <td class="gt_row gt_center">No se puede concluir unicamente con los valores p</td>
+      <td class="gt_row gt_center">Conclusión se toma con base en las regiones de rechazo</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+
+---
+
+# Dos teorias
+
+En 1925 Fisher publicó "*Statistical Methods for Research Workers*" donde generalizó las aplicaciones de las *pruebas t* (el problema de dos muestras, coeficientes de regresión lineal, etc). En este texto sugería 5% con un nivel estándar de signficancia y la naturaleza aplicada de su metodología la hicieron sumamente popular
+
+--
+
+Sin embargo, Fisher no tenía sustento teórico sobre el *por qué* de sus estadísticas de pruebas sobre otras, este fue el pequeñísimo detalle que Neyman y Pearson decidieron explorar
+
+--
+
+La propuesta surgió en 1933 donde formalizaron el procedimiento de contraste de hipótesis (a través del lemma de Neyman Pearson) utilizando las famosas probabilidades de error Tipo I y Tipo II. Bajo este enfoque la "*mejor*" prueba era aquella que minimizaba el error tipo II sujeto a un nivel de significacia de error tipo I
+
+--
+
+Cabe destacar que la "receta" Neyman-Pearson explicitamente se contruyó buscando crear un criterio de decisión para *aceptar* o *rechazar* la hipótesis nula, mientras que la teoría de Fisher carecía de la herramienta análitica para hacer estos pronunciamentos
+
+---
+
+# Contraste de Hipótesis Neyman-Pearson
+
+--
+
+Partiendo del lema de Neyman-Pearson (para contraste de hipótesis simples contra simple) y su generalización (para hipótesis compuestas): 
+
+  - *Considere* `\(H_0: \theta = \theta_0\)` *vs* `\(H_1: \theta = \theta_1\)` `\(\Longrightarrow\)` *utilizando el* **cociente de verosimilutudes** *se contruye una* **región de rechazo** *para la hipótesis nula al nivel* `\(\alpha\)`, *tal que:*  `$$\alpha = P(\Lambda(x) \leq \eta | H_0)$$` Donde `\(\Lambda(x) = \frac{\mathbb{L}(\theta_0|x)}{\mathbb{L}(\theta_1|x)}\)`
+  
+  - Entonces `\(\Lambda(x)\)` es el test más potente al nivel `\(\alpha\)`
+  
+--
+
+Luego entonces se rechaza la hipótesis nula `\(\Longleftrightarrow\)` si `\(\Lambda(x) &gt;/&lt; \eta = q_{(f(\alpha),variable \quad pivotal})\)`
+
+---
+
+# Los problemas
+
+--
+
+1. Es común en la práctica que solo se atienda a la magnitud de los *valores p* (cosa que tampoco Fisher recoemndaba) y no se verifique la condición del lema de Neyman-Pearson (De hecho existe un pronunciamiento de la ASA precisamente sobre usar únicamente este valor como evidencia) 
+
+--
+
+2. Este método para modelos complejos depende fuertemente del TLC lo que dificulta la contrucción de estadística de prueba
+
+--
+
+3. No permite ajustar automaticamente las probabilidades de error Tipo I y Tipo II lo que genera patologías
+
+--
+
+4. Cabe resaltar que esta metodlogía *presupone* inocente (cierta) a la hipótesis nula, con base en el argumento del error Tipo I y propone una manera de encontrar evidencia en contra de esta hipotesis pero no nos dice nada de la **veracidad de la misma**
+
+---
+
+class: inverse, center, middle
+# 3
+
+--
+ 
+# Contraste de Hipótesis Bayesiano
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

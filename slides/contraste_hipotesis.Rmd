@@ -1,0 +1,223 @@
+---
+title: "Métodos Estadísticos con R"
+subtitle: "CODD"
+author: "Gibrán Peniche"
+date: "(versión 0.0.1) - 2020/06/25"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "style.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: TRUE
+      countIncrementalSlides: TRUE
+      self_contained: TRUE
+      ratio: '16:9'
+    seal: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(eval = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.align = 'center')
+library(tidyverse)
+library(gt)
+library(patchwork)
+library(tidybayes)
+library(latex2exp)
+
+```
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Contraste de Hipótesis
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-10-19
+####  <i class="fab fa-github"></i> [jgpeniche](https://github.com/jgpeniche)
+####  <i class="fab fa-twitter"></i> [PenicheGibran](https://twitter.com/PenicheGibran)
+####  <i class="fab fa-google"></i> jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+# La sesión pasada...
+
+--
+
+- Abordamos el problema de regresión lineal
+
+--
+
+  1. Recordamos la solución frecuentista
+  
+--
+
+  2. Desarrollamos la solución conjugada
+  
+--
+
+  3. Hechamos un vistazo a la solución computacional
+
+---
+
+# Agenda
+
+--
+
+  1. Historia de la controversia del contraste de hipópetesis frecuentista
+  
+--
+
+  2. Desarrollar las dos teorias de contraste de hipótesis
+  
+--
+
+  3. Desarrollar la teoría de contraste de hipótesis bayesiana
+
+---
+
+class: center, middle, inverse
+# 1
+
+--
+
+# Fisher vs. Neyman & Pearson
+
+---
+
+# Fisher vs. Neyman & Pearson
+
+--
+
+Tal vez la discusión más acalorada en la historia de la estadística irónicamente no fue la de frecuentistas contra bayesianos, si no las que libró Ronald A. Fisher en el ceno de la estadística matemática
+
+--
+
+La que vamos a estudiar en la sesión de hoy es la discusión entre Ronald A. Fisher, Jersy Neyman y Karl Pearson sobre el enfoque "correcto" hacia lo que hoy conocemos como "Contraste de Hipótesis"
+
+--
+
+Antes de 1908 cuando **William Gosset** (aka "*El Estudiante*") ingeniero en Guinnes Brewing Company descubriera la distribución del cociente de una normal y una Ji cuadrada se disponía del TCL para realizar aproximaciones a la variable pivotal que resultaban en comportamientos extraños de los intervalos de confianza
+
+---
+
+# Fisher vs. Neyman & Pearson
+
+Con el descubrimiento de dicha distribución, comenzó con ímpetu a desarrollarse una rama de la estadística matemática conocida como *Null Hypothesis Significance Testing* (NHST) 
+
+--
+
+Esta área de estudio se preocupa por contrastar dos (o más) hipótesis científicas (o en lenguage de inferencia **2 modelos**)
+
+--
+
+En esta discplina dicidieron el enfoque propuesto por Fisher los propuestos por Neyman Y Pearson
+
+---
+
+class: inverse, center, middle
+
+# 2
+
+--
+
+# Dos teorías 
+
+---
+
+# Dos teorías
+
+--
+
+
+```{r teorias}
+
+tibble(
+  '-' = c('Base Logica', 'Hipótesis evaluadas', 'Objetivo', 'Conclusión'),
+  Fisher = c('Razonamiento Inductivo','Solo hay hipótesis nula', 'El P-value se usa como evidencia informal de la hipótesis nula', 'No se puede concluir unicamente con los valores p'),
+  'Neyman-Pearson' = c('Reglas de conducta basa en un modelo quasi-deductivo','Hipótesis nula y alternativa', 'Niveles pre-experimentales de alpha y beta para controlar los errores Tipo I y Tipo II', 'Conclusión se toma con base en las regiones de rechazo')
+) %>% 
+  gt() %>% 
+  cols_align(align = 'center')
+
+
+```
+
+---
+
+# Dos teorias
+
+En 1925 Fisher publicó "*Statistical Methods for Research Workers*" donde generalizó las aplicaciones de las *pruebas t* (el problema de dos muestras, coeficientes de regresión lineal, etc). En este texto sugería 5% con un nivel estándar de signficancia y la naturaleza aplicada de su metodología la hicieron sumamente popular
+
+--
+
+Sin embargo, Fisher no tenía sustento teórico sobre el *por qué* de sus estadísticas de pruebas sobre otras, este fue el pequeñísimo detalle que Neyman y Pearson decidieron explorar
+
+--
+
+La propuesta surgió en 1933 donde formalizaron el procedimiento de contraste de hipótesis (a través del lemma de Neyman Pearson) utilizando las famosas probabilidades de error Tipo I y Tipo II. Bajo este enfoque la "*mejor*" prueba era aquella que minimizaba el error tipo II sujeto a un nivel de significacia de error tipo I
+
+--
+
+Cabe destacar que la "receta" Neyman-Pearson explicitamente se contruyó buscando crear un criterio de decisión para *aceptar* o *rechazar* la hipótesis nula, mientras que la teoría de Fisher carecía de la herramienta análitica para hacer estos pronunciamentos
+
+---
+
+# Contraste de Hipótesis Neyman-Pearson
+
+--
+
+Partiendo del lema de Neyman-Pearson (para contraste de hipótesis simples contra simple) y su generalización (para hipótesis compuestas): 
+
+  - *Considere* $H_0: \theta = \theta_0$ *vs* $H_1: \theta = \theta_1$ $\Longrightarrow$ *utilizando el* **cociente de verosimilutudes** *se contruye una* **región de rechazo** *para la hipótesis nula al nivel* $\alpha$, *tal que:*  $$\alpha = P(\Lambda(x) \leq \eta | H_0)$$ Donde $\Lambda(x) = \frac{\mathbb{L}(\theta_0|x)}{\mathbb{L}(\theta_1|x)}$
+  
+  - Entonces $\Lambda(x)$ es el test más potente al nivel $\alpha$
+  
+--
+
+Luego entonces se rechaza la hipótesis nula $\Longleftrightarrow$ si $\Lambda(x) >/< \eta = q_{(f(\alpha),variable \quad pivotal})$
+
+---
+
+# Los problemas
+
+--
+
+1. Es común en la práctica que solo se atienda a la magnitud de los *valores p* (cosa que tampoco Fisher recoemndaba) y no se verifique la condición del lema de Neyman-Pearson (De hecho existe un pronunciamiento de la ASA precisamente sobre usar únicamente este valor como evidencia) 
+
+--
+
+2. Este método para modelos complejos depende fuertemente del TLC lo que dificulta la contrucción de estadística de prueba
+
+--
+
+3. No permite ajustar automaticamente las probabilidades de error Tipo I y Tipo II lo que genera patologías
+
+--
+
+4. Cabe resaltar que esta metodlogía *presupone* inocente (cierta) a la hipótesis nula, con base en el argumento del error Tipo I y propone una manera de encontrar evidencia en contra de esta hipotesis pero no nos dice nada de la **veracidad de la misma**
+
+---
+
+class: inverse, center, middle
+# 3
+
+--
+ 
+# Contraste de Hipótesis Bayesiano 
+
