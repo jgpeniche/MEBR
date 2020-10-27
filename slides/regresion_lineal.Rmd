@@ -1,0 +1,931 @@
+---
+title: "Métodos Estadísticos con R"
+subtitle: "CODD"
+author: "Gibrán Peniche"
+date: "(versión 0.0.1) - 2020/06/25"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "style.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: TRUE
+      countIncrementalSlides: TRUE
+      self_contained: TRUE
+      ratio: '16:9'
+    seal: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(eval = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.align = 'center')
+library(tidyverse)
+library(gt)
+library(patchwork)
+library(tidybayes)
+library(latex2exp)
+
+```
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Regresión Líneal
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-10-03
+####  <i class="fab fa-github"></i> [jgpeniche](https://github.com/jgpeniche)
+####  <i class="fab fa-twitter"></i> [PenicheGibran](https://twitter.com/PenicheGibran)
+####  <i class="fab fa-google"></i> jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+# La sesión pasada...
+
+--
+
+- Caracterizamos la estimación por regiones a través de $\pi(\theta)$
+
+--
+
+- Definimos la distribucción *posterior predictiva* para resolver el problema de **pronóstico**
+
+--
+
+- Dedujimos como realizar estimación por regiones y dimos una introducción al contraste de hipótesis a través de $\pi(\theta)$ y $p(x^* | X_{(\underline{n})})$
+
+---
+
+# Agenda
+
+--
+
+En la sesión de hoy vamos a estudiar la historia y el problema de regresión lineal como una introducción a la inferencia bayesiana computacional
+
+--
+
+Estudiaremos: 
+
+
+--
+
+  1. Contexto histórico de la regresión lineal
+
+--
+
+  2. Definición análitica del problema
+
+--
+
+  3. Solución frecuentista
+  
+--
+
+  4. Solución Bayesiana: Inferencia conjugada
+  
+--
+
+  5. Solución Bayesiana: Inferencia computacional
+
+---
+
+# Bibliografía 
+
+El contenido de esta sesión lo pueden encontrar en las siguientes referencias
+
+  - *Bayesian Data Analysis*., Gelman, Andrew, *et al*., Cap 14.
+  - *Monte Carlo Markov Chain; Stochastic Simulation for Bayesian Inference*., Gammerman, Dani., Cap 2
+  - [The Discovery of Statistical Regression](https://priceonomics.com/the-discovery-of-statistical-regression/)
+  - [Stan User's Guide](https://mc-stan.org/docs/2_24/stan-users-guide/index.html)
+  - [RStan Getting Started](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)
+  - [Hoy to use the RStanarm package](https://cran.r-project.org/web/packages/rstanarm/vignettes/rstanarm.html)
+  -[Bayesian Linear Regression — Different ConjugateModels and Their (In)Sensitivity to Prior-Data Conflict](https://core.ac.uk/download/pdf/12171733.pdf)
+  - [Tidy Modelling with R](https://www.tmwr.org/models.html)., Kuhn, Max., Silge, Julia.,  Cap 7.)
+  - [Extracting and visualizing tidy draws from rstanarm models](http://mjskay.github.io/tidybayes/articles/tidy-rstanarm.html)
+  - [The case for Tidymodels](https://rviews.rstudio.com/2020/04/21/the-case-for-tidymodels/)
+  - [Updating: A Set of Bayesian Notes](https://jrnold.github.io/bayesian_notes/), Cap 11.
+
+
+---
+
+class: center, inverse, middle
+# 1
+
+--
+
+# Contexto Histórico de la regresión lineal
+
+---
+
+# Contexto histórico de la regresión lineal
+
+--
+
+Un problema tan *trivial* que Carl Friederich Gauss pensó que el no podía haber sido el primero en utilzarlo, hasta que Adrein-Mari Legendre publicó un artículo sobre el tema varios años después (New Methods for Determination of the Orbits of Comets, 1805), desatando una de las discusiones de adjucación más famosas en la historia de las matemáticas
+
+--
+
+Si bien el intercambio de correo fue acalorado, al final se le atribuyo el " *descubrimiento* " del método de **mínimos cuadrados** a Gauss que por cierto sentía pena por los colegas que no la habían descubierto antes y no lo consideraba como el más relevante de sus descubrimientos
+
+--
+
+El término " *regresión* " no se comenzó a utilizarce hasta 1886 en el estudio publicado por Sir. Francis Galton *Regression Towards Mediocrity in Hereditary Stature*, en el que describia como la altura de los árboles tendía a **revertirse hacia la media** ( $0 <| \beta_1 | < 1$ )
+
+---
+
+# Contexto histórico de la regresión lineal
+
+Más tarde, alrededor de 1901, Karl pearson (uno de los fundaderos de la escuela frecuentista) comenzó a utilizar el término "la línea de regresión" derivado de su estudio de la representación gráfica del problema resuelto por Galton
+
+--
+
+También fue Karl Pearson quien acuñó el término de *Coeficiente de Determinación* (mejor como correlación) 
+
+--
+
+Sin embargo la *Teoría de Regresión* la desarrollo en su mayoría Ronald A. Fisher, (particularmente introduciendo en argumento máximo verosímil y el análisis de varianza ANOVA) convirtiendola en una de las joyas de la corona de la escuela de la Estadística Matemática
+
+---
+class: center, inverse, middle
+# 2
+
+--
+
+# Definición del problema (regresión lineal simple)
+
+---
+
+# Definición del problema
+
+Considere un conjunto de observaciones $\{ (y_i, x_i)\}_{i = 1}^n$ tal que $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, donde $\varepsilon_i \sim N(0,\sigma^2)$
+
+--
+
+Luego entonces $$ Y | X, \beta, \sigma^2 \sim N( X\beta, \sigma ^2 I)$$
+
+--
+
+Además:
+
+--
+
+  1. $\sigma^2I \quad \Rightarrow \quad \rho(\varepsilon_i, \varepsilon_j) = 0$ y homocedastcidad
+
+--
+
+  2. La relación es **lineal**
+  
+---
+
+class: inverse, center, middle
+
+# Los datos de Sir Francis Galton
+
+---
+
+# Los datos de Sir Francis Galton
+
+```{r galton}
+
+galton <- here::here('data/galton.txt') %>% 
+  read_tsv()
+
+galton %>% 
+  head(10) %>% 
+  knitr::kable(caption = "Árboles de Galton", 
+               format = 'html')
+
+
+```
+
+
+---
+
+class: center, inverse, middle
+# 3
+
+--
+
+# Solución Frecuentista
+
+---
+
+# Solución frecuentista
+
+**TEO** **Gauss - Markov**
+
+--
+
+*Mínimos cuadrados ordinarios produce los mejores estimadores insesgados de varianza mínima* (OLS is BLUE)
+
+
+--
+
+Algunas críticas...
+
+--
+
+  1. El procedimiento derivado de este teorema ya incorpora el argumento máximo verosimil de Fisher
+  
+--
+
+  2. Recordemos que el problema es **probabilístico** por naturaleza y MCO es un argumento **geométrico**, en particular se puede plantear desde lel estudio del cálculo minizando la distancia euclideana entre los puntos y la recta
+  
+--
+
+  3. En mi opinion "está raro" porque el argumento geométrico no incorpora la naturaleza aleatoria del fenómeno
+  
+---
+
+# MCO en R
+
+--
+
+Como seguramente lo harían ustedes...
+
+```{r reg_mal, echo=TRUE}
+modelo1 <- lm(Height ~ Father, data = galton)
+
+summary(modelo1)
+
+```
+---
+
+# MCO en R
+
+--
+
+1. Sin análisis exploratorio
+
+--
+
+2. Sintáxis obsoleta
+
+--
+
+3. Sin control de preprocsamiento
+
+--
+
+4. Sin grupo de entrenamiento y prueba
+
+--
+
+5. Pésimo formato de presentación
+
+---
+
+# MCO en R con `tidymodels`. Frecuentista
+
+### Análisis Exploratorio de Datos
+
+```{r exp1,, out.height=400}
+
+p1 <- galton %>% 
+  ggplot() +
+  aes(x = Father, y = Height) + 
+  geom_point( col = '#90CBF0') +
+  labs(title = 'Árboles de Galton',
+       subtitle =  'Altura de los hijos explicada por la altura de los padres',
+       x = 'Altura de los Padres',
+       y = 'Altura de los Hijos',
+       caption = 'Altura en metros')
+p1
+
+```
+---
+
+
+# MCO en R con `tidymodels`, Frecuentista
+
+### Análisis Exploratorio de Datos
+
+```{r exp2,, out.height=400}
+
+p1 +  geom_smooth(method = 'lm', fill = '#206FA1', col = '#EDB25F')  
+
+```
+
+---
+
+# MCO en R con `tidymodels`, Frecuentista
+
+
+```{r recipe1, echo=TRUE}
+ 
+library(tidymodels)
+
+# Conjunto de entrenamiento
+galton_split <- galton %>% 
+  initial_split(prop = .8)
+
+# Preporcesamiento de datos
+galton_recipe <- training(galton_split) %>%
+  recipe(Height ~ Father) %>%
+  #step_corr(all_predictors()) %>%
+  #step_center(all_predictors(), -all_outcomes()) %>%
+  #step_scale(all_predictors(), -all_outcomes()) %>%
+  prep()
+
+# Pre-procesamiento
+galton_testing <- galton_recipe %>%
+  bake(testing(galton_split))
+
+# lm
+galton_freq <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(Height ~ Father, data = galton_recipe %>%  juice() )
+
+```
+
+---
+
+# MCO en R con `tidymodels`, Frecuentista
+
+```{r, freq1}
+
+coef_freq <- galton_freq %>% 
+  tidy(conf.int = TRUE) 
+
+coef_freq %>% 
+  rename(
+    'Coeficiente' = term,
+    'Ajuste' = estimate,
+    'Error' = std.error,
+    'Estadística T' = statistic,
+    'Valor p' = p.value
+    
+  ) %>% 
+  gt() %>% 
+  tab_header(
+    title = 'Training Fit'
+  ) %>% 
+  fmt_number(
+    columns = 2:7,
+    decimals = 2
+  )
+
+```
+---
+
+# MCO en R con `tidymodels`, Frecuentista
+
+```{r, freq2}
+
+galton_freq %>% 
+  glance() %>% 
+  mutate(id = seq(from = 1, to = nrow(galton_freq %>% glance()))) %>% 
+  pivot_longer( - id) %>% 
+  pivot_wider(names_from = id) %>%  
+  rename('Metrica' = name,
+         'valor' = '1') %>% 
+  head(n = 9) %>% 
+  bind_rows(
+    galton_freq$fit %>% 
+  augment(newdata = galton_testing,
+          interval = 'prediction') %>% 
+  mape( truth = Height,
+           estimate = .fitted) %>% 
+  select(-.estimator) %>% 
+  pivot_longer(-.metric)  %>% 
+  select(-name) %>%
+  rename('Metrica' = .metric,
+         Valor = value)
+  ) %>%  
+  gt() %>% 
+  fmt_number(
+    columns = 2
+  )
+```
+
+
+---
+
+class: center, inverse, middle
+
+# 4
+
+--
+
+# Solución Bayesiana: Inferencia conjugada
+
+---
+
+# Solución Bayesiana: Inferencia conjugada
+
+Interesa hacer inferencia sobre $\theta = (\beta_0, \beta_1, \sigma^2) \quad \epsilon \quad\mathbb{R} \times \mathbb{R} \times \mathbb{R}^+$
+
+--
+
+La solución conjugada al problema de regresión lineal, está definida por el sistema *Normal - Inversa Gamma* donde $\beta | \sigma^2 \sim Normal$ y $\sigma^2 \sim \Gamma^{-1}$
+
+--
+
+Noten como en este caso el problema de inferencia bayesiano queda definido en 2 niveles o *jerarquías*, *i.e* $\pi(\theta) \propto \mathbb{L}(\theta | Y_{(\underline{n})}) p(\beta | \phi)p(\phi)$
+
+--
+
+La verosimiltud está dada por:
+
+$$\mathbb{L}(Y_{(\underline{n})} | \beta, \phi, x) \propto \phi^{-n/2} exp \{-\frac{\phi}{2}[Q(\beta) + S_e]\}$$
+
+--
+
+donde:
+
+  - $Q(\beta) = (\beta - \hat{\beta})´X'X(\beta - \hat{\beta})$ 
+  - $\hat{\beta}= (X'X)^{-1}X'y$
+  - $\phi = \frac{1}{\sigma^2}$
+
+---
+
+# Solución Bayesiana: Inferencia conjugada
+
+### Distribución *a priori* de referencia
+
+--
+
+Sea $p_J(\beta, \phi) \propto \frac{1}{\sigma^2}$
+
+--
+
+$\Longrightarrow$
+
+--
+
+  1. $\pi(\theta) = \pi(\beta_0, \beta_1,\phi) \sim NIG$, de la cual marginalizado
+
+--
+ 
+  - $\beta_1 | Y_{(\underline{n})} \sim t(n - 2, \hat{\beta_1}, \frac{\hat{\sigma^2}}{S_{xx}})$
+
+--
+
+  - $\beta_0 | Y_{(\underline{n})} \sim t(n-2, \hat{\beta_0}, \hat{\sigma}^2(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}))$
+    
+--
+
+  - $\phi | Y_{(\underline{n})} \sim \Gamma (\frac{n-2}{2}, \frac{SSE}{2})$
+
+--
+  
+  - $y_{n+1} | Y_{(\underline{n})} \sim t(n-2, \hat{\beta}X_{n+1}, S^2_{Y|X_{n+1}})$, donde $S^2_{Y|x_i} = \hat{\sigma}^2(1+\frac{1}{n} + \frac{(x_i - \overline{x})^2}{S_{xx}})$
+
+---
+
+# Solución Bayesiana: Inferencia conjugada
+
+```{r conjugado1}
+
+bayes_aux <- galton_freq %>%
+  pluck('fit') %>% 
+  augment() %>% 
+  summarise(sxx = sum((Father - mean(Father))^2),
+            sse = sum((Height - .fitted)^2),
+            sigma = sqrt(sse/ (length(training(galton_split))-2)),
+            xbar = mean(Father),
+            df = n()) 
+  
+posteriors <- tibble(
+  Parameter = c('Intercept', 'Slope','Phi'),
+  Posterior = c('t','t','Gamma'),
+  Mean = c(coef_freq$estimate[1],coef_freq$estimate[2],NA),
+  Sigma = c(bayes_aux$sigma^2*(1/bayes_aux$df + bayes_aux$xbar^2/bayes_aux$sxx),
+            bayes_aux$sigma^2/bayes_aux$sxx, NA),
+  alpha = c(NA, NA, bayes_aux$df-2/2),
+  beta = c(NA, NA, bayes_aux$sse/2)
+)
+
+
+posteriors %>% 
+  gt() %>% 
+   fmt_number(
+    columns = 3:6,
+    decimals = 2
+  ) %>% 
+  tab_header(
+    title = 'Distribuciones Posteriores'
+  )
+  
+
+```
+
+---
+
+# Solución Bayesiana: Inferencia conjugada
+
+```{r}
+
+posteriores_predictivas <- tibble(
+  x = galton_testing %>% pull(Father) %>% unique(),
+  beta0 = coef_freq$estimate[1],
+  beta1 = coef_freq$estimate[2],
+  xbar = bayes_aux$xbar,
+  sxx = bayes_aux$sxx,
+  sigma = bayes_aux$sigma,
+  df = bayes_aux %>% pull(df) ) %>% 
+  mutate( mean = beta0 + x*beta1,
+          variance = (1 + 1/df + (x - xbar)^2/sxx)*sigma^2) %>% 
+  select(x,mean, variance) %>% 
+  head(10)
+
+posteriores_predictivas %>% 
+  gt() %>% 
+  fmt_number(
+    columns = 1:3,
+    decimals = 2,
+  ) %>% 
+  tab_header(
+    title = 'Distriubuciones Posteriores predictivas'
+  )
+  
+```
+
+
+
+---
+# Solución Bayesiana: Inferencia Conjugada
+
+### Distribuciones *a priori* informativas
+
+--
+
+Aunque la solución analítica cerrada existe para las distribuciones *a priori*:
+
+--
+
+  1. $\beta | \sigma^2 \sim N(b_0, \sigma^2B_0)$
+  
+--
+
+  2. $\sigma^2 \sim \Gamma^{-1}(\frac{n_0}{2},\frac{n_0\sigma_0}{2})$
+  
+--
+
+La aproximación bayesiana suele utilizarse partiendo de distribuciones de referencia, sin embargo vale la pena estudiar el caso informativo pues es útil para el **proceso de aprendizaje del modelo**
+
+--
+
+La capacidad de *actualizar* el conocimiento (modelos) a través del teorema de Bayes en el marco de la inferencia *a priori* - *a posteriori* y en particular las formas análiticas cerradas del proceso de actualización es lo que hace tan atractiva la inferencia bayesiana para modelos de ML
+
+---
+
+# Inferencia Bayesiana computacional vía `rstan`
+
+--
+
+La Inferencia Bayesiana computacional descansa prinicpalmente en la Teoría de Cadenas de Markov y hace uso intensivo del cálculo numérico
+
+--
+
+Algunos de los algoritmos más utilizados son el **Gibbs Sampler** y **Metropolis-Hastings** 
+
+--
+
+Existen varios *lenguages* para hacer inferencia bayesiana computacional (**BUGS o JAGS**) pero la libreria más estable para simulación bayesiana es *Stan* desarrollado originalmente por Andrew Gelman y Bob Carpenter con un backcend en *c++* para un **Hamiltonian Monte Caro**
+
+--
+
+Existe una interfaz para hacer inferencia vía Stan en R a través del paquete `rstan`
+
+---
+
+# Inferencia Bayesiana computacional vía `rstan`
+
+```{r rstan1, echo = TRUE, eval=FALSE}
+stan.model <- "data {
+  int<lower=0> N; //observaciones
+  vector[N] x;  //predictores
+  vector[N] y;  //respuestas
+}
+parameters {
+  real alpha; //ordenada al origen
+  real beta; // pendiente
+  real<lower=0> sigma;
+}
+model {
+  
+  y ~ normal(alpha + beta * x, sigma);
+}"
+
+
+
+```
+---
+
+# Inferencia Bayesiana computacional vía `rstan`
+
+```{r rstan2, echo = TRUE, eval=FALSE}
+
+library(rstan)
+options(mc.cores = parallel::detectCores())
+
+model_data <- list(
+  N = galton_split %>% training() %>% nrow(),
+  y = galton_split %>% training() %>% pull(Height),
+  x = galton_split %>% training() %>% pull(Father)
+)
+
+stan_lm <- stan( file = stan.model,
+                data = model_data,
+                chains = 4,             # número de Cadenas de Markov 
+                warmup = 1000,          # iteraciones de calentamiento
+                iter = 2000,            #  total de iteraciones por cadena
+                cores = 4)
+
+```
+
+---
+
+# Inferencia Bayesiana computacional vía `rstan`
+
+Después de esto habría que extraer los elementos del objeto, para visualizar las posteriores y hacer el diagnóstico de convergencia
+
+--
+
+Si bien Stan nos da mucha flexibilidad para crear cualquier tipo de modelos, existe una libreria (`rstanarm`) que ya tiene los modelos más comunes de manera estándar (p.e *lm*) en una interfaz compatible con `tidymodels`
+
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+```{r bayes1, echo=TRUE}
+options(mc.cores = parallel::detectCores())
+
+galton_bayes <- linear_reg() %>%
+  set_engine("stan",
+             iter = 5000, 
+             chains = 4, 
+             seed = 666, 
+             warmup = 500, 
+             cores = 4) %>%
+  fit(Height ~ Father, data = galton_recipe %>%  juice() )
+
+```
+
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+### Ajuste
+
+```{r bayes2}
+
+bayes_summary <- galton_bayes %>% 
+  pluck('fit') %>%
+  summary() %>% 
+  as_tibble() %>% 
+  mutate(Parametro = rownames(galton_bayes$fit %>% summary))
+
+posteriors_sim <- bayes_summary %>% 
+  select(-c('mcse','n_eff','Rhat')) %>% 
+  relocate(Parametro) %>% 
+  head(3)
+
+posteriors_sim %>% 
+  gt() %>% 
+  fmt_number(
+    columns = 2:6,
+    decimals = 2
+  ) %>% 
+  tab_header(
+    title = 'Cuantiles Distribuciones Posteriores'
+  )
+
+
+draws <- galton_bayes %>% 
+  pluck('fit') %>%
+  tidy_draws() %>% 
+  rename(alpha = '(Intercept)')
+
+
+sigma_post <- draws %>% 
+  ggplot() +
+  aes(x = sigma, y = ..density..) +
+  geom_histogram( fill = '#7E87E6', col = 'gray40') +
+  theme_minimal() +
+  theme(axis.text.y = element_blank()) +
+  labs(title = 'Posterior Distribución Sigma',
+       x = '',
+       y = '')
+
+slope_post <- draws %>% 
+  ggplot() +
+  aes(x = Father, y = ..density..) +
+  geom_histogram( fill = '#353961', col = 'gray40') +
+  theme_minimal() +
+  theme(axis.text.y = element_blank()) +
+  labs(title = 'Posterior Distribución Father',
+       x = '',
+       y = '') #181E61
+
+intercept_post <- draws %>% 
+  ggplot() +
+  aes(x = alpha, y = ..density..) +
+  geom_histogram( fill = '#181E61', col = 'gray40') +
+  theme_minimal() +
+  theme(axis.text.y = element_blank()) +
+  labs(title = 'Posterior Distribución Intercepto',
+       x = '',
+       y = '')
+
+
+```
+---
+# Inferencia Bayesiana con `tidymodels`
+
+### Ajuste
+
+```{r bayes8, out.height=400}
+
+slope_post + (intercept_post/sigma_post)
+
+```
+
+
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+```{r bayes5}
+
+galton_bayes %>% 
+  pluck('fit') %>% 
+  rstanarm::prior_summary()
+
+```
+
+
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+```{r bayes3, out.height=500}
+
+galton_bayes %>% 
+  pluck('fit') %>% 
+  rstanarm::bayes_R2() %>% 
+  as_tibble() %>% 
+  ggplot() +
+  aes( x = value ) +
+  geom_histogram( fill = '#FF962C', col = 'gray30') +
+  theme_minimal() +
+  theme( 
+    axis.text.y = element_blank()
+    ) +
+  labs(title = TeX('$Posterior \\; R^2$'),
+       x = '',
+       y = '')
+
+```
+
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+### Diagnóstico de convergencia
+
+--
+
+1. **Rhat**: Factor Potencial de Reducción de Escala, hay convergencia si RHAT < 1.1
+
+--
+
+2. **MCSE**: Error Estándar Monte Carlo
+
+--
+
+3. **N_eff**: Número efectivo de simulaciones equivalente a una muesta independiente
+
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+### Diagnóstico de convergencia
+
+```{r bayes4}
+
+bayes_summary %>% 
+  select(Parametro, mcse, Rhat, n_eff) %>% 
+  gt() %>% 
+  fmt_number(
+    columns = 2:4,
+    decimals = 3
+  ) %>% 
+  tab_header(
+    title = 'Convergencia de la Simulación'
+  )
+
+```
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+### Diagnóstico de convergencia
+
+```{r bayes7,out.width=425}
+
+draws %>% 
+  select(-c('.draw','accept_stat__') ) %>% 
+  pivot_longer(-c(.chain,.iteration)) %>% 
+  mutate(tipo = case_when(.iteration <= 500 ~ 'Warmup',
+                          TRUE ~ 'Actual')) %>% 
+  filter( name %in% c('(Intercept)','Father','sigma')) %>% 
+  ggplot() +
+  aes( x = .iteration, y = value, col = name) +
+  geom_line(alpha = 0.5) +
+  facet_wrap(.~ .chain + name, scales = 'free_y') +
+  theme_minimal() +
+  scale_color_manual(values = c('#EBD400','#B8A500','#EEDD47')) +
+  theme(
+    legend.position = 'none'
+  )+
+  labs(title = 'Simulación por cadena y parámetro',
+       x = 'Iteración',
+       y = 'Valor')
+
+
+```
+
+
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+### Predicción
+
+```{r bayes6}
+
+galton_pred_bayes <- galton_testing %>% 
+  add_predicted_draws(model = galton_bayes %>% pluck('fit'),
+                      scale = 'linear') %>% 
+  mutate(mape = abs(Height - .prediction)/.prediction)
+
+
+galton_pred_bayes %>%
+  group_by(Father) %>% 
+  summarise(Mean = mean(.prediction),
+            Lower = quantile(.prediction, .025),
+            Upper = quantile(.prediction, .975),
+            sigma = sd(.prediction)) %>% 
+  head(6) %>% 
+  gt() %>% 
+  fmt_number(
+    columns = 2:5,
+    decimals = 2
+  ) %>% 
+  tab_header(
+    title = 'Simulacion Predictiva'
+  )
+  
+
+```
+---
+
+# Inferencia Bayesiana con `tidymodels`
+
+### Ajuste
+
+```{r bayes_predict, out.height= 400}
+
+galton_pred_bayes %>% 
+  ggplot() + 
+  aes( x = mape*100) +
+  geom_histogram( fill = '#E84D86', col = 'gray35') +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_blank()
+  ) +
+  labs(title = 'Posterior Predictive  MAPE (%)',
+       x = '',
+       y = '')
+  
+
+```
+
+---
+
+# ¿Qué nos faltó?
+
+--
+
+1. Pruebas del supuesto de normalidad (Análisis de Residuales vs. Factores de Bayes)
+
+--
+
+2. Regresión lineal múltiple y selección de modelos
