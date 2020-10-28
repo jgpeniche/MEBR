@@ -10,7 +10,7 @@ output:
     toc: true
     number_sections: true
     toc_float:
-      collapsed: false
+      collapsed: true
       smooth_scroll: false
     toc_depth: 2
 ---
@@ -435,11 +435,115 @@ Con respecto a los $valores \quad p$ tiene cualiad de *surprise reactive* y *sam
 
 # Pronóstico
 
+Continuando con el problema de inferencia, debemos ahora abordar el problema de **pronóstico**. Si bien, desde el punto de vista frecuentista, para hacer estimación puntual basta partir de $x \sim f(x; \hat{\theta})$ y podríamos sentirnos inclinados a hacer lo mismo con la estimación por regiones, esta última debe de incorporar la **incertidumbre** de una observación que aún **no** se ha manisfetado.
+
+Así, la construcción de un **intervalor de predicción** para la una observación $x^* = x_{n+1}$
+
+$$x^* - \hat{\mu} \sim N(0, \frac{\sigma^2}{(1 + \frac{1}{n})})$$ $\Longrightarrow$
+
+$$U = \frac{(x^* - \hat{\mu}) \sqrt{1 + \frac{1}{n}}}{\tilde{\sigma}^2}\sim t_{n-1}$$
+Finalmente, al observar la muestra, el intervalo **FIJO** de predicción al nivel de confianza $(1-\alpha)$% $$[\overline{x} \pm t_{n-1}^{1 - \frac{\alpha}{2}} \tilde{\sigma} \sqrt{1 + \frac{1}{n}}]$$ se declara un intervalo de predicción para $x_{n+1}$
+
+# Validación de Supuestos
+
+Finalmente nos interesa saber si nuestro supuesto sobre nuestra elección de una determinada familia paramétrica $\mathfrak{F}$ es razonable. Esta no es una pregunta trivial ya que puede ser perfectametne válido ajustar una exponencial o una $\Gamma$, más aún auqnue la diferecnia entre una Normla y una $T$ puede ser sutil en el contexto de la administración de riesgos puede tener implicaciones reelevantes para la toma de decisiones. A continuación se presentan una serie de criterios para decidir sobre una **licitación de modelos**.
+
+Esta serie de criterios pertence a una discplina en la estadística desafortunadamente conocida **bondad de ajuste** por su traducción literal del inglés ("Goodness of Fit") ¿Qué ajuste es malevolo? La idea general de estas pruebas es buscar *parsimonia* entre la complejidad del modelo y su capacidad de ajustar los datos. 
+
+Este tipo pruebas caen en el dominio del contraste de hipótesis con el siguiente juego de hipótesis: $$H_0: f(x; \theta) = \mathfrak{f}_i(x; \theta) \quad vs \quad H_1: f(x; \theta) = \mathfrak{f}_j(x; \theta)$$
+
+vuelve a ocurrir que el procedimiento no está unficado con la herramienta frecuentista 
+
+Criterios de **Calidad** de Ajuste
+
+  1. Criterio Máximo Verosímil
+  2. Criterio de Verosimilitud Predictiva
+  3. Estadístico de Anderson-Darling
+  4. Estadístico de Kolmogorov-Smirnoff
+  5. Estadístico Ji-Cuadrada
+  6. Criterio de Akaike
+  7. Criterio de Información Bayesiano
+
+## Criterio Máximo Verosímil
+
+**Regla de decisión escoger**: el modelo con mayor verosimilitud.
+
+Aunque este es el más sencillo de todos, padece de sobreajuste y numericamente es conveniente usar la log-verosimilitud.
+
+## Criterio de Verosimilitud Predictiva 
+
+Considere $\underline{X}_{(n)}^p$ y $\underline{X}_{(n)}^e$ tales que $\underline{X}_{(n)}^e \cup \underline{X}_{(n)}^p = \underline{X}_{(n)}$
+
+Considere además que la inferencia se hace usando el *conjunto de entrenamiento* $\underline{X}_{(n)}^e$.
+
+**Regla de decisión:** Esoger el modelo que maximice la verosmilitud evaluada en el **conjunto de preuba** $\underline{X}_{(n)}^p$.
+
+Aunque este criterio no tiene el problema del sobreajuste y toma en cuenta incertidumbre de datos no incorporados en el modelo no toma en cuenta la compejidad del mismo. Como regla general en inferencia tendemos a darle preferencia a modelos más sencillos, pero este hecho no se incorpora funcinalmente.
+
+## Criterio de Anderson-Darling
+
+Considere el juego de hipóteis $$H_0: f(x; \theta) = \mathfrak{f}_i(x; \theta) \quad vs \quad H_1: f(x; \theta) \neq \mathfrak{f}_i(x; \theta)$$
+
+Para una muestra **ordenada** de datos Se propone el estadístico de prueba $$A^2 =  -n - S$$
+Donde 
+  - $n$ es el tamaño de muestra
+  - $S = \sum \frac{(2i -1)}{n} [ln(F(x_i) + ln(1 - F(x_{n + 1-i})))]$ 
+
+**Regla de decisón rechzar:** $H_0$ si la esta´distica de prueba es mayor que el valor crítico $c$ que depende de la distribució nde prueba.
+
+Este estadístico tiene la desventaja de su complejida y que la distribución muestral del mismo pueda no estar definida. Además solo permite contrastar un modelo consigo mismo y no otra familia paramétrica. Además requiere que la densidad esté acotada.
+
+## Criterio de Kolmogorov smirnoff
+
+Considere el mismo juego de hipótesis la misma muestra ordenada, el prueba de K-S es una prueba *no-paramétrica* que mide la distancia entre la Función de Distribución de probabilidad empírica $Fê$ y la Función de Distribución de Probabilidad Teórica $F$.
+
+Se propone el siguiente estadístico de prueba $$D = \max_{1 \leq i \leq n}(F(x_i) - \frac{i -1}{n}, \frac{1}{n} - F(x_i))$$
+
+**Regla de decisión:** Rechazar $H_0$ si el esta´distico de prueba es mayor que el valor crítico $c$.
+
+Esta prueba solo puede realizarse para densidades continuas, es sensible a valores en la media y requiere densidades continuas.
+
+## Prueba de Ji-Cuadrada
+
+Considere el mismo juego de hipótesis y la misma muestra ordenada. Esta prueba vuelve a caer en el dominicio de pruebas no-paramétricas.
+
+Proponemos el estadístico de prueba $$\mathfrak{X}^2 = \sum^k (O_i - E_i)^2 / E_i$$
+Donde:
+  
+  - $k$ es el número de slots 
+  - $O_i$ es la frecuencia observada en el slot $i$
+  - $E_i = \#(F(x_u ) - F(x_l))$, las observaciones esperadas para el slot $i$ y $x_u$, $x_l$ los límites superiores e inferiores respectivamente para la clase $i$
+  
+**Regla de decisión:** Rechazar $H_0$ si el estadísitco de prueba es mayor al valor crítico $c$. La estadística se distribuye asintóticamente Ji-Cuadrada con $l + 1$ grados de libertad, donde $l$ denota el número de parámetros estimados.
+
+Este test es un refinamiento de la prueba K-S. Además de que depende severamente de $k$.
+
+## Criterio de Información de Akaike
+
+Esta técnica se basa en en la **entropía** y es una medida aproximada de la cantidad de infromación perdida al ajustar cierta familia paramétrica $\mathfrak{f}$, particular calculando la divergencia de *Kullback-Leibier*. En este sentido no viene acompañado de un par de hipótesis.
+
+Proponemos el estádisco de prueba $$AIC = 2k -2ln(\mathbb{L}(\theta; \underline{X}_{(n)}^e))$$
+
+Donde:
+
+  - $k$ es el número de parámetros del vector $\theta$
+  
+**Regla de decisión:** Escoger el modelo con menor AIC
+
+## Criterio de Infromación Bayesiano
+
+Partiendo de la misma base de Teoría de la Infromación, la construcción de este estadístico tiene un argumento baysiano y es un resultado asintótico relacionado con los *facotres de Bayes*.
+
+Porponemos el estadístico $$BIC = kln(n) - 2ln(\mathbb{L}[\theta; \underline{X}_{(n)}^e])$$
+**Regla de decisión:** Escoger el modelo que minimice BIC.
+
 
 # Bibliografía
   
   1. Mendoza, M. *Estadística Bayesiana*. [ITAM](http://allman.rhon.itam.mx/~lnieto/index_archivos/NotasBayesMR.pdf)
   2. Schlaifer, R. *Probability and Statistics for Business Decisions*. McGraw-Hill, 1959
+  3. https://www.itl.nist.gov/div898/handbook/eda/section3/eda35e.htm
+  4. https://www.itl.nist.gov/div898/handbook/eda/section3/eda35g.htm
 
 
 
