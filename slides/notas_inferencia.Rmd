@@ -130,6 +130,7 @@ En la corriente de la estadística matemática resolvemos la pregunta anterior d
   2. Es **INSESGADO**: $\mathbb{E}[\hat{\theta}] = \theta$
   3. Es **CONSISTENTE EN ERROR CUADRÁTICO MEDIO** $\epsilon = \theta - \mathbb{E}[\hat{\theta}] \longrightarrow 0$ conforme $n \longrightarrow \infty$ es decir converge en probabilidad al verdadero valor conforme la muestra se hace más grande
   4. Es **EFICIENTE** su varianza en el límite alcanza la menor varianza posible (En otras palabras alcanza la cota inferior de Crámer y Rao)
+  5. Es el estimdor de varianza mínima de entre tdos los estimdores posibles
   
 Si bien nos gustaría que todos y cada uno de nuestros estimadores cumpliera todas estas características, es más, que nuestro proceso de inferencia nos llevara unívocamente a estimadores con ests cracterístiscas, una de las críticas más grandes a la escuela frecuentista es que en la mayoría de los casos esto no sucede.
 
@@ -140,6 +141,8 @@ Considere una muestra $\underline{X}_{(n)}$ tal que $x_i \sim N(\mu, \sigma^2)$,
 Si bien en la estadística matemática existen varias técnicas *ad-hoc* la principal herramienta de inferencia la propuso Ronald A. Fisher y parte de algo conocido como el **principio de máxima verosimilitud**. En palabras llanas, este principio sugiere que $\hat{\theta}$ es el valor que haga **más probable** la manifestación aleatoria de la muestra con la que estamos tratando. La propuesta de Fisher para hacer inferencia paramétrica es **maximizar** la *función de verosimilitud* $\mathbb{L}[\theta ; \underline{X}_{(n)}]$
 
 La notación sugiere, inituitivamente, que el problema de maximización tiene como función objetivo a $\mathbb{L}$ *como si* la denisdad conjunta de la muestra fuera una función de los datos y no del parámtero. Debe llamar la atención que el lingüe *problema de maximización* (como un criterio de optimalidad) y *función objetivo* se toman directamente del cálculo y son precisamente estas las directrices "matemáticas" del proceso de inferencia, razón por la cual se le da el nombre de "Estadística Matemática".
+
+Además el método de Máxima Verosimilitud tiene la propiedad de **invarianza** ante transformaciones del parámetro $\theta$.
 
 Ahora bien, definimos la función de verosimilitud como $$\mathbb{L}[\theta ; \underline{X}_{(n)}] = f(\underline{X}_{(n)} ; \theta)$$
 
@@ -222,16 +225,93 @@ Definimos *la cota inferior de Cramér y Rao* como $$\frac{1}{I(\hat{\theta)}}$$
 Donde $I(\theta)$ denota la **información de Fisher** que defnimos como:
 
 $$I(\theta) = n \mathbb{E}[(\frac{\partial l(x; \theta)}{\partial \theta})^2] = -n \mathbb{E}[\frac{\partial^2l(x ; \theta)}{\partial \theta^2}]$$
-Así decimos que un estimador es **eficiente** $\Longleftrightarrow$ $Var(\hat{\theta}) \geq CRLB$ o bien el error $e(\hat{\theta}) = \frac{I^{-1}(\hat{\theta})}{VaR(\hat{\theta})} \longrightarrow = 1$
+Así decimos que un estimador es **eficiente** $\Longleftrightarrow$ $Var(\hat{\theta}) \geq CRLB(\theta)$ o bien el error $e(\hat{\theta}) = \frac{I^{-1}(\hat{\theta})}{VaR(\hat{\theta})} \leq 1$
 
   - $I(\hat{\mu}) = \frac{n}{\sigma^2}$ $\Longrightarrow$ $$e(\hat{\mu}) = \frac{\sigma^2}{n} \frac{n}{\sigma^2} = 1$$
-  - $I(\tilde{\sigma^2}) = \frac{n}{2 \theta}$ $\Longrightarrow$ $$e(\tilde{\sigma}^2) = \frac{2 \sigma^2}{n - 1} \frac{n}{2 \sigma}  \longrightarrow 1$$
+  - $I(\tilde{\sigma^2}) = \frac{n}{2 \theta}$ $\Longrightarrow$ $$e(\tilde{\sigma}^2) = \frac{2 \sigma^2}{n} \frac{n - 1}{2 \sigma}  \leq 1$$
+  
+### Mínima Varianza
+
+Este criterio requiere que la varianza (muestral) del estimador sea la mínima de otros estimadores posibles (p.e. momentos).
+
+Aunque se omite en estas notas, tanto $\hat{mu}$ y $\tilde{\sigma}^2$ son estimadores de varianza mínima.
 
 ## Comentarios
 
 A pesar que la inferencia vía Máxima Verosimilitud funciona la mayoría de las veces no garantiza el insesgamienta ni la eficiencia y hay casos en los que es necesario buscar un estimador **no-verosímil** como la $x_{[n]}$ (la enésima estadística de órden) para el parámetro $b$ de una uniforme. Además hay 2 estimdores no-máximo-verosímiles en el caso log-normal que funcionan mejor en la práctica. Además muchas veces la verosimilitud no tiene forma cerrada en muchos casos (t, Fiser, Ji-cuadrada, Gamma) y se requiere optimización numérica de la verosimilitud sin necesidad de considerar modelos multivariados.
 
+Generalmente modelos complejos implican un *trade-off* entre estas características deseables de nuestros estimadores.
+
 # Estimación por regiones
+
+Ocurre que no importa si estámos en en el caso discreto o el continuo (particularmente porque en el caso continuo los átomos del soporte tienen probabilidad 0) la probabilidad de que nuestra estimación puntual sea exactamente el valor del parámetro desconcoido es nula. Por esta razón interesa **estimar por regiones** al parámtro de interés.
+
+Así, se dice que $A \quad \subseteq \quad \Theta$ es una **estimación por regiones** de $\theta$ si $A$ se contruye a partir de la muestra y existen razones para suponer que $\theta \quad \epsilon \quad A$. A est contrucción de **intervalos** de la forma $$\theta \quad \epsilon \quad [a(\underline{X})_{(n)},a(\underline{X})_{(n)}]$$ Se les conoce en Estadística Matemática como **intervaloz de confianza**.
+
+Llama la atención que las aseveraciones que se hacen sobre la construcción de esta región sujeta a una muestra **FIJA** no son de naturaleza probabilística ya que se construye dada una muestra **FIJA** y a un estimador $\hat{\theta}$ **FIJO** que no se puede generalizar a todo $\Theta$. Por esta razón se tiene un nivel de **confianza** al nivel $(1-\alpha)$%.
+
+Concpetualmente lo que significa el párrafo anterior es que en límite del experimento de una realización de la muestra $\underline{X}_{(n)} = \underline{x}_{(n)}$ y el estimador $\hat{theta}$ esté fijo se espera con confianza de $(1- \alpha$% el verdadero valor $\theta$ se encuentre en A.
+
+## Método Pivotal {.tabset}
+
+Si bien también para el caso de estimación por regiones existen muchos métodos *ad-hoc* el método más común es el **método pivotal** y consiste en lo siguiente:
+
+  > Sea $\underline{X}_{(n)}$ con función de densidad de probabilidad genralizada (f.d.p.g) $f(x; \theta)$. Para estimar por regiones a $\theta$ por el método pivotal se requiere:
+
+  1. Encontrar una variable pivotal $U$ que es variable aleatoria (v.a) que:
+    
+      1. $U = h(\underline{X}_{(n)}; \theta)$ (depende de los datos y el parámetro)
+      2. Tiene una función de distribución totalmente conocida $F_{U}(u)$
+      3. $\exist \quad h^{-1}(u)$ para cada muestra fija $\underline{x}_{(n)}$
+      4. U no depende de ninguna otra canitdad desconocidad además de $\theta$
+  2. Determinar $a$ y $b$ cantidades conocidas .,. $P[a \leq U \leq b] = 1- \alpha$
+  3. Expresar a U en función de $\theta$, esto es: $$P[a \leq h(\underline{X}_{(n)}; \theta) \leq b] = 1- \alpha $$ entonces debe ocurrir $$P[h^{-1}(a,\underline{X}_{(n)}) \leq  \theta \leq h^{-1}(b,\underline{X}_{(n)})] = 1- \alpha $$
+  4. Una vez observada la muestra $\underline{X}_{(n) = \underline{x}_{(n)$ se tiene que $h^{-1}(a,\underline{X}_{(n)}$ y $h^{-1}(b,\underline{X}_{(n)}$ son un número fijo y el intervalo FIJO $[h^{-1}(a,\underline{X}_{(n)},h^{-1}(b,\underline{X}_{(n)}]$ se declara un intervalo de confianza al nivel $(1 - \alpha)$% para $\theta$ 
+
+Siguiendo con nuestro ejemplo normal
+
+
+Sabemos que $x \sim (\mu,  \sigma^2)$, $\frac{(n-1)\tilde{\sigma}^2}{\sigma^2} \sim \mathfrak{X}^2_{n-1}$ y que $\hat{\mu} \sim N(\mu,\frac{\sigma^2}{n})$ $\Longrightarrow$
+
+### IC para la media
+
+$$(\overline{x}) - \mu \sim N(0, \frac{\sigma^2}{n})$$
+$\Longrightarrow$
+
+$$\frac{(\overline{x}- \mu) \sqrt{n}}{\sigma} \sim N(0,1)$$
+Como $\sigma$ aún es desconocida $\Longrightarrow$
+
+$$U =\frac{(\overline{x}- \mu) \sqrt{n}}{\sigma \sqrt{\frac{\tilde{\sigma}^2}{\sigma^2}}} = \frac{(\overline{x}- \mu) \sqrt{n}}{\tilde{\sigma}} \sim t_{(n-1)}$$
+
+Luego entonces se tiene que 
+
+$$P[a \leq \frac{(\overline{x}- \mu) \sqrt{n}}{\tilde{\sigma}} \leq b] = 1 - \alpha$$
+Si y solo si 
+
+  - $a = -t_{(n-1)}^{1-\frac{\alpha}{2}}$ y 
+  - $b = t_{(n-1)}^{1-\frac{\alpha}{2}}$ 
+  - donde $t^{p}$ denotan un cuantíl de orden $p$.
+
+Finalmente $$P[\mu \quad \epsilon \quad \{\overline{x} \pm t_{(n-1)}^{1-\frac{\alpha}{2}} \frac{\tilde{\sigma}}{\sqrt{n}} \}] = 1 -\alpha$$
+
+Al observarse la muestra el intervalo queda fijo y $$[\overline{x} \pm t_{(n-1)}^{1-\frac{\alpha}{2}} \frac{\tilde{\sigma}}{\sqrt{n}}]$$ se declara un intervalo de confianza para $\mu$ al nivel $(1- \alpha)$%
+
+### IC para la varianza
+
+$$U = \frac{(n-1)\tilde{\sigma}^2}{\sigma^2} \sim \mathfrak{X}^2_{(n-1)}$$
+$\Longrightarrow$
+
+$$P[\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})} \leq \frac{(n-1)\tilde{\sigma}^2}{\sigma^2} \leq \mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}] = 1 - \alpha$$
+
+$\Longrightarrow$
+
+$$P[\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}} \leq \sigma^2 \leq \frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})}}] = 1 - \alpha$$
+Así al observarse la muestra, el intervalo fijo $$[\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}},\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})}} ]$$
+
+Se declara un intervalo de confianza al nivel $(1 - \alpha)$% para $\sigma^2$
+
+**OJO:** Este intervalo no es simétrico. Además pudimos acotar unicamente el límite superioir (ya que la varianza siempre es positiva) y proponer el intervalo $$[0, \frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \alpha)}}]$$
+
 
 # Bibliografía
   
