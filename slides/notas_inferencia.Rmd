@@ -556,6 +556,21 @@ Porponemos el estadístico $$BIC = kln(n) - 2ln(\mathbb{L}[\theta; \underline{X}
 
 # La necesidad de una Teoría de Inferencia
 
+Los modelos que construimos tienen un efecto en el mundo real en el grado en el que son utilizados para tomar decisiones con mayor o menor impacto en nuestra realidad. Por esta razón y precisamente en el contexto de la toma de desiciones (y no de las matemáticas) es imperante contar con criterios que nos garanticen que la inferencia que se está haciendo el el contexto de la toma de decisiones es **óptima**.
+
+La escuela de la Estadística Mtemática de elegante sencillez deja un resabio algo amargo e invita al científico a mirar al lado contrario cuando al dar vuelta en una esquina se encuentra inevitablemente con alguna patología que se sabe incurable. Esta maldición deja al mítico personaje del tomador de decisiones sentado en un banco de 3 patas... en peligro de caer en cualquier momento. 
+
+La gravedad del asunto se nos hace manifiesta cuando son los responsables de la política pública los que están sentados en estos bancos. Se nos hace manifiesta cuando aquello en riesgo es la vida de las personas o un aspecto fundamental de la mis (salud, patrimonio, etc).
+
+La Estadística Matemática NO es una teoría. La Esta´disitica es una serie de presupuestos técnicos de gran ingenio, repleto de paleativos de una creatividad incocebible y de notas innegablemente prácticas. Son precisamente estas cualidades las que la convierten en la antitésis por excelencia del discurso dialéctico de aprendizaje. 
+
+Por una serie de intereses políticos no hubo un cuerpo suficientemente nutrido que pudiera proponer una alternativa real a la escuela de los frecuentistas, pero más allá de esto, debería invitar al investigador a cuestionarse sobre las implicaciones ético-profesionales de su trabajo y su opinión profesional. 
+
+La naturaleza práctica de la estadística pide a gritos un cuerpo axiomático que la invista del estatus de teoría, se requiere no un "cálculo estadístico" si no de una "Teoría de Inferencia" para la toma de decisiones en ambiente de incertidumbre. 
+
+Este cuestionamiento, se lo plantearon principalmente Neyman y Pearson, y aunque futílmente, intentaron construir una teoría de inferencia a partir de la Teoría de Probabilidad. Este intento tan noble y tan necesario no debe pasar desapercibido, más aún, debiera contribuir con más ímpetu a la toma de conciencia sobre la precaireidad de la situación.
+
+En resúmen, parece ser que hay algo de lo intrínseco del objeto de la estadística que no se logró capturar con fidelidad en este primer intento de hacer inferencia formalmente.
 
 # Bibliografía
   
