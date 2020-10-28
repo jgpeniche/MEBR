@@ -46,38 +46,38 @@ tibble(
 
 ```
 
-Vale la pena destacar que en ambos casos el fenómeno de estudio sigue manifestandose de a través de la misma clase datos, la diferencia radica en que el caso de la estadística descriptiva contamos con **información completa**, es decir tenemos acceso a todas y cada una de las manifestaciones del fenomeno lo que nos permite *describir* el fenómeno de forma integral.
+Vale la pena destacar que en ambos casos el fenómeno de estudio se manifiesta de a través de la misma clase de datos, la diferencia radica en que el caso de la estadística descriptiva contamos con **información completa**, es decir tenemos acceso a todas y cada una de las manifestaciones del fenomeno lo que nos permite *describir* el fenómeno de forma integral.
 
-Por su parte la *inferencia estadística* se ocupa del caso de la **información incompleta** done a través de un proceso **deductivo** buscamos emitir juicios o conclusiones (inferir) de la población a través de la información contenida en la muestra. En este sentido solo podemos aspirar a hacer descripciones **aproximadas** del fenómeno de estudio y nos gustaría que estos fueran resúmenes **suficientes** y **minimales**.
+Por su parte la *inferencia estadística* se ocupa del caso de la **información incompleta** donde a través de un proceso **deductivo** buscamos emitir juicios o conclusiones (inferir) de la población a través de la información contenida en la muestra. En este sentido solo podemos aspirar a hacer descripciones **aproximadas** del fenómeno de estudio y nos gustaría que estass descripciones fueran resúmenes **suficientes** y **minimales**.
 
 
 ## Fenómenos inciertos
 
-Ahora bien, como análistas, requerimos de una manera de representar la incertidumbre asociada a un fenómeno. Existen dos acercamientos a la caracterización de esta incertidumbre: 
+Ahora bien, como análistas, requerimos de una manera de representar la incertidumbre asociada a cierto fenómeno. Existen dos acercamientos a la caracterización de esta incertidumbre: 
   
   1. Estadística Paramétrica
   2. Estadística No Paramétrica
 
-En el caso que nos compete (Estadística Paramétrica) echamos mano del cálculo de probabilidades y decidimos describir la incertidumbre asociada a dicho fenómeno utilizando una *familia paramétrica*. Matematicamente la incertidumbre asociada a cierto fenómeno $\mathfrak{f}$ tiene una forma funcional pertenciente a una familia de *densidades de probabilidad* $\mathfrak{F}$ y queda queda perfectamente defiinida por un vector $\theta$ de parámetros. Esto es $$\mathfrak{F} = \{ \quad  f_X(x ; \theta) \quad | \quad \theta \quad \epsilon \quad \Theta \subseteq \mathbb{R}^n \quad \}$$
+En el caso que nos compete (Estadística Paramétrica) echamos mano del cálculo de probabilidades y optamos por describir la incertidumbre asociada a dicho fenómeno utilizando una *familia paramétrica*. Matematicamente la incertidumbre asociada a un fenómeno dado tiene una forma funcional pertenciente a una familia de *densidades de probabilidad* $\mathfrak{F}$ y queda queda perfectamente defiinida por un vector $\theta$ de parámetros. Esto es $$\mathfrak{F} = \{ \quad  f_X(x ; \theta) \quad | \quad \theta \quad \epsilon \quad \Theta \subseteq \mathbb{R}^n \quad \}$$
 
 
-Con esta representación el problema de la **inferencia estadística** se reduce a encontrar el vector de parámetros desconocido $\theta$ que caracteriza la incertidumbre del fenómeno para cierta familia $\mathfrak{F}$
+Habiendo definido la incertidumbre con esta representación el problema de la **inferencia estadística** se reduce a encontrar el vector de parámetros desconocidos $\theta$ que caracteriza la incertidumbre del fenómeno para cierta familia $\mathfrak{F}$
 
 ## ¿Porqué hacemos inferencia?
 
-A pesar de que el estudio de la estadística tiene un fin muy claro ¿Cuál es el objeto de análisar datos y reportar *media*, *varianza*, *rango intercuarílico*, *mediana*, *moda*, *sesgo*, *curtósis*, *error cuadrático medio*, *error absouto porcentual medio*, etc? ¿Porque nos interesa caraceterizar la incertidumbre?
+A pesar de que el estudio de la estadística tiene un fin muy claro ¿Cuál es el objeto de análisar datos y reportar *media*, *varianza*, *rango intercuartílico*, *mediana*, *moda*, *sesgo*, *curtósis*, *error cuadrático medio*, *error absouto porcentual medio*, etc? ¿Porque nos interesa caraceterizar la incertidumbre?
 
-Como analista es necesario tener presente que las empresas no destinarían recursos al área de analytics (o cualquiera que sea el nombre de la misma) si el trabajo que realizaramos fuera ocioso, es decir, no ajustamos modelos simplemente "porque podemos".
+Como analista es necesario tener presente que las empresas no destinarían recursos al área de analytics (o cualquiera que sea el nombre de la misma) si el trabajo que realizacemos fuera ocioso, es decir, no ajustamos modelos simplemente "porque podemos".
 
-Entonces ¿cuál es el objeto de la inferencia? De acuerdo con Robert Schlaifer$^2$, en el contexto de negocios, el principal problema al que se enfrentan la administración de la empresa es  **la toma de decisiones en ambiente de incertidumbre**, en otras palabras, el problema al que se enfrentan directores y gerentes es al de tomar decisiones **hoy** sujetas a eventos inciertos del día de **mañana**. Luego entonces, es precisamente por la razón que acabamos de exhibir que las empresas destinan recursos económicos al área de *analytics* y el rol de los analistas es:
+Entonces ¿cuál es el objeto de la inferencia? De acuerdo con Robert Schlaifer$^2$, en el contexto de negocios, el principal problema al que se enfrentan la administración de la empresa es  **la toma de decisiones en ambiente de incertidumbre**. En otras palabras, el problema al que se enfrentan directores y gerentes es al de tomar decisiones **hoy** sujetas a eventos inciertos del día de **mañana**. Luego entonces, es precisamente por la razón que acabamos de exhibir que las empresas destinan recursos económicos al área de *analytics* y el rol de los analistas es:
 
   > Proveer de información para la toma de decisiones (en un ambiente de incertidumbre)
 
 ## La estadística como herramienta de pronóstico
 
-Con lo anterior dicho se hace evidentemente que el tener una descripción de la incertidumbre asociada a cierto fenómeno se requiere para escalarse y hacer delcraciones de índole **probabilistica** sobre eventos futuros que no se han manifestado aún. 
+Con lo anterior dicho se hace evidentemente que el tener una descripción de la incertidumbre asociada a cierto fenómeno se requiere para extrapolarse y hacer declaraciones de índole **probabilística** sobre eventos futuros que no se han manifestado aún. 
 
-Al final en el contexto de los negocios el fin último de la estadística es precisamente el de tener "*solid grounds to stand on when making a desicion*" y el output final requerido para la toma de una decisión en la mayoría de los casos va a ser un **pronóstico**
+Al final, en el contexto de los negocios, el fin último de la estadística es precisamente el de tener "*solid grounds to stand on when making a desicion*" y el output final requerido para la toma de una decisión en la mayoría de los casos va a ser un **pronóstico**
 
 
 ## Modelado Estadístico 101
@@ -85,7 +85,7 @@ Al final en el contexto de los negocios el fin último de la estadística es pre
 El modelado estadístico es un problema contenido en el problema general de *inferencia estadística paramétrica* que se ocupa de:
 
   1. La elección de la familia paramétrica $\mathfrak{F}$
-  2. Métodos para inferir el vector desconocidos de parámetros $\theta$
+  2. Métodos para inferir el vector desconocido de parámetros $\theta$
   3. Proponer criterios de **optimalidad** sobre estos métodos de inferencia
   
 La solución al estudio del modelado estadístico como lo acabamos de presentar, comprende lo siguiente:
@@ -98,28 +98,28 @@ La solución al estudio del modelado estadístico como lo acabamos de presentar,
   
 # Contexto Histórico
 
-Aunque parece que nos estámos ocupando de un problema fundamentalmente técnico, lo cierto es que el problema de "hacer inferencia" es una discusión fundamentalmente filósófica, particularmente sobre la manera de concebir el concepto de probabilidad, que dio luz a dos escuelas de inferencia. La escuela frecuentista o de la Estadística Matemática y la escuela Bayesiana.
+Aunque parece que nos estámos ocupando de un problema de naturaleza técnica, lo cierto es que el problema de "hacer inferencia" es una discusión fundamentalmente filósófica, particularmente sobre la manera de concebir el concepto de probabilidad. Esta discusión dio luz a dos escuelas de inferencia: la escuela frecuentista o de la Estadística Matemática y la escuela Bayesiana.
 
 En lo subsecuente nos ocuparemos de estudiar la primera no sin hacer breve mención de aquellas diferencias con la escuela Bayesiana
 
 ## Probabilidad frecuentista
 
-Recordemos que durante la segunda mitad del siglo XIX cobró auge el *positivismo científico* de *Auguste Comte* y *Henri de Saint Simon*, bajo esta corriente filosófica cuyo discurso lógico descansa basicamente en el empiricísmo se entiende a la experiencia como fuente última del conociento científico. Bajo esta corriente los científicos entienden la probabilidad como la *frecuencia relativa* de un evento de interés al realizar un experimento una infinidad de veces en las misma condiciones, esto es: $$P(A) = \lim{n \to \infty} \frac{\# (A)}{n}$$
+Recordemos que durante la segunda mitad del siglo XIX cobró auge el *positivismo científico* de *Auguste Comte* y *Henri de Saint Simon*. Bajo esta corriente filosófica, cuyo discurso lógico descansa basicamente en el empiricísmo científico, se concibe a la experiencia como fuente última del conociento científico, así el concenso era entender la probabilidad como la *frecuencia relativa* de un evento de interés al realizar un experimento una infinidad de veces en las misma condiciones, esto es: $$P(A) = \lim{n \to \infty} \frac{\# (A)}{n}$$
 
-Hijos de esta corriente filosófica y todavía con inercia de la misma, durante la primera mitad del siglo XX un grupo de científicos desarrollaron la corriente de la *Estadística Matemática* como una alternativa con pies y cabeza para hacer inferencia de manera formal. Entre ellos destacan Ronald A. Fisher, Jerzy Neyman, Karl Pearson, Egon Pearson y C. Radhakrishna Rao.
+Hijos de esta corriente de pensamiento y con la inercia de la misma, durante la primera mitad del siglo XX un grupo de científicos desarrollaron la corriente de la *Estadística Matemática* como una alternativa con pies y cabeza para hacer inferencia de manera formal. Entre ellos destacan Ronald A. Fisher, Jerzy Neyman, Karl Pearson, Egon Pearson y C. Radhakrishna Rao.
 
-Estos personajes desarrollaron una serie **procedimientos inferencia** partiendo de un conjunto de **criterios de optimalidad** que hoy conocemos como Estadística Matemática. Cabe resaltar que si bien esta manera de hacer inferencia tiene un sabor práctico y una construcción elegantemente sencilla que la popularizo entre profesionales sin formción matemática nunca logró consolidarse como una teoría de inferencia (a diferencia de su media hermana la probabilidad con la publicación de los axiomas de probabilidad de Andréi Kolmogorov en 1928). Esto podría considerarse el mayor fracaso de la escuela frecuentista en cuanto al estatus de la Estadísctica como una Teoría, pero tambien la carencia de un cuerpo axiomático deriva en la falta de homogeneidad en el proceso de inferencia (muchas solucions *ad-hoc*) y múltiples patologías.
+Estos personajes desarrollaron una serie **procedimientos inferencia** partiendo de un conjunto de **criterios de optimalidad** que hoy conocemos como Estadística Matemática. Cabe resaltar que, si bien esta manera de hacer inferencia tiene un sabor práctico y una construcción elegantemente sencilla que la popularizo entre profesionales sin formción matemática, nunca logró consolidarse como una teoría de inferencia (a diferencia de su media hermana la probabilidad con la publicación de los axiomas de probabilidad de Andréi Kolmogorov en 1928). Esto podría considerarse el mayor fracaso de la escuela frecuentista en cuanto al estatus de la Estadísctica como una teoría, la carencia de un cuerpo axiomático deriva en la falta de homogeneidad en el proceso de inferencia (muchas solucions *ad-hoc*) y múltiples patologías.
 
 
 # Estadística Matemática
 
-La construcción del proceso de inferencia debe incorporar explícitamente nuestro deseo de que nuestras inferecnia sean **óptimas**. En todo caso cualquier persona puede dar un número de la inflación esperada para el siguiente año en Grecia, el reto radica en que el proceso detrás de la obtencipon de ese número tenga sustancia teoríca y además cumpla, por construcción estos criterios de *optimalidad*. La diferencia entre ambas escuelas de inferencia se encuentra en la manera de construir estos criterios (además de la concepción básica de la probabilidad).
+La construcción del proceso de inferencia debe incorporar explícitamente nuestro deseo de que nuestras inferencia sean **óptimas**. En todo, caso cualquier persona puede dar un número de la inflación esperada para el siguiente año en Grecia, el reto radica en que el proceso detrás de la obtención de ese número tenga sustancia teoríca y además cumpla, por construcción, estos criterios de *optimalidad*. La diferencia entre ambas escuelas de inferencia se encuentra en la manera de construir estos criterios (además de la concepción básica de la probabilidad).
 
 ## Criterios de optamilidad
 
-Llamemos a nuestro **estimador** para cierta cantidad desconocida $\theta$ como $\hat{\theta} = f(X_{(n)})$ donde $X_{(n)}$ representa la información en forma de datos (nuestra muestra).
+Llamemos a nuestro **estimador** para cierta cantidad desconocida $\theta$ como $\hat{\theta} = \hat{\theta}(X_{(n)})$ donde $X_{(n)}$ representa la información en forma de datos (nuestra muestra).
 
-  > <center> ¿Qué características debe cumplir $\hat{\theta}$ para concluir que es un buen estimador de la cantidad desconocida $\theta$? 
+**¿Qué características debe cumplir $\hat{\theta}$ para concluir que es un buen estimador de la cantidad desconocida $\theta$?**
 
 En la corriente de la estadística matemática resolvemos la pregunta anterior de la siguiente manera:
 
@@ -129,16 +129,17 @@ En la corriente de la estadística matemática resolvemos la pregunta anterior d
   1. Es una *estadística* (función de los datos) **SUFICENTE**: Cumple el criterio de factorización de Fisher-Neyman
   2. Es **INSESGADO**: $\mathbb{E}[\hat{\theta}] = \theta$
   3. Es **CONSISTENTE EN ERROR CUADRÁTICO MEDIO** $\epsilon = \theta - \mathbb{E}[\hat{\theta}] \longrightarrow 0$ conforme $n \longrightarrow \infty$ es decir converge en probabilidad al verdadero valor conforme la muestra se hace más grande
-  4. Es **EFICIENTE** su varianza en el límite alcanza la menor varianza posible (En otras palabras alcanza la cota inferior de Crámer y Rao)
+  4. Es **EFICIENTE** su varianza alcanza la menor varianza posible (En otras palabras alcanza la cota inferior de Crámer y Rao)
   5. Es el estimdor de varianza mínima de entre tdos los estimdores posibles
   
 Si bien nos gustaría que todos y cada uno de nuestros estimadores cumpliera todas estas características, es más, que nuestro proceso de inferencia nos llevara unívocamente a estimadores con ests cracterístiscas, una de las críticas más grandes a la escuela frecuentista es que en la mayoría de los casos esto no sucede.
 
 ## Estimación Puntual {.tabset}
 
-Considere una muestra $\underline{X}_{(n)}$ tal que $x_i \sim N(\mu, \sigma^2)$, $\mu$ y $\sigma^2$ desconocidos. ¿Cómo hacemos inferencia sobre estos parámetros?
+Considere una muestra $$\underline{X}_{(n)}$$ 
+tal que $x_i \sim N(\mu, \sigma^2)$, $\mu$ y $\sigma^2$ desconocidos. ¿Cómo hacemos inferencia sobre estos parámetros?
 
-Si bien en la estadística matemática existen varias técnicas *ad-hoc* la principal herramienta de inferencia la propuso Ronald A. Fisher y parte de algo conocido como el **principio de máxima verosimilitud**. En palabras llanas, este principio sugiere que $\hat{\theta}$ es el valor que haga **más probable** la manifestación aleatoria de la muestra con la que estamos tratando. La propuesta de Fisher para hacer inferencia paramétrica es **maximizar** la *función de verosimilitud* $\mathbb{L}[\theta ; \underline{X}_{(n)}]$
+En la estadística matemática existen varias técnicas *ad-hoc*, sin embargo, la principal herramienta de inferencia, propuesta por Ronald A. Fisher, parte de algo conocido como el **principio de máxima verosimilitud**. En palabras llanas, este principio sugiere que $\hat{\theta}$ es el valor que haga **más probable** la manifestación de la muestra con la que estamos tratando. La propuesta de Fisher para hacer inferencia paramétrica es **maximizar** la *función de verosimilitud* $\mathbb{L}[\theta ; \underline{X}_{(n)}]$
 
 La notación sugiere, inituitivamente, que el problema de maximización tiene como función objetivo a $\mathbb{L}$ *como si* la denisdad conjunta de la muestra fuera una función de los datos y no del parámtero. Debe llamar la atención que el lingüe *problema de maximización* (como un criterio de optimalidad) y *función objetivo* se toman directamente del cálculo y son precisamente estas las directrices "matemáticas" del proceso de inferencia, razón por la cual se le da el nombre de "Estadística Matemática".
 
@@ -148,17 +149,17 @@ Ahora bien, definimos la función de verosimilitud como $$\mathbb{L}[\theta ; \u
 
 Si además nuestra muestra es **independiente** (en los subsecuente nos referiremos a $\underline{X}_{(n)}$ como una **muestra aleatoria**, es decir una colección de variables aleatorias independientes identicamente distribuidas), la verosimilitud/función de densidad conjunta está dada por:
 
-$$f(\underline{X}_{(n)} ; \theta) = f(\underline{X}_{(n)} ; \theta)$$
+$$f(\underline{X}_{(n)} ; \theta) = \prod f(x_i ; \theta)$$
 
-  >> Aunque el concepto de muestreo aleatorio parece trivial fue una de las grandes aportaciones de Fisher a la estadística
+Aunque el concepto de muestreo aleatorio parece trivial fue una de las grandes aportaciones de Fisher a la estadística en el área del diseño experimentar. Iniciar el experimento conun muestro de esta naturaleza es lo soporta la hipótesis $i.i.d$.
   
-Continuenado con nuestro ejemplo si tenemos un muestreo normal independiente la verosimilitud está dada por la siguiente expresión:
+Continuenado con nuestro ejemplo, si tenemos un muestreo normal independiente la verosimilitud está dada por la siguiente expresión:
 
 $$f(\underline{X}_{(n)} ; \theta) = \prod_{i = 1}^n (2 \pi \sigma^2)^{-\frac{1}{2}} e^{-\frac{(x_i - \mu)^2}{2 \sigma^2}} = (2 \pi \sigma^2)^{-\frac{n}{2}} e^{-\frac{\sum (x_i - \mu)^2}{2 \sigma^2}}$$
 
-Lo que nos resta, de acuerdo con el procedimiento propuesto por Fisher es maximizar la función haciendo uso del cálculo diferencial.
+Lo que nos resta, de acuerdo con el procedimiento sugerido por Fisher es maximizar la función haciendo uso del cálculo diferencial.
 
-Para las familias exponenciales es conveniente aplicar el logaritmo a la verosimilitud y operar el problemaa e maximización equivalente de la *log-verosimilitud* (Simplemente hace el algebra más sencilla). Así la log verosimiltud $\mathcal{l}(\theta)$ está dada por: $$\mathcal{l}(\theta) = -\frac{n}{2}ln(2\pi \sigma^2) -\sum\frac{(x_i - \mu)^2}{2\sigma^2}$$
+Para las familias exponenciales es conveniente aplicar el logaritmo a la verosimilitud y operar el problema equivalente. En este caso se busca maximizar la *log-verosimilitud* (Simplemente hace el algebra más sencilla). Así la log verosimiltud $\mathcal{l}(\theta)$ está dada por: $$\mathcal{l}(\theta) = -\frac{n}{2}ln(2\pi \sigma^2) -\sum\frac{(x_i - \mu)^2}{2\sigma^2}$$
 
 ### Estimación puntual de la media
 
@@ -189,7 +190,7 @@ Según el criterio de factorización de Fisher-Neyman
 
   > Sea  $f_(x; \theta)$ entonces $T = T(\underline{X}_{(n)})$ es un estadístico suficiente para $\theta$ si y solo si se puden encontrar dos funciones no-negativas $g$ y $h$ tales que: $$f(x; \theta) = h(x)g_{\theta}(T(x))$$
   
-Es decir si si se puede descompner la densidad de tal suerte que depende solo de un factor $h(x)$ que no dependa $\theta$ y otra función $g$ que solo dependa de los datos a través de $T(x)$
+Es decir si podemos descompner la densidad conjunta de tal suerte que dependa de un factor $h(x)$ que no dependa $\theta$ y otra función $g$ que solo dependa de los datos a través de $T(x)$
 
 Para nuestro ejemplo
 
@@ -210,7 +211,7 @@ Por lo que es trivial observar que el vector $\hat{\theta}= (\overline{x}. \hat{
   
   - $\hat{\sigma}^2: \mathbb{E}[\hat{\sigma}^2] = \mathbb{E}[\frac{\sum(x_i - \overline{x})^2}{n}] = \mathbb{E}[\sum x_i^2 - N \overline{x}^2 = \mathbb{E}[x^2] - \mathbb{E}[\overline{x}^2] = \frac{n-1}{n} \sigma^2$
   
-Noten que el estimador $\hat{\sigma}^2$ no es insesgado pero $\tilde{\sigma}^2 = \frac{n}{n-1}\hat{\sigma}^2$ si lo es
+Noten que el estimador $\hat{\sigma}^2$ **no** es insesgado pero $\tilde{\sigma}^2 = \frac{n}{n-1}\hat{\sigma}^2$ si lo es
 
 ### Consistencia 
 
@@ -238,19 +239,19 @@ Aunque se omite en estas notas, tanto $\hat{mu}$ y $\tilde{\sigma}^2$ son estima
 
 ## Comentarios
 
-A pesar que la inferencia vía Máxima Verosimilitud funciona la mayoría de las veces no garantiza el insesgamienta ni la eficiencia y hay casos en los que es necesario buscar un estimador **no-verosímil** como la $x_{[n]}$ (la enésima estadística de órden) para el parámetro $b$ de una uniforme. Además hay 2 estimdores no-máximo-verosímiles en el caso log-normal que funcionan mejor en la práctica. Además muchas veces la verosimilitud no tiene forma cerrada en muchos casos (t, Fiser, Ji-cuadrada, Gamma) y se requiere optimización numérica de la verosimilitud sin necesidad de considerar modelos multivariados.
+A pesar que la inferencia vía Máxima Verosimilitud funciona la mayoría de las veces no garantiza el insesgamienta ni la eficiencia. Hay casos en los que es necesario buscar un estimador **no-verosímil** como: la $x_{[n]}$ (la enésima estadística de órden) para el parámetro $b$ de una uniforme; existen 2 estimdores no-máximo-verosímiles en el caso log-normal que funcionan mejor en la práctica. Además la derivada de la verosimilitud no tiene forma cerrada en muchos casos (t, F, Ji-cuadrada, Gamma) y se requiere optimización numérica de la verosimilitud aun sin necesidad de considerar modelos multivariados o más complejos.
 
-Generalmente modelos complejos implican un *trade-off* entre estas características deseables de nuestros estimadores.
+Generalmente modelos complejos implican un *trade-off* entre estas características *deseables* de nuestros estimadores.
 
 # Estimación por regiones
 
 Ocurre que no importa si estámos en en el caso discreto o el continuo (particularmente porque en el caso continuo los átomos del soporte tienen probabilidad 0) la probabilidad de que nuestra estimación puntual sea exactamente el valor del parámetro desconcoido es nula. Por esta razón interesa **estimar por regiones** al parámtro de interés.
 
-Así, se dice que $A \quad \subseteq \quad \Theta$ es una **estimación por regiones** de $\theta$ si $A$ se contruye a partir de la muestra y existen razones para suponer que $\theta \quad \epsilon \quad A$. A est contrucción de **intervalos** de la forma $$\theta \quad \epsilon \quad [a(\underline{X})_{(n)},a(\underline{X})_{(n)}]$$ Se les conoce en Estadística Matemática como **intervaloz de confianza**.
+Así, se dice que $A \quad \subseteq \quad \Theta$ es una **estimación por regiones** de $\theta$ si $A$ se contruye a partir de la muestra y existen razones para suponer que $\theta \quad \epsilon \quad A$. A esta contrucción de **intervalos** de la forma $$\theta \quad \epsilon \quad [a(\underline{X}_{(n)}),b(\underline{X}_{(n)})]$$ Se les conoce en Estadística Matemática como **intervalos de confianza**.
 
-Llama la atención que las aseveraciones que se hacen sobre la construcción de esta región sujeta a una muestra **FIJA** no son de naturaleza probabilística ya que se construye dada una muestra **FIJA** y a un estimador $\hat{\theta}$ **FIJO** que no se puede generalizar a todo $\Theta$. Por esta razón se tiene un nivel de **confianza** al nivel $(1-\alpha)$%.
+Llama la atención que las aseveraciones que se hacen sobre la construcción de esta región sujeta a una muestra **FIJA** **NO** son de naturaleza probabilística ya que al observarse la muestra el intervalo queda *¨FIJO** y constituye una construcción especifica dada la muestra observada.Por esta razón se tiene un nivel de **confianza** al nivel $(1-\alpha)$% de que al realizarse una muestra de este fenómeno el $(a -\alpha)$% de las veces el verdadero valor de $\theta$ estará contenido en esta región.
 
-Concpetualmente lo que significa el párrafo anterior es que en límite del experimento de una realización de la muestra $\underline{X}_{(n)} = \underline{x}_{(n)}$ y el estimador $\hat{theta}$ esté fijo se espera con confianza de $(1- \alpha$% el verdadero valor $\theta$ se encuentre en A.
+Concpetualmente lo que significa el párrafo anterior es que en límite del experimento de una realización de la muestra $\underline{X}_{(n)} = \underline{x}_{(n)}$ y el estimador $\hat{\theta}$ esté fijo se espera con confianza de $(1- \alpha$% el verdadero valor $\theta$ se encuentre en A.
 
 ## Método Pivotal {.tabset}
 
@@ -261,12 +262,15 @@ Si bien también para el caso de estimación por regiones existen muchos método
   1. Encontrar una variable pivotal $U$ que es variable aleatoria (v.a) que:
     
       1. $U = h(\underline{X}_{(n)}; \theta)$ (depende de los datos y el parámetro)
-      2. Tiene una función de distribución totalmente conocida $F_{U}(u)$
-      3. $\exist \quad h^{-1}(u)$ para cada muestra fija $\underline{x}_{(n)}$
+      2. Tiene una función de distribución **totalmente** conocida $F_{U}(u)$
+      3. $\exists \quad h^{-1}(u)$ para cada muestra fija $\underline{x}_{(n)}$
       4. U no depende de ninguna otra canitdad desconocidad además de $\theta$
+  
   2. Determinar $a$ y $b$ cantidades conocidas .,. $P[a \leq U \leq b] = 1- \alpha$
+  
   3. Expresar a U en función de $\theta$, esto es: $$P[a \leq h(\underline{X}_{(n)}; \theta) \leq b] = 1- \alpha $$ entonces debe ocurrir $$P[h^{-1}(a,\underline{X}_{(n)}) \leq  \theta \leq h^{-1}(b,\underline{X}_{(n)})] = 1- \alpha $$
-  4. Una vez observada la muestra $\underline{X}_{(n) = \underline{x}_{(n)$ se tiene que $h^{-1}(a,\underline{X}_{(n)}$ y $h^{-1}(b,\underline{X}_{(n)}$ son un número fijo y el intervalo FIJO $[h^{-1}(a,\underline{X}_{(n)},h^{-1}(b,\underline{X}_{(n)}]$ se declara un intervalo de confianza al nivel $(1 - \alpha)$% para $\theta$ 
+  
+  4. Una vez observada la muestra $\underline{X}_{(n)} = \underline{x}_{(n)})$ se tiene que $h^{-1}(a,\underline{X}_{(n)})$ y $h^{-1}(b,\underline{X}_{(n)})$ son un número fijo y el intervalo FIJO $[h^{-1}(a,\underline{X}_{(n)}),h^{-1}(b,\underline{X}_{(n)})]$ se declara un intervalo de confianza al nivel $(1 - \alpha)$% para $\theta$ 
 
 Siguiendo con nuestro ejemplo normal
 
@@ -275,7 +279,7 @@ Sabemos que $x \sim (\mu,  \sigma^2)$, $\frac{(n-1)\tilde{\sigma}^2}{\sigma^2} \
 
 ### IC para la media
 
-$$(\overline{x}) - \mu \sim N(0, \frac{\sigma^2}{n})$$
+$$(\overline{x} - \hat{\mu}) \sim N(0, \frac{\sigma^2}{n})$$
 $\Longrightarrow$
 
 $$\frac{(\overline{x}- \mu) \sqrt{n}}{\sigma} \sim N(0,1)$$
@@ -316,25 +320,18 @@ Se declara un intervalo de confianza al nivel $(1 - \alpha)$% para $\sigma^2$
 
 El método pivotal está limitado porque se pueda encontrar la variable pivotal en cuestión, cosa que muchas veces no sucede. Por esta razón se suele recurrir al TCL.
 
-Además este método exhibe patologías en el caso bernoulli, cociente de medias de dos poblaciones y incluso intervalos de confianza a un nivel $(1- \alpha)$% $<$ 100% que abarcan to el espacio parametral.
+Además este método exhibe patologías en el caso bernoulli, cociente de medias de dos poblaciones o incluso intervalos de confianza a un nivel $(1- \alpha)$% $<$ 100% que abarcan to el espacio parametral.
 
 # Contraste de Hpótesis
 
-La construcción de conocimiento requiere la confrontación de las hipótesis científicas con nueva evidencia disponible, de tal suerte de poder hacer una declaración sobre su validez. En el contexto de estadística paramétrica, una hipótesis es equivalente a cuestionarnos sobre la validez de un **modelo** en específico.
+La construcción de conocimiento requiere la confrontación de las hipótesis científicas con la nueva evidencia disponible, de tal suerte de poder hacer una declaración sobre su validez. En el contexto de estadística paramétrica, una hipótesis es equivalente a cuestionarnos sobre la validez de un **modelo** en específico.
 
-Tal vez una de las discusiones mas acalarodas en el ceno de la escuela frecuentista fue precisamente la que versó sobre un procedimiento aceptable para realizar este procedimiento de aprendizaje y valiación científica. Esta discusión la protaganizaron Ronald A. Fisher contra Jerzy Neyman y Karl Pearson durante la decada de los 30's.
+Tal vez una de las discusiones mas acalarodas en el ceno de la escuela frecuentista fue precisamente la que versó sobre un procedimiento aceptable para realizar este aprendizaje y valiación científica. Esta discusión la protaganizaron Ronald A. Fisher contra Jerzy Neyman y Karl Pearson durante la decada de los 30's.
 
 El acercamiento que estudiaremos en este caso es la teoría de "*Pruebas de Significancia de Hipótesis Nula*" de Neyman-Pearson ya que ofrece **criterios de optimilidad** y en palabras de Jerzy Neyman y Karl Pearson:
 
   > "Without hoping to know whether each separate hypothesis is true or false", the authors wrote, "we may search for rules to govern our behavior with regard to them, in following which we insure that, in the long run of experience, we shall not be too often wrong."
   
-## Hipotesis simple contra simple {.tabset}
-
-Sea una $\underline{X}_{(n)}$ con $X$ con f.d.p.g $f(x;\theta)$, $\theta$ $\epsilon$ $\Theta$ $\subseteq$ $\mathbb{R}^k$. Considere las hipótesis: $$H_0: \theta = \theta_0 \quad vs. \quad H_1: \theta = \theta_1$$
-
-
-$H_0$ se le concoe como la **hipótesis nula** y a $H_1$ se le concoe como la **hipótesis alternativa**. El contraste se realiza a partir de la evidencia que aporta $\underline{X}_{(n)}$. En este contesto las hipótesis son equivalentes a $H_0: f(x) = f(x;\theta_0)$ y $H_1:f(x)=f(x;\theta_1)$.
-
 En el esquema propuesto por Neyman y Pearson se definimos:
 
 ```{r errores}
@@ -349,7 +346,6 @@ tibble(
   ) 
 
 ```
-
 Matemáticamente
 
   - $P(EI) = P[\underline{X}_{(n)} \quad \epsilon \quad \mathcal{C} | f(x) = f(x ; \theta_0)]] = \alpha$
@@ -357,7 +353,18 @@ Matemáticamente
   
 Donde a $\mathcal{C}$ se le conoce como la **región de rechazo** ($\mathcal{C}^c$ se le conoce como la región de aceptación). 
 
-En el contexto de la inferencia estadística el error tipo I es equivalente a "condenar a un acusado inocente", por esta razón la teoría de Neyman-Pearson parte de un nivel fijo de $\alpha$ y minimizar $\beta$. La pregunta que resta es *¿Cómo construir la región de rechazo $\mathcal{C}$*. 
+En el contexto de la inferencia estadística el error tipo I es equivalente a "condenar a un acusado inocente", por esta razón la teoría de Neyman-Pearson parte de un nivel fijo (tolerable) de $\alpha$ y minimizar $\beta$ por lo que no se condena a un inocente a menos que la evidencia en contra de la inocencia sea abrumadora.
+
+La pregunta que resta es *¿Cómo construir la región de rechazo $\mathcal{C}$*. 
+
+## Hipotesis simple contra simple {.tabset}
+
+Sea una $\underline{X}_{(n)}$ con $X$ con f.d.p.g $f(x;\theta)$, $\theta$ $\epsilon$ $\Theta$ $\subseteq$ $\mathbb{R}^k$. Considere las hipótesis: $$H_0: \theta = \theta_0 \quad vs. \quad H_1: \theta = \theta_1$$
+
+
+$H_0$ se le concoe como la **hipótesis nula** y a $H_1$ se le concoe como la **hipótesis alternativa**. El contraste se realiza a partir de la evidencia que aporta $\underline{X}_{(n)}$. En este contesto las hipótesis son equivalentes a $H_0: f(x) = f(x;\theta_0)$ y $H_1:f(x)=f(x;\theta_1)$.
+
+
 
 Para un contraste de hipótesis *simple contra simple* en virtud del **Lemma de Neyman-Pearson** propnemos la región **óptima** $\mathcal{C}$ para el nivel de significancia $\alpha$
 
@@ -370,7 +377,16 @@ Esta región es óptima en el sentido de que minimiza la probabilidad de Tipo II
 
 Considere: $$H_0: \mu = \mu_0 \quad vs \quad H_1: \mu = \mu_1$$
 
-Sea $\Lambda = e^{-\frac{1}{2 \sigma}[\sum (x_i - \mu_0)^2 - \sum(x_i - \mu_1)^2]}$ el **cociente de verosimilitudes**. Operamos hasta que $\lambda$ sea solo una función de la muestra  (buscamos un estadística de prueba) $\Longrightarrow$ 
+Sea $$\Lambda = e^{-\frac{1}{2 \sigma}[\sum (x_i - \mu_0)^2 - \sum(x_i - \mu_1)^2]}$$
+
+Ahora:
+
+  1. Operamos el **cociente de verosimilitudes** hasta que  $\Lambda$ sea solo una función de la muestra  (buscamos un estadístico de prueba)
+  2. Acumulamos todas las constantes en la cantidad desconocida $k$ pudeindo cambiar el sentido de la desigualdad
+  3. Determinamos la distribución muestral del estadístico de prueba (o recurrimos al TCL)
+  4. Determinamos la cantidad $k^* = c$ tal que la probabilidad de error tipo I dado $H_0$ sea precisamente $\alpha$
+  
+$\Longrightarrow$ 
 $$\lambda \leq k$$ $\Longleftrightarrow$ 
 $$\overline{x} > c$$ Más aún 
 $$P(\overline{x} > c | H_0: \overline{x} \sim N(\mu_0, \frac{\sigma^2}{n})) = \alpha$$ $\Longleftrightarrow$ 
@@ -402,9 +418,9 @@ Considere ahora el juego de hipótesis $$H_0: \theta \quad \epsilon \quad A \qua
 
 Sea $$\alpha(\theta) = P[T(\underline{X}_{(n)}) > c |T(\underline{X}_{(n)}) \sim f(x; \theta)] \forall \theta \quad \epsilon \quad A$$
 
-Observamos que $\alpha(\theta)$ es una función monótona de $\theta$, además definimos $$\alpha^* = \sup_{\theta \epsilon A} \alpha(\theta)$$ Por la característica de monotonía ocurre que para hipótesis de la forma $\theta \leq \theta_0$ $\Longrightarrow$ 
+Observamos que $\alpha(\theta)$ es una función monótona de $\theta$ en virtud de la monoticidad de F, además definimos $$\alpha^* = \sup_{\theta \epsilon A} \alpha(\theta)$$ Por la característica de monotonía ocurre que para hipótesis de la forma $\theta \leq \theta_0$ $\Longrightarrow$ 
 $$\alpha^* = \alpha(\theta_0)$$ $\therefore$
-$$\Lambda = \frac{sup_{H_0} \mathbb{L}(\theta: x)}{sup_{H_0 \cup H_1} \mathbb{L}(\theta: x)}$$
+$$\Lambda = \frac{\sup_{H_0} \mathbb{L}(\theta: x)}{\sup_{H_0 \cup H_1} \mathbb{L}(\theta: x)}$$
 Donde:
 
   - $sup_{H_0} \mathbb{L}(\theta: x) = \mathbb{L}(\theta_0; x)$
@@ -413,11 +429,11 @@ Donde:
   
 ## Valores *p*
 
-En la praxis estadística actual, incluso aquella involucrada en el *Machine Learning* y la *Ciencia de Datos*. Existe lo que bien podría llamarsele una mal sana fijación con los $valores \quad p$ como evidencia suficiente en contra de la hipótesis nula.
+En la praxis estadística actual, particularmente aquella involucrada en el *Machine Learning* y la *Ciencia de Datos*. Existe lo que bien podría llamarsele una "mal sana fijación" con los $valores \quad p$ como evidencia suficiente en contra de la hipótesis nula.
 
 Esta mala práctica documentada por la Asociación Americana de Estadística (puedes consultar [aqui](https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf)) no proviene ni siquiera de las teorías en debacle durante la década de los 30.
 
-Elaborando un poca más sobre este punto, aunque Fisher no propuso una regla de rechazo y su teoría al contraste de hipótesis solo tenía como medida cuantitaitiva los $valores \quad p$ sostuvo qe debía rechazar una hipótesis nula unicamente con base en estos.
+Elaborando un poco más sobre este punto, aunque Fisher no propuso una regla de rechazo y su teoría sobre contraste de hipótesis solo tenía como medida cuantitaitiva los $valores \quad p$ sostuvo que debía no rechazarse una hipótesis nula unicamente con base en estos últimos y el investigador debía hacer uso de su juicio.
 
 Matemáticamente $$p = P[T(\underline{X}_{(n)}) >/< c | H_0]$$ Donde el sentido de la desigualdad se puede derivar del procedimiento propuesto por la contrucción de regiones de rechazo vía cociente de verosimilitudes.
 
@@ -425,19 +441,19 @@ En palabras un valor p es:
 
   > La probabilidad de observar resultados tan extremos como aquellos observados con el presupuesto de que la hipótesis nula sea cierta
   
-Para el observador atento, la definición matemática debe sugerir inmediatamente alguna relación con la probabilidad fija de Error Tipo I $\alpha$, es por eso que suele tomarse como punto de referencia precisamente este valor $\alpha$ y la regla de decisión es que el $valor \quad p$ sea "suficientemente más pequeño que" $\alpha$ para rechazar la hipótesis nula.
+Para el observador atento, la definición matemática debe sugerir inmediatamente alguna relación con la probabilidad fija de Error Tipo I $\alpha$. De alguna manera un *valor p* es la probabilidad empírica de erro Tipo I es por eso que suele tomarse como punto de referencia precisamente este valor $\alpha$ y la regla de decisión es que el *valor p* sea "suficientemente más pequeño que" $\alpha$ para rechazar la hipótesis nula.
 
 ## Comentarios
 
-A pesar de que el Lema de Neyman-Pearson garantiza *optimalidad*, tiene la desventaja de que no ajusta manualmente $\alpha$ y $\beta$ lo que puede generar (de nuevo) patologías. Además ocurre que este procedimiento presupone cierta la hipótesis nula, sin embargo, al rechzar/aceptar la misma no nos da infromación sobre la probabilidad de esta.
+A pesar de que el Lema de Neyman-Pearson garantiza *optimalidad*, tiene la desventaja de que no ajusta manualmente $\alpha$ y $\beta$ lo que puede generar (de nuevo) patologías. Además, ocurre que este procedimiento presupone cierta la hipótesis nula, sin embargo, al rechzar/aceptar la misma no nos da información sobre la **probabilidad** de esta.
 
-Con respecto a los $valores \quad p$ tiene cualiad de *surprise reactive* y *sample size sensitive* por lo que su uso indiscriminado rechaza la hipótesis nula sistemáticamente conforme la muestra crece.
+Con respecto a los *valores p* tiene cualiad de ser *surprise reactive* y *sample size sensitive* por lo que su uso indiscriminado rechaza la hipótesis nula sistemáticamente conforme la muestra crece.
 
 # Pronóstico
 
-Continuando con el problema de inferencia, debemos ahora abordar el problema de **pronóstico**. Si bien, desde el punto de vista frecuentista, para hacer estimación puntual basta partir de $x \sim f(x; \hat{\theta})$ y podríamos sentirnos inclinados a hacer lo mismo con la estimación por regiones, esta última debe de incorporar la **incertidumbre** de una observación que aún **no** se ha manisfetado.
+Continuando con el problema de inferencia, debemos ahora abordar el problema de **pronóstico**. Si bien, desde el punto de vista frecuentista, para hacer estimación puntual basta partir de $x \sim f(x; \hat{\theta})$ para hacer estimación puntual. Podríamos sentirnos inclinados a hacer lo mismo con la estimación por regiones, sin embargo, esta última debe de incorporar la **incertidumbre** de una observación que aún **no** se ha manisfetado.
 
-Así, la construcción de un **intervalor de predicción** para la una observación $x^* = x_{n+1}$
+Así, la construcción de un **intervalor de predicción** para la una observación $x^* = x_{n+1}$ por el método pivotal está dado por:
 
 $$x^* - \hat{\mu} \sim N(0, \frac{\sigma^2}{(1 + \frac{1}{n})})$$ $\Longrightarrow$
 
@@ -446,13 +462,13 @@ Finalmente, al observar la muestra, el intervalo **FIJO** de predicción al nive
 
 # Validación de Supuestos
 
-Finalmente nos interesa saber si nuestro supuesto sobre nuestra elección de una determinada familia paramétrica $\mathfrak{F}$ es razonable. Esta no es una pregunta trivial ya que puede ser perfectametne válido ajustar una exponencial o una $\Gamma$, más aún auqnue la diferecnia entre una Normla y una $T$ puede ser sutil en el contexto de la administración de riesgos puede tener implicaciones reelevantes para la toma de decisiones. A continuación se presentan una serie de criterios para decidir sobre una **licitación de modelos**.
+Finalmente nos interesa saber si nuestro supuesto sobre nuestra elección de una determinada familia paramétrica $\mathfrak{F}$ es razonable. Esta no es una pregunta trivial ya que puede ser perfectametne válido ajustar una exponencial o una $\Gamma$. Más aún aunque la diferencia entre una Normal y una $T$ puede ser sutíl, en el contexto de la administración de riesgos puede tener implicaciones reelevantes para la toma de decisiones. A continuación se presentan una serie de criterios para decidir sobre una **licitación de modelos**.
 
-Esta serie de criterios pertence a una discplina en la estadística desafortunadamente conocida **bondad de ajuste** por su traducción literal del inglés ("Goodness of Fit") ¿Qué ajuste es malevolo? La idea general de estas pruebas es buscar *parsimonia* entre la complejidad del modelo y su capacidad de ajustar los datos. 
+Esta serie de criterios pertence a una discplina en la estadística desafortunadamente conocida **bondad de ajuste** por su traducción literal del inglés ("Goodness of Fit"). ¿Qué ajuste es malevolo? La idea general de estas pruebas es buscar *parsimonia* entre la complejidad del modelo y su capacidad de ajustar los datos. 
 
 Este tipo pruebas caen en el dominio del contraste de hipótesis con el siguiente juego de hipótesis: $$H_0: f(x; \theta) = \mathfrak{f}_i(x; \theta) \quad vs \quad H_1: f(x; \theta) = \mathfrak{f}_j(x; \theta)$$
 
-vuelve a ocurrir que el procedimiento no está unficado con la herramienta frecuentista 
+vuelve a ocurrir que el procedimiento no está unficado con la herramienta frecuentista. 
 
 Criterios de **Calidad** de Ajuste
 
@@ -476,7 +492,7 @@ Considere $\underline{X}_{(n)}^p$ y $\underline{X}_{(n)}^e$ tales que $\underlin
 
 Considere además que la inferencia se hace usando el *conjunto de entrenamiento* $\underline{X}_{(n)}^e$.
 
-**Regla de decisión:** Esoger el modelo que maximice la verosmilitud evaluada en el **conjunto de preuba** $\underline{X}_{(n)}^p$.
+**Regla de decisión:** Escoger el modelo que maximice la verosmilitud evaluada en el **conjunto de preuba** $\underline{X}_{(n)}^p$.
 
 Aunque este criterio no tiene el problema del sobreajuste y toma en cuenta incertidumbre de datos no incorporados en el modelo no toma en cuenta la compejidad del mismo. Como regla general en inferencia tendemos a darle preferencia a modelos más sencillos, pero este hecho no se incorpora funcinalmente.
 
@@ -484,24 +500,25 @@ Aunque este criterio no tiene el problema del sobreajuste y toma en cuenta incer
 
 Considere el juego de hipóteis $$H_0: f(x; \theta) = \mathfrak{f}_i(x; \theta) \quad vs \quad H_1: f(x; \theta) \neq \mathfrak{f}_i(x; \theta)$$
 
-Para una muestra **ordenada** de datos Se propone el estadístico de prueba $$A^2 =  -n - S$$
+Para una muestra **ordenada** de datos se propone el estadístico de prueba $$A^2 =  -n - S$$
+
 Donde 
   - $n$ es el tamaño de muestra
   - $S = \sum \frac{(2i -1)}{n} [ln(F(x_i) + ln(1 - F(x_{n + 1-i})))]$ 
 
-**Regla de decisón rechzar:** $H_0$ si la esta´distica de prueba es mayor que el valor crítico $c$ que depende de la distribució nde prueba.
+**Regla de decisón:** Rechzar $H_0$ si la esta´distica de prueba es mayor que el valor crítico $c$ que depende de la distribución muestral del estadístico de prueba.
 
-Este estadístico tiene la desventaja de su complejida y que la distribución muestral del mismo pueda no estar definida. Además solo permite contrastar un modelo consigo mismo y no otra familia paramétrica. Además requiere que la densidad esté acotada.
+Este estadístico tiene la desventaja de su complejidad y que la distribución muestral del mismo pueda no estar definida. Además solo permite contrastar un modelo consigo mismo y no otra familia paramétrica. Es importante que requiere que la densidad esté acotada.
 
 ## Criterio de Kolmogorov smirnoff
 
-Considere el mismo juego de hipótesis la misma muestra ordenada, el prueba de K-S es una prueba *no-paramétrica* que mide la distancia entre la Función de Distribución de probabilidad empírica $Fê$ y la Función de Distribución de Probabilidad Teórica $F$.
+Considere el mismo juego de hipótesis y la misma muestra ordenada, el prueba de K-S es una prueba *no-paramétrica* que mide la distancia entre la Función de Distribución de probabilidad empírica $Fê$ y la Función de Distribución de Probabilidad Teórica $F$.
 
-Se propone el siguiente estadístico de prueba $$D = \max_{1 \leq i \leq n}(F(x_i) - \frac{i -1}{n}, \frac{1}{n} - F(x_i))$$
+Se propone el siguiente estadístico de prueba: $$D = \max_{1 \leq i \leq n}(F(x_i) - \frac{i -1}{n}, \frac{1}{n} - F(x_i))$$
 
-**Regla de decisión:** Rechazar $H_0$ si el esta´distico de prueba es mayor que el valor crítico $c$.
+**Regla de decisión:** Rechazar $H_0$ si el estadístico de prueba es mayor que el valor crítico $c$.
 
-Esta prueba solo puede realizarse para densidades continuas, es sensible a valores en la media y requiere densidades continuas.
+Esta prueba solo puede realizarse para densidades continuas y es sensible a valores en la media.
 
 ## Prueba de Ji-Cuadrada
 
@@ -520,9 +537,9 @@ Este test es un refinamiento de la prueba K-S. Además de que depende severament
 
 ## Criterio de Información de Akaike
 
-Esta técnica se basa en en la **entropía** y es una medida aproximada de la cantidad de infromación perdida al ajustar cierta familia paramétrica $\mathfrak{f}$, particular calculando la divergencia de *Kullback-Leibier*. En este sentido no viene acompañado de un par de hipótesis.
+Esta técnica se basa en la **entropía** y es una medida aproximada de la cantidad de infromación perdida al ajustar cierta familia paramétrica $\mathfrak{f}$. Este estadístico en particular calcula la divergencia de *Kullback-Leibier*. En este sentido no viene acompañado de un par de hipótesis.
 
-Proponemos el estádisco de prueba $$AIC = 2k -2ln(\mathbb{L}(\theta; \underline{X}_{(n)}^e))$$
+Proponemos el estádisco de prueba $$AIC = 2k -2ln(\mathbb{L}(\theta; \underline{X}_{(n)}^p))$$
 
 Donde:
 
@@ -532,10 +549,12 @@ Donde:
 
 ## Criterio de Infromación Bayesiano
 
-Partiendo de la misma base de Teoría de la Infromación, la construcción de este estadístico tiene un argumento baysiano y es un resultado asintótico relacionado con los *facotres de Bayes*.
+Partiendo de la misma base de *Teoría de la Información*, la construcción de este estadístico tiene un argumento bayesiano y es un resultado asintótico relacionado con los *facotres de Bayes*.
 
 Porponemos el estadístico $$BIC = kln(n) - 2ln(\mathbb{L}[\theta; \underline{X}_{(n)}^e])$$
 **Regla de decisión:** Escoger el modelo que minimice BIC.
+
+# La necesidad de una Teoría de Inferencia
 
 
 # Bibliografía
