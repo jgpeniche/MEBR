@@ -312,6 +312,129 @@ Se declara un intervalo de confianza al nivel $(1 - \alpha)$% para $\sigma^2$
 
 **OJO:** Este intervalo no es simétrico. Además pudimos acotar unicamente el límite superioir (ya que la varianza siempre es positiva) y proponer el intervalo $$[0, \frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \alpha)}}]$$
 
+## Comentarios
+
+El método pivotal está limitado porque se pueda encontrar la variable pivotal en cuestión, cosa que muchas veces no sucede. Por esta razón se suele recurrir al TCL.
+
+Además este método exhibe patologías en el caso bernoulli, cociente de medias de dos poblaciones y incluso intervalos de confianza a un nivel $(1- \alpha)$% $<$ 100% que abarcan to el espacio parametral.
+
+# Contraste de Hpótesis
+
+La construcción de conocimiento requiere la confrontación de las hipótesis científicas con nueva evidencia disponible, de tal suerte de poder hacer una declaración sobre su validez. En el contexto de estadística paramétrica, una hipótesis es equivalente a cuestionarnos sobre la validez de un **modelo** en específico.
+
+Tal vez una de las discusiones mas acalarodas en el ceno de la escuela frecuentista fue precisamente la que versó sobre un procedimiento aceptable para realizar este procedimiento de aprendizaje y valiación científica. Esta discusión la protaganizaron Ronald A. Fisher contra Jerzy Neyman y Karl Pearson durante la decada de los 30's.
+
+El acercamiento que estudiaremos en este caso es la teoría de "*Pruebas de Significancia de Hipótesis Nula*" de Neyman-Pearson ya que ofrece **criterios de optimilidad** y en palabras de Jerzy Neyman y Karl Pearson:
+
+  > "Without hoping to know whether each separate hypothesis is true or false", the authors wrote, "we may search for rules to govern our behavior with regard to them, in following which we insure that, in the long run of experience, we shall not be too often wrong."
+  
+## Hipotesis simple contra simple {.tabset}
+
+Sea una $\underline{X}_{(n)}$ con $X$ con f.d.p.g $f(x;\theta)$, $\theta$ $\epsilon$ $\Theta$ $\subseteq$ $\mathbb{R}^k$. Considere las hipótesis: $$H_0: \theta = \theta_0 \quad vs. \quad H_1: \theta = \theta_1$$
+
+
+$H_0$ se le concoe como la **hipótesis nula** y a $H_1$ se le concoe como la **hipótesis alternativa**. El contraste se realiza a partir de la evidencia que aporta $\underline{X}_{(n)}$. En este contesto las hipótesis son equivalentes a $H_0: f(x) = f(x;\theta_0)$ y $H_1:f(x)=f(x;\theta_1)$.
+
+En el esquema propuesto por Neyman y Pearson se definimos:
+
+```{r errores}
+tibble(
+  'Decision' = c('Rechazar H0','Rechazar H1'),
+  'H0 Cierta' = c('Error Tipi I', 'Acierto'),
+  'H1 Cierta' = c('Acierto', 'Error Tipo II')
+) %>% 
+  gt() %>% 
+  tab_header(
+    title = 'Realidad'
+  ) 
+
+```
+
+Matemáticamente
+
+  - $P(EI) = P[\underline{X}_{(n)} \quad \epsilon \quad \mathcal{C} | f(x) = f(x ; \theta_0)]] = \alpha$
+  - $P(EII) = P[\underline{X}_{(n)} \quad \epsilon \quad \mathcal{C}^c | f(x) = f(x ; \theta_1)]] = \beta$
+  
+Donde a $\mathcal{C}$ se le conoce como la **región de rechazo** ($\mathcal{C}^c$ se le conoce como la región de aceptación). 
+
+En el contexto de la inferencia estadística el error tipo I es equivalente a "condenar a un acusado inocente", por esta razón la teoría de Neyman-Pearson parte de un nivel fijo de $\alpha$ y minimizar $\beta$. La pregunta que resta es *¿Cómo construir la región de rechazo $\mathcal{C}$*. 
+
+Para un contraste de hipótesis *simple contra simple* en virtud del **Lemma de Neyman-Pearson** propnemos la región **óptima** $\mathcal{C}$ para el nivel de significancia $\alpha$
+
+   > $$\mathcal{C} \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \Lambda = \frac{\mathbb{L}(\theta_0 ; x)}{\mathbb{L}(\theta_1 ; x)} < k \}$$ con $k$ tal que: $$P(EI) = \alpha \longrightarrow P(\underline{X}_{(n)} \quad \epsilon \quad \mathcal{c} | H_0) = \alpha$$
+
+
+Esta región es óptima en el sentido de que minimiza la probabilidad de Tipo II y depende de la muestra a través de una estadística suficiente
+
+### Media 
+
+Considere: $$H_0: \mu = \mu_0 \quad vs \quad H_1: \mu = \mu_1$$
+
+Sea $\Lambda = e^{-\frac{1}{2 \sigma}[\sum (x_i - \mu_0)^2 - \sum(x_i - \mu_1)^2]}$ el **cociente de verosimilitudes**. Operamos hasta que $\lambda$ sea solo una función de la muestra  (buscamos un estadística de prueba) $\Longrightarrow$ 
+$$\lambda \leq k$$ $\Longleftrightarrow$ 
+$$\overline{x} > c$$ Más aún 
+$$P(\overline{x} > c | H_0: \overline{x} \sim N(\mu_0, \frac{\sigma^2}{n})) = \alpha$$ $\Longleftrightarrow$ 
+$$P[t > \frac{(c - \mu_0) \sqrt{n}}{\tilde{\sigma}}] = \alpha$$ $\therefore$ 
+$$c = t_{1 - \alpha} \frac{\tilde{\sigma}}{\sqrt{n}} + \mu_0$$ Finalmente
+$$\mathcal{C} = \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \overline{x} >  t_{1 - \alpha} \frac{\tilde{\sigma}}{\sqrt{n}} + \mu_\} $$
+
+
+### Varianza 
+
+Considere: $$H_0: \sigma = \sigma_0 \quad vs \quad H_1: \sigma = \sigma_1$$
+
+Sea $\Lambda = (\frac{\sigma^0}{\sigma_1})^{-\frac{n}{2}} e^{- \frac{1}{2}\sum (x_i - \hat{\mu})^2 [\frac{1}{\sigma_0^2} - \frac{1}{\sigma_1^2}]}$
+
+Ahora bien $\Lambda \leq k$ $\Longleftrightarrow$ 
+$$\sum (x_i - \overline{x})^2 > k$$ Pero
+$$ \sum \frac{(x_i - \hat{\mu})^2}{\sigma_0^2} \sim \mathfrak{X}_{(n-1)}^2$$ $\therefore$
+$$P[\frac{(x_i - \hat{\mu})^2}{\sigma_0^2} > c | H_0: \overline{x} \sim N(\mu, \frac{\sigma_0^2}{n})] = \alpha$$ $\Longleftrightarrow$
+$$c = \mathfrak{X}^2_{1-\alpha}$$ Finalmente
+$$\mathcal{C} = \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \tilde{\sigma}^2 >  \frac{\sigma^2_0 \mathfrak{X}^2_{1-\alpha}}{n-1} \}$$
+
+## Hipótesis compuesta contra compuesta
+
+Considere ahora el juego de hipótesis $$H_0: \theta \quad \epsilon \quad A \quad \subseteq \quad \Theta \quad vs \quad H_1: \theta \quad \epsilon \quad A^c \quad \subseteq \quad \Theta$$
+
+¿Podremos *re-utilizar* el Lemma de Neyman-Pearson?
+
+### Cociente de Verosimilitudes Generalizado
+
+Sea $$\alpha(\theta) = P[T(\underline{X}_{(n)}) > c |T(\underline{X}_{(n)}) \sim f(x; \theta)] \forall \theta \quad \epsilon \quad A$$
+
+Observamos que $\alpha(\theta)$ es una función monótona de $\theta$, además definimos $$\alpha^* = \sup_{\theta \epsilon A} \alpha(\theta)$$ Por la característica de monotonía ocurre que para hipótesis de la forma $\theta \leq \theta_0$ $\Longrightarrow$ 
+$$\alpha^* = \alpha(\theta_0)$$ $\therefore$
+$$\Lambda = \frac{sup_{H_0} \mathbb{L}(\theta: x)}{sup_{H_0 \cup H_1} \mathbb{L}(\theta: x)}$$
+Donde:
+
+  - $sup_{H_0} \mathbb{L}(\theta: x) = \mathbb{L}(\theta_0; x)$
+  - $sup_{H_0 \cup H_1} \mathbb{L}(\theta: x) = \mathbb{L}(\hat{\theta}_{MV};x)$
+  - $\hat{\theta}_{MV}$ denota el estimador Máximo Verosímil
+  
+## Valores *p*
+
+En la praxis estadística actual, incluso aquella involucrada en el *Machine Learning* y la *Ciencia de Datos*. Existe lo que bien podría llamarsele una mal sana fijación con los $valores \quad p$ como evidencia suficiente en contra de la hipótesis nula.
+
+Esta mala práctica documentada por la Asociación Americana de Estadística (puedes consultar [aqui](https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf)) no proviene ni siquiera de las teorías en debacle durante la década de los 30.
+
+Elaborando un poca más sobre este punto, aunque Fisher no propuso una regla de rechazo y su teoría al contraste de hipótesis solo tenía como medida cuantitaitiva los $valores \quad p$ sostuvo qe debía rechazar una hipótesis nula unicamente con base en estos.
+
+Matemáticamente $$p = P[T(\underline{X}_{(n)}) >/< c | H_0]$$ Donde el sentido de la desigualdad se puede derivar del procedimiento propuesto por la contrucción de regiones de rechazo vía cociente de verosimilitudes.
+
+En palabras un valor p es:
+
+  > La probabilidad de observar resultados tan extremos como aquellos observados con el presupuesto de que la hipótesis nula sea cierta
+  
+Para el observador atento, la definición matemática debe sugerir inmediatamente alguna relación con la probabilidad fija de Error Tipo I $\alpha$, es por eso que suele tomarse como punto de referencia precisamente este valor $\alpha$ y la regla de decisión es que el $valor \quad p$ sea "suficientemente más pequeño que" $\alpha$ para rechazar la hipótesis nula.
+
+## Comentarios
+
+A pesar de que el Lema de Neyman-Pearson garantiza *optimalidad*, tiene la desventaja de que no ajusta manualmente $\alpha$ y $\beta$ lo que puede generar (de nuevo) patologías. Además ocurre que este procedimiento presupone cierta la hipótesis nula, sin embargo, al rechzar/aceptar la misma no nos da infromación sobre la probabilidad de esta.
+
+Con respecto a los $valores \quad p$ tiene cualiad de *surprise reactive* y *sample size sensitive* por lo que su uso indiscriminado rechaza la hipótesis nula sistemáticamente conforme la muestra crece.
+
+# Pronóstico
+
 
 # Bibliografía
   
