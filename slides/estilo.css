@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Turret+Road:wght@200&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@500&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+
+h1 {
+    font-family: 'Cousine', monospace;
+    font-size: 38px;
+    color: #050A5C;
+}
+
+h2 {
+    font-family: 'Cousine', monospace;
+    font-size: 32px;
+    color: #050A5C;
+}
+
+h3 {
+    font-family: 'Cousine', monospace;
+    font-size: 28px;
+    color: #050A5C;
+}
+
+h4 {
+    font-family: 'Handlee', cursive;
+    font-size: 24px;
+    color: #99003A;
+}
+
+h5 {
+    font-family: 'Handlee', cursive;
+    font-size: 20px;
+    color: #99003A;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    z-index: 2;
+    color: #ffffff;
+    background-color: #008AE8;
+    border-color: #008AE8;
+}
+
+body {
+    font-family: font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.42857143;
+    color: #333333;
+}
+
+blockquote {
+    font-size: 14px;
+    font-family: 'Turret Road', cursive;
+    
+}
+    
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #4458E6;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+        border-bottom-color: rgb(221, 221, 221);
+    border-bottom-color: transparent;
+    cursor: default;
+}
+
+a {
+    color: #4458E6;
+    text-decoration: none;
+}
+    
