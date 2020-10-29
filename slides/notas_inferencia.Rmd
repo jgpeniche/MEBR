@@ -362,10 +362,7 @@ La pregunta que resta es *¿Cómo construir la región de rechazo $\mathcal{C}$*
 
 Sea una $\underline{X}_{(n)}$ con $X$ con f.d.p.g $f(x;\theta)$, $\theta$ $\epsilon$ $\Theta$ $\subseteq$ $\mathbb{R}^k$. Considere las hipótesis: $$H_0: \theta = \theta_0 \quad vs. \quad H_1: \theta = \theta_1$$
 
-
 $H_0$ se le concoe como la **hipótesis nula** y a $H_1$ se le concoe como la **hipótesis alternativa**. El contraste se realiza a partir de la evidencia que aporta $\underline{X}_{(n)}$. En este contesto las hipótesis son equivalentes a $H_0: f(x) = f(x;\theta_0)$ y $H_1:f(x)=f(x;\theta_1)$.
-
-
 
 Para un contraste de hipótesis *simple contra simple* en virtud del **Lemma de Neyman-Pearson** propnemos la región **óptima** $\mathcal{C}$ para el nivel de significancia $\alpha$
 
