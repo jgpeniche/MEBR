@@ -38,7 +38,7 @@ class: title-slide, middle
 
 .pull-left[ 
 # Métodos Estadísticos Bayesianos con R
-## Contraste de Hipótesis
+## Contraste de Hipótesis (Simple vs. Simple)
 ### Gibrán Peniche
 ### v. 0.0.1
 ### 2020-10-19
@@ -160,7 +160,7 @@ tibble(
 
 ---
 
-# Dos teorias
+# Dos teorías
 
 En 1925 Fisher publicó "*Statistical Methods for Research Workers*" donde generalizó las aplicaciones de las *pruebas t* (el problema de dos muestras, coeficientes de regresión lineal, etc). En este texto sugería 5% con un nivel estándar de signficancia y la naturaleza aplicada de su metodología la hicieron sumamente popular
 
@@ -180,17 +180,100 @@ Cabe destacar que la "receta" Neyman-Pearson explicitamente se contruyó buscand
 
 # Contraste de Hipótesis Neyman-Pearson
 
+En palabras de Neyman y Pearson
+
+> "Without hoping to know whether each separate hypothesis is true or false", the authors wrote, "we may search for rules to govern our behavior with regard to them, in following which we insure that, in the long run of experience, we shall not be too often wrong."
+
+---
+
+# Contraste de Hipótesis Neyman-Pearson
+
+En el esquema propuesto por Neyman y Pearson se definimos:
+
+```{r errores}
+tibble(
+  'Decision' = c('Rechazar H0','Rechazar H1'),
+  'H0 Cierta' = c('Error Tipi I', 'Acierto'),
+  'H1 Cierta' = c('Acierto', 'Error Tipo II')
+) %>% 
+  gt() %>% 
+  tab_header(
+    title = 'Realidad'
+  ) 
+
+```
+
+Matemáticamente:
+
+  
+  - $P(EI) = P[\underline{X}_{(n)} \quad \epsilon \quad \mathcal{C} | f(x) = f(x ; \theta_0)]] = \alpha$
+  - $P(EII) = P[\underline{X}_{(n)} \quad \epsilon \quad \mathcal{C}^c | f(x) = f(x ; \theta_1)]] = \beta$
+  - Donde a $\mathcal{C}$ se le conoce como la **región de rechazo** ($\mathcal{C}^c$ se le conoce como la región de aceptación).
+
+---
+
+# Contraste de Hipótesis Neyman-Pearson
+
+En el contexto de la inferencia estadística el error tipo I es equivalente a "condenar a un acusado inocente", por esta razón la teoría de Neyman-Pearson parte de un nivel fijo (tolerable) de $\alpha$ y minimizar $\beta$ por lo que no se condena a un inocente a menos que la evidencia en contra de la inocencia sea abrumadora.
+
+La pregunta que resta es *¿Cómo construir la región de rechazo $\mathcal{C}$*. 
+
+---
+
+# Cociente de Verosimilitudes generalizados
+
+Sea una $\underline{X}_{(n)}$ con $X$ con f.d.p.g $f(x;\theta)$, $\theta$ $\epsilon$ $\Theta$ $\subseteq$ $\mathbb{R}^k$. Considere el juego de Hipótesis $$H_0: \theta \quad \epsilon \quad A \quad vs \quad H_1: \theta \quad \epsilon \quad A^c$$
+
+$H_0$ se le concoe como la **hipótesis nula** y a $H_1$ se le concoe como la **hipótesis alternativa**. El contraste se realiza a partir de la evidencia que aporta $\underline{X}_{(n)}$. En este contesto las hipótesis son equivalentes a $H_0: f(x) = f(x;\theta_0)$ y $H_1:f(x)=f(x;\theta_1)$.
+
+---
+# Cociente de Verosimilitudes generalizados
+
+Definimos:
+
+  - Con $A \subseteq \Theta$ 
+  - $\alpha(\theta) = P[T(\underline{X}_{(n)}) > c |T(\underline{X}_{(n)}) \sim f(x; \theta)] \forall \theta \quad \epsilon \quad A$
+  - En virtud de la monotnia de $F(x; \theta)$ se tiene que  $\alpha^* = \sup_{\theta \epsilon A} \alpha(\theta)$ por lo que ocurre que para hipótesis de la forma $\theta \leq \theta_0$ $\Longrightarrow$ 
+$\alpha^* = \alpha(\theta_0)$
+
+
+---
+
+# Cociente de Verosimilitudes generalizados
+
+En virtud del Lemma de Neyman Pearson definimos la región óptimo de rechazo $\mathcal{C}$ de $H_0$ al nivel de significancia $\alpha$ como: 
+
+$$\mathcal{C} \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \Lambda = \frac{ \sup_{H_0} \mathbb{L}(\theta_0 ; x)}{\sup_{H_0 \cup H_1} \mathbb{L}(\theta_{MV} ; x)} < k \}$$ con $k$ tal que: $$P(EI) = \alpha \longrightarrow P(\underline{X}_{(n)} \quad \epsilon \quad \mathcal{c} | H_0) = \alpha$$
+
+En el caso de hipótesis simple contra simple $$\Lambda = \frac{ \mathbb{L}(\theta_0 ; x)}{ \mathbb{L}(\theta_1 ; x)} < k \}$$
+---
+
+# Cociente de Verosimilitudes generalizados
+
+Ahora:
+
+  1. Operamos el **cociente de verosimilitudes** hasta que  $\Lambda$ sea solo una función de la muestra  (buscamos un estadístico de prueba)
+  2. Acumulamos todas las constantes en la cantidad desconocida $k$ pudeindo cambiar el sentido de la desigualdad
+  3. Determinamos la distribución muestral del estadístico de prueba (o recurrimos al TCL)
+  4. Determinamos la cantidad $k^* = c$ tal que la probabilidad de error tipo I dado $H_0$ sea precisamente $\alpha$
+
+---
+
+# Valores P
+
+Tanto en la propuesta de Fisher como en la propuesta de Neyman Pearon existe algo conocido como *valores p*. 
+
 --
 
-Partiendo del lema de Neyman-Pearson (para contraste de hipótesis simples contra simple) y su generalización (para hipótesis compuestas): 
+Matemáticamente $$p = P[T(\underline{X}_{(n)}) >/< c | H_0]$$
 
-  - *Considere* $H_0: \theta = \theta_0$ *vs* $H_1: \theta = \theta_1$ $\Longrightarrow$ *utilizando el* **cociente de verosimilutudes** *se contruye una* **región de rechazo** *para la hipótesis nula al nivel* $\alpha$, *tal que:*  $$\alpha = P(\Lambda(x) \leq \eta | H_0)$$ Donde $\Lambda(x) = \frac{\mathbb{L}(\theta_0|x)}{\mathbb{L}(\theta_1|x)}$
-  
-  - Entonces $\Lambda(x)$ es el test más potente al nivel $\alpha$
-  
 --
 
-Luego entonces se rechaza la hipótesis nula $\Longleftrightarrow$ si $\Lambda(x) >/< \eta = q_{(f(\alpha),variable \quad pivotal})$
+Dónde $T(\underline{X}_{(n)})$ es la estadística de prueba del contraste de hipótesis.
+
+--
+
+En palabras es la probabilidad de observar resultados así de extremos bajo el supuesto de que la hipótesis nula sea cierta. Algo así como la probabilidad empírica de Error Tipo I.
 
 ---
 
@@ -198,7 +281,7 @@ Luego entonces se rechaza la hipótesis nula $\Longleftrightarrow$ si $\Lambda(x
 
 --
 
-1. Es común en la práctica que solo se atienda a la magnitud de los *valores p* (cosa que tampoco Fisher recoemndaba) y no se verifique la condición del lema de Neyman-Pearson (De hecho existe un pronunciamiento de la ASA precisamente sobre usar únicamente este valor como evidencia) 
+1. Es común en la práctica que solo se atienda unicamente a la magnitud de los *valores p* como evidencia para rechazar $H_0$ (cosa que no Fisher recomendaba) y no se verifique la condición del lema de Neyman-Pearson (De hecho existe un pronunciamiento de la ASA precisamente sobre usar únicamente este valor como evidencia) 
 
 --
 
@@ -218,6 +301,148 @@ class: inverse, center, middle
 # 3
 
 --
- 
 # Contraste de Hipótesis Bayesiano 
+
+---
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+--
+
+Recordemos que en La Teoría de Inferencia Bayesiana, partimos del *problema de de decisión en ambiente de incertidumbre* y concluimos que el criterio **óptimo** de decisión es el de *utlidad esperada máxima* derivado de los 5 axiomas de coherencia.
+
+--
+
+En este sentido elegir entre el juego de hipótesis $\{H_0: \theta = \theta_0, H_1: \theta = \theta_1 \}$ es equivalente a definir un espacio de decisiones $$\mathbb{D} = \{d_1 = f(x, \theta_0), d_2 = f(x, \theta1) \} $$ 
+
+--
+
+Un espacio de eventos inciertos $$\mathfrak{E} =\{E_1 = f(x, \theta) = f(x, \theta_0),E_2 = f(x, \theta) = f(x, \theta_1) \}$$
+
+--
+
+Un espacio de consecuencias $$\mathbb{C} = \{c_{00},c_{01},c_{10},c_{11}\}$$
+
+---
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+En esta representación $c_{00}$ y $c_{11}$ son acierto $\therefore$ $$c_{01} \prec c_{00}, \quad c_{10} \prec c_{00}. \quad c_{01} \prec  c_{11}, \quad c_{10} \prec c_{11}$$
+
+--
+
+Una función de pérdida $$\mathcal{L}(d, E) = \{ l_{00},l_{01},l_{10},l_{11}\}$$
+
+--
+
+Y una media de probabilidad $$P(E) = P[f(x\theta) = f(x, \theta_i)]$$
+
+--
+
+Que define nuestro problema de decisión $$(\prec, \mathbb{D}, \mathbb{C}, \mathfrak{E})$$
+
+---
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+En virtud de que (TEO) 
+
+  > La solución al problema de decisón no cambia ante transformaciones de la utiliad de la forma $$u(d,E) = u(d,E) + g(E)$$
+  
+--
+
+Podemos definir, sin pérdida de generalidad, una pérdida de 0 para los aciertos, esto es: 
+
+$$\mathcal{L}(d, E) = \{ 0,l_{01},l_{10},0\}$$
+
+---
+
+
+---
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+Por lo que rechazamos $H_0$ $\Longleftrightarrow$ $\mathbb{E}\{u(d,E_0)\} < \mathbb{E}\{u(d,E_0)\}$
+
+--
+
+Ante la manifestación de una muestra $\underline{X}_{(n)}$. *a posteriori* se rechaza $H_0$ si 
+
+$$\frac{P[E_0 |\underline{X}_{(n)}]}{P[E_1 |\underline{X}_{(n)}]} < \frac{l_{01}}{l_{10}}$$
+
+--
+
+Donde:
+
+  - $P[E_i |\underline{X}_{(n)}] \frac{P[\underline{X}_{(n)} | E_i] P(E_i)}{P(\underline{X}_{(n)})}$
+  - $P(\underline{X}_{(n)}) = P[\underline{X}_{(n)} | E_i] P(E_i) + P[\underline{X}_{(n)} | E_j] P(E_j)$
+  
+--
+
+Noten que existe una solución a priori extremadamente sencilla dada por $\frac{P(E_1)}{P(E_2)} < \frac{l_{01}}{10}$
+
+--
+
+Además $P[\underline{X}_{(n)} | E_i] = P[\underline{X}_{(n)} | H_i] =\mathbb{L}[ \theta_i | \underline{X}_{(n)}]$
+
+---
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+Haciendo el símil con la propuesta de NEyman y Pearson, proponemos la región de rechazo $\mathcal{C}$ $$\mathcal{C} = \{ \underline{x}_{(n)} \quad \epsilon \quad  \underline{\mathfrak{X}}_{(n)} | \Lambda  = \frac{\mathbb{L}[ \theta_i | \underline{X}_{(n)}]}{\mathbb{L}[ \theta_j | \underline{X}_{(n)}]} < k = \frac{P(E_j) \cdot l_{01}}{P(E_i) \cdot l_{10}}\}$$
+
+--
+
+Notamos que la forma de la región es idéntíca al cociente de verosimilitudes, salvo que la constante $k = k(P(E), \mathcal{L})$ y no solo en función de la *distribución muestral* de la estadística de prueba.
+
+---
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+En el caso $\underline{X}_{(n)}$ con $x \sim N(\mu, \sigma^2)$, ambos parámetros desconocidos. Considere el juego de hipótesis $$H_o: \mu = \mu_0 \quad vs \quad H_1: \mu = \mu_1$$
+
+Según el procedimiento que acabamos de proponer:
+
+--
+
+$$\Lambda = e^{-\frac{1}{2\sigma^2} [\sum(x_i - \mu_0)^2 - \sum (x_i - \mu_1)^2]} = e^{-\frac{n}{ \sigma^2}[  \overline{x} (\mu_0 - \mu_1) - \frac{(\mu_0^2 + \mu_1^2)}{2}]}$$
+--
+
+Por esta razón $$-\frac{n}{ \sigma^2}[  \overline{x} (\mu_0 - \mu_1) - \frac{(\mu_0^2 + \mu_1^2)}{2}] < ln(k)$$
+
+--
+
+Más aún $$\overline{x} > (\frac{(\mu_0^2 + \mu_1^2)}{2} - \frac{n ln(k)}{\sigma})\frac{1}{(\mu_0 - \mu_1)} = c$$
+
+---
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+Pero $$P(\overline{x}) > c | H_0: \overline{X} \sim N(\mu_0 , \frac{\sigma^2}{n})$$
+
+--
+
+Es equivalente a $$P[ t > \mu_0 + \frac{\sqrt{n}}{\tilde{\sigma}}((\frac{(\mu_0^2 + \mu_1^2)}{2} - \frac{n ln(\frac{P(E_1) l_{01}}{P(E_0) l_{10}})}{\sigma})\frac{1}{(\mu_0 - \mu_1)}) | H_0] = \alpha$$
+
+--
+
+Lo cual implica $$(\frac{(\mu_0^2 + \mu_1^2)}{2} - \frac{n ln(\frac{P(E_1) l_{01}}{P(E_0) l_{10}})}{\sigma})\frac{1}{(\mu_0 - \mu_1)} =  \mu_0 + \frac{\sqrt{n}}{\tilde{\sigma}}t_{1- \alpha}$$
+
+---
+
+
+# Contraste de Hipótesis Bayesiano (Simple vs. Simple)
+
+Noten que la regla de decisión:
+
+  - $\overline{x} > (\frac{(\mu_0^2 + \mu_1^2)}{2} - \frac{n ln(\frac{P(E_1) l_{01}}{P(E_0) l_{10}})}{\sigma})\frac{1}{(\mu_0 - \mu_1)}$ Bayesiana
+  - $\overline{x} > \mu_0 + \frac{\sqrt{n}}{\tilde{\sigma}}t_{1- \alpha}$ Freceuntista
+  
+--
+
+Si bien las regiones son similares ocurre que $n \longrightarrow \infty$ en el caso bayesiano tanto como $\alpha$ como $\beta$ tienden a 0 mientras que en el caso frecuentista $\alpha$ queda y $\beta$ tiende a 0.
+
+--
+
+En otras palabras: ¡la prueba se deteriora conforme crece la muestra!
 
