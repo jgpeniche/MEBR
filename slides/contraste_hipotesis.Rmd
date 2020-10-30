@@ -389,7 +389,7 @@ Además $P[\underline{X}_{(n)} | E_i] = P[\underline{X}_{(n)} | H_i] =\mathbb{L}
 
 # Contraste de Hipótesis Bayesiano (Simple vs. Simple)
 
-Haciendo el símil con la propuesta de NEyman y Pearson, proponemos la región de rechazo $\mathcal{C}$ $$\mathcal{C} = \{ \underline{x}_{(n)} \quad \epsilon \quad  \underline{\mathfrak{X}}_{(n)} | \Lambda  = \frac{\mathbb{L}[ \theta_i | \underline{X}_{(n)}]}{\mathbb{L}[ \theta_j | \underline{X}_{(n)}]} < k = \frac{P(E_j) \cdot l_{01}}{P(E_i) \cdot l_{10}}\}$$
+Haciendo el símil con la propuesta de Neyman y Pearson, proponemos la región de rechazo $\mathcal{C}$ $$\mathcal{C} = \{ \underline{x}_{(n)} \quad \epsilon \quad  \underline{\mathfrak{X}}_{(n)} | \Lambda  = \frac{\mathbb{L}[ \theta_i | \underline{X}_{(n)}]}{\mathbb{L}[ \theta_j | \underline{X}_{(n)}]} < k = \frac{P(E_j) \cdot l_{01}}{P(E_i) \cdot l_{10}}\}$$
 
 --
 
@@ -410,7 +410,7 @@ $$\Lambda = e^{-\frac{1}{2\sigma^2} [\sum(x_i - \mu_0)^2 - \sum (x_i - \mu_1)^2]
 
 Por esta razón $$-\frac{n}{ \sigma^2}[  \overline{x} (\mu_0 - \mu_1) - \frac{(\mu_0^2 + \mu_1^2)}{2}] < ln(k)$$
 
---
+---
 
 Más aún $$\overline{x} > (\frac{(\mu_0^2 + \mu_1^2)}{2} - \frac{n ln(k)}{\sigma})\frac{1}{(\mu_0 - \mu_1)} = c$$
 
