@@ -368,14 +368,14 @@ Por lo que rechazamos $H_0$ $\Longleftrightarrow$ $\mathbb{E}\{u(d,E_0)\} < \mat
 
 Ante la manifestación de una muestra $\underline{X}_{(n)}$. *a posteriori* se rechaza $H_0$ si 
 
-$$\frac{P[E_0 |\underline{X}_{(n)}]}{P[E_1 |\underline{X}_{(n)}]} = \frac{P[\underline{X}_{(n)} | E_0] P(E_0)}{P[\underline{X}_{(n)} | E_1] P(E_1)} < \frac{l_{01}}{l_{10}}$$
+$$\frac{P[E_0 |\underline{X}_{(n)}]}{P[E_1 |\underline{X}_{(n)}]} < \frac{l_{01}}{l_{10}}$$
 
 --
 
 Donde:
 
-  - $P[E_i |\underline{X}_{(n)}] = \frac{P[\underline{X}_{(n)} | E_i] P(E_i)}{P(\underline{X}_{(n)})}$
-  - $P[\underline{X}_{(n)} | E_i] = P[\underline{X}_{(n)} | H_i] =P[\underline{X}_{(n)} | \theta_i] =\mathbb{L}[ \theta_i | \underline{X}_{(n)}]$
+  - $P[E_i |\underline{X}_{(n)}] \frac{P[\underline{X}_{(n)} | E_i] P(E_i)}{P(\underline{X}_{(n)})}$
+  - $P(\underline{X}_{(n)}) = P[\underline{X}_{(n)} | E_i] P(E_i) + P[\underline{X}_{(n)} | E_j] P(E_j)$
   
 --
 
