@@ -90,3 +90,86 @@ class: inverse, center, middle
 
 # Contraste de Hipótesis (Compuesta contra Compuesta)
 
+--
+
+Consideremos un $\underline{X}_{(n)}$ con $X$ con f.d.p.g $f(x, \theta)$ con $\theta$ $\epsilon$ $\Theta$ $\subseteq$ $\mathbb{R}^k$.
+
+--
+
+Nos preguntamos por el juego de hipótesis $$H_0: \theta \quad \epsilon \quad A \quad \subseteq \quad \Theta \quad vs \quad H_1: \theta \quad \epsilon \quad A^c \quad \subseteq \quad \Theta$$
+--
+
+Nos dimos cuenta que el problema de Contraste de Hipótesis es equivalente a un problema de decisión $$(\prec, \mathbb{E}, \mathbb{C}, \mathfrak{C})$$
+
+--
+
+Equivalente a $\mathbb{D} = \{d_i, d_j \}$ tal que $d_k = H_k: f(x,\theta) =f(x, \theta \epsilon A^k)$
+
+--
+
+Además si definimos una función de pérdida $\mathcal{L}(c(d_k, \theta)) = l_0(\theta)$
+
+---
+
+# Contraste de Hipótesis (Compuesta contra Compuesta)
+
+En el caso **continuo** forzozamente la pérdida esperada *a posteriori* queda definida como $$\mathbb{E}[\mathcal{L}(d_k,\theta)] = \int_{\Theta} l_k(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta$$
+
+--
+
+En consecuencia la regla decisión del cociente de pérdidas esperadas está dada por $$ \Lambda = \frac{\int_{\Theta} l_i(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta}{\int_{\Theta} l_j(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta} < 1$$
+
+--
+
+A diferencia del cociente de verosimilitudes genralizado $\Lambda = \frac{\sup_{H_i} \mathbb{L}[\theta_i|\underline{X}_{(n)}]}{sup_{H_i \cup H_j} \mathbb{L}[\theta_{MV} | \underline{X}_{(n)}]}$, las verosimilitudes bayesianas están penalizadas por $l_i(\theta)$ con respecto de la medida de probabilidad $P(\theta)$ y no con respecto de los supremos.
+
+---
+
+# Contraste de Hipótesis (Compuesta contra Compuesta)
+
+Si además. al igual que en casi simple contra simple, simplificamos la función pérdida tal que asigne pérdida 0 al acierto y una constante para el error:
+
+
+$$l_k(\theta) = \left\{ \begin{array}{rcl} 0 & \mbox{si} & \theta \epsilon A^k \\ l_k & \mbox{si} & o.c \end{array}\right.$$
+
+--
+
+El cociente se simplifica y está dado por:
+
+$$\Lambda = \frac{l_j \int_{A}  P(\theta | \underline{X}_{(n)}) \partial \theta}{l_i \int_{A^c} P(\theta | \underline{X}_{(n)}) \partial \theta} = \frac{l_j P(\theta \epsilon A)\int_{A}  P(\theta | \underline{X}_{(n)})P(\theta | \theta \epsilon A) \partial \theta}{l_i P(\theta \epsilon A^c) \int_{A^c} P(\theta | \underline{X}_{(n)})P(\theta | \theta \epsilon A^c) \partial \theta}< 1$$
+--
+
+A esta contidad $\Lambda = BF$ tambipen se le conoce cómo **Factor de Bayes** y tiene la desventaja de que la posterior puede no tener forma análitica cerrada y requiere de *integración numérica* pero se puede generalizar para realizar el tipo de contraste $\mathcal{F}_i$ vs $\mathcal{F}_j$ dos familias paramétricas distintas. 
+
+---
+
+# Contraste de Hipótesis (Compuesta contra Compuesta)
+
+A pesar de la discusión que acabamos de desarrollar, en sesiones pasadas concluimos que podíamos realizar pruebas de hipótesis a partir de nuestra *distribución posterior* y la distribución *posterior predictiva*. ¿Podemos hacer esa conjetura a partir de la misma discusión?
+
+--
+
+Ocurre que *a priori* $$\frac{l_j \int_{A} P(\theta) \partial \theta}{l_j \int_{A^c} P(\theta) \partial \theta} = \frac{l_i P(A)}{l_j P(A^c)}<1$$
+
+--
+
+Esto es equivalente a la regla *a posteriori* $\frac{l_i P(A | \underline{X}_{(n)})}{l_j P(A^c | \underline{X}_{(n)})} < 1$
+
+--
+
+Noten que $P(A | \underline{X}_{(n)}) = \int_{A} P(\theta | \underline{X}_{(n)}) \partial \theta = P(\theta \epsilon A | \underline{X}_{(n)})$ que es de hecho la probabilidad posterior de $\theta$ en una región. El caso que discutimos en clase fue el caso particular donde los errores producen la misma pérdida.
+
+---
+
+# Contraste de Hipótesis (Compuesta contra Compuesta)
+
+Desde la perpspectiva frecuentista la expresión $P(\underline{X}_{(n)} | A)$ no tiene sentido en tanto que no determina un modelo p ara los datos que permita el cálculo de probabilidades sino una familia La relación entre la muestra 𝑥𝑛y los valores de 𝜃 se describe a través de un modelo de la forma $P(\underline{X}_{(n)} | \theta)$
+
+--
+
+Esta expresión equiere el valor puntual de 𝜃y aquí cobra especial relevancia la noción de que, para el análisis Bayesiano, el modelo de probabilidad no sólo incluye la componente que describe la variabilidad de los datos, sino también al que describe la incertidumbre sobre el parámetro fijo pero desconocido
+
+---
+
+# Contraste de Hipótesis (Simple contra Compuesta)
+
