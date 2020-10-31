@@ -71,7 +71,7 @@ class: title-slide, middle
   
 --
 
-  3. Hechamos un vistazo a la solución computacional
+  3. Echamos un vistazo a la solución computacional
 
 ---
 
