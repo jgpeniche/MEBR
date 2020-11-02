@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Simulación Estocástica 1
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-10-31
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+
+# La sesión pasada...
+
+--
+
+- Definimos el problema de contraste de hipótesis como un problema de decisión y aplicamos el criterio de pérdida esperada mínima para resolverlos
+
+--
+
+- Justificamos hacer constrate de hipótesis utilizando la posterior y la posterior predictiva
+
+---
+
+# Agenda
+
+--
+  1. Introducir la necesidad de las técnicas de simulación de inferencia Bayesiana
+  
+--
+  
+  2. Definir simulación estocástica
+  
+--
+
+  3. Cadenas de Markov
+
+---
+
+class: inverse, center, middle
+
+# 1
+
+--
+
+# Necesidad de técnicas de simulación de inferencia Bayesiana
+
+---
+
+# Necesidad de técnicas de simulación de inferencia Bayesiana
+
+--
+
+Sabemos que el alcance de los modelos conjugados es limítado, en la práctica normalmente requerimos de modelos mucho más complejos (series de tiempo, espacios parametrales mayores, etc)
+
+--
+
+Durante la segunda mitad del siglo XX (a pesar de que ya contaba con un cuerpo axiomático formal) esta situación fue la pared con la que se encontró la estadistica bayesiana y previno que se utilizara para algo más que experimentos probeta
+
+--
+
+La solución a este problema (ya con algo de potencia computacional disponible) surgió en en 1984 cuando los hermanos Stuart y Donald Geman en 1984 desarrollaron una variante del Método de Monte Carlo para restaurar imágenes al que llamaron **Gibbs Sampler**
+
+---
+
+# Necesidad de técnicas de simulación de inferencia Bayesiana
+
+Lo curioso es que ya se había descubierto este algoritmo por el ruso Valentin Turchin en 1971 y además la Teoría de Cadenas de Markov de Andrei Andreyevich Markov estaba disponible desde 1906 para estimar la frecuencia de las vocales en el poema *Onegin*
+
+--
+
+Sin embargo fueron Alan Gelfand y Adrian Smith quienes pusieron estas dos toerías en contexto y en 1990 publicaron "*Sampling-Based Approaches to Calculating Marginal Densities*" donde se ponía a andar la maquinaria que tanta falta hacía para el análisis bayesiano
+
+--
+
+Otro fun fact que es que ya se hablía publicado, en 1970, una generaliación del algoritmo Metrópolis-Hastings propuesto en 1949.
+
+--
+
+Tooo estaba ahí, solo faltaba alguien que pusiera todas las piezas juntas, solo era cuestión de timepo... en palabras de Gelfang "solo tuvimos suerte"
+
+---
+
+class: inverse, center, middle
+
+# 2
+
+--
+
+# Simulación Estocástica
+
+---
+
+# Simulación Estocástica
+
+--
+
+Simulación se refiere al tratamiento de un problema real a través de su reproducción en un ambiente controlado (en nuestro caso una computdora)
+
+--
+
+En particular cuando el problema se manifiesta a través de sistemas que no pueden ser descritos con una regla exacta sino a través de una distribución de probabilidad estamos en el dominio del problema de inferencia estadística
+
+--
+
+Recuerden que el problema que estamos tratando de resolver es ¿cómo se comporta `\(P(\theta| \underline{x}_{(n)})\)` cuando no tiene forma analitica cerrada?
+
+--
+
+Aprximar `\(P(\theta| \underline{x}_{(n)})\)` vía Métodos de Monte Carlo tiene las cualidades de estar respaldada fuertemente por resultados de probabilidad como la ley de los grandes números además de que se puede medir probabilisticamente el error de estimación en todo momento
+
+--
+
+Solo el tiempo y el requerimiento computacional limitan lo que podría ser un experimento virtualmente libre de error con una muestra suficientemente grande
+
+---
+
+class: center, middle, inverse
+
+# 3
+
+--
+
+# Cadenas de Markov
+
+---
+
+# Cadenas de Markov
+
+--
+
+
+En términos muy generales una cadena de Markov son procesos que describen trayetorias donde las cantidades sucesivas se describen probabilisticamente en términos de sus predesosores inmediatos.
+
+--
+
+En muchos casos esto procesos tienden al equilibrio y en el límite siguen una distribución **invariante**.
+
+--
+
+Las técnicas MCMC ( por sus siglas en inglés Monte Carlo Markov Chain) permiten simular de cierta distribución introduciendola la distrubción invariante de la cadena y simular de la cadena hasta que esta tienda al equilibrio
+
+
+---
+
+# Cadenas de Markov; Introducción formal
+
+--
+
+Definimos un procesos estocástico como una **colección de variables aleatorias** `\(\{ \theta^{(t)} : t \ \epsilon \ T\}\)` con espacio de estados `\(S\)` y con índice (o parámetro) `\(T\)`
+
+--
+
+En nuestro caso `\(T\)` es un conjunto discreto numerable y `\(S \ \subseteq \ \mathbb{R}^d\)` que representa el **soporte** `\(\Omega\)` de una variable aleatoria
+
+--
+
+Este proceso cumple la *propiedad de Markov*: Dado el estado presente, los estados futuro y pasados de la cadena son independientes:
+
+  - `\(P(\theta^{(n+1)} = y | \theta^{(n)} = x, \theta^{(n-1)} = x_{n-1}, ... , \theta^{(0)} = x_0) = P(\theta^{(n+1)} = y | \theta^{(n)} = x) \ \forall \ x_0, ..., x_{n-1}, y \ \epsilon \ S\)`
+  
+--
+
+O equivalentemente:
+
+  - `\(\mathbb{E}[f(\theta^{(n)}) | \theta^{(m)}, ... , \theta^{(0)} ] = \mathbb{E}[\theta^{(n)} | \theta^{(n)}] \ \forall\)` función acotada `\(f\)` y `\(n &gt; m \geq 0\)`
+  
+---
+
+# Cadenas de Markov; Introducción formal
+
+Además es un proceso **homogéneo** (las proabilidades no dependen de `\(n\)`) en cuyo caso cumple:
+
+--
+  - `\(\forall \ x \ \epsilon \ S, \ P(x, \cdot)\)` en una función de probabilidad sobre `\(S\)`
+  
+--
+
+  - `\(\forall \ A \ \subseteq S\)` la función `\(x \mapsto P(x,A)\)` se puede evaluar
+  
+--
+
+Definimos además la **probabilidad de transición** `\(P(x,y)= P(\theta^{(n+1)} = y | \theta^{(n)} = x)\)` 
+
+Así la **matriz de transición** o **Matriz estocástica** `\(P\)`, sobre el espacio de estados `\(S = \{x_1,x_2,...\}\)`, cuya `\((i,j)\)` entrada es `\(P(x_i,x_j)\)` está dada por: 
+
+`$$\left[ \begin{array}{cc} P(x_1,x_1) &amp; ... &amp; P(x_1,x_r) \\ \vdots &amp;  &amp; \vdots \\ P(x_r,x_1) &amp; ... &amp; P(x_r,x_r) \end{array} \right]$$`
+
+
+---
+
+# Cadenas de Markov; Introducción formal
+
+Estas matrices tienen algunas cualidades interasantes:
+
+--
+
+  - Sus filas suman a 1
+  
+--
+
+  - La probabilidad de transición del estado `\(x\)` a estado `\(y\)` en `\(m\)` pasos está dada por `\(P^m(x,y) = P(\theta^{(m)} = y | \theta^{(0)} = x )= \sum_{1} \cdots \sum_{m-1} P(x,x_1)P(x_1,x_2) \cdots P(x_{m-1},y) = \prod_{1}^m P = P^{m-1} P\)` ($P^{n+m} = P^nP^m$)
+  
+--
+
+La distribución marginal del n-ésimo estado de la cadena queda definida por el vector fila `\(\pi^{(n)}\)` con elementos `\(\pi^{(n)}(x_i) \ \forall \ x_i \ \epsilon \ S\)`. Si `\(n = 0\)` a se le concoe como **distribción inicial**
+
+--
+
+  - Lo anterior implica que `\(\pi^{(n+1)} = \pi^{(0)}P^n = \pi^{(n-1)}P\)`
+
+---
+
+# Cadenas de Markov: Más definiciones
+
+--
+
+  - La probabilidad de cualquier evento `\(A \ \subseteq \ S\)` de una cadena que inicia en estado `\(x\)` está dada por `\(P_x(A)\)` y su tiempo de golpe `\(T_A = min \{n \geq 1 : \theta^{(n)} \ \epsilon \ A \}\)`. 
+
+--
+
+  - La probabilidad de la cadena que inicia en elestado `\(x\)` y alcance el estado `\(y\)` en cualquier paso posterior `\(P_x(T_y &lt; \infty) = \rho_{x,y}\)`
+
+--
+
+  - El **número de visitas de la cadena a estado `\(y\)`** `\(N(y) = \# \{n \geq 0: \theta^{(n)} = y \} = \sum_{n = 1}^{\infty} I(\theta^{(n)} = y)\)`
+  
+--
+
+  - Ocurre que `\(\mathbb{E}[T_y | \theta^{(0) = x} \sum_{n=1}^{\infty} P_x(T_y &gt; n)\)` y `\(\mathbb{E}[N(y) | \theta^{(0)} = x] = \sum_{n = 1}^{\infty} P^n(x,y)\)`
+  
+--
+
+  - Se dice que un estado es **recurrente** si `\(\rho_{y,y} =1\)`. Además `\(P_x(N(y) = \infty) = 1\)` y `\(\mathbb{E}[N(Y) | \theta^{(0)} = x] =  \infty \ \forall \ x \ \epsilon \ S\)`
+  
+--
+
+  - Se dice que es **transitivo** si tiene probabibilidad positiva de no regresar a ese estado `\(\rho_{y,y} &lt; 1\)`. Además `\(P_x(N(y) &lt; \infty) = 1\)` y `\(\mathbb{E}[N(Y) | \theta^{(0)} = x] = \frac{\rho_{xy}}{1 - \rho_{cy}} &lt; \infty \ \forall \ x \ \epsilon \ S\)`
+  
+--
+
+  - Cuando la cantidad `\(T_y\)` es finita (ya que proviene de un estado recurrente) si su media `\(\mu_y &lt; \infty\)` se dice que el estado es **recurrente positivo** y es reelevante para la convergencia
+  
+---
+
+# Cadenas de Markov: Descomponiendo el espacio de Estados
+
+--
+
+Las posibles descomposiciones de S entre estados recurrentes y transitorios es importante par enunciar la última propiedad de las cadenas de Markov, la **irreducibilidad**
+
+--
+
+  - Para un par de estados se dice que el estado `\(x\)` llega al estado `\(y\)` ($x \rightarrow y$) si `\(\rho_{xy} &gt; 0\)` o equivalentemente `\(P^n(x,y) &gt; 0\)` para algún  `\(n &gt; 0\)` 
+  
+--
+
+  - U un conjunto de estados `\(C \ \subseteq \ S\)` se dice si es cerrado si `\(\rho_{xy} = 0 \ x  \ \in \ C\)` y `\(y \ \notin \ C\)`
+  
+--
+
+Se dice que la cadena es **irreducible** si `\(x \rightarrow y \ \forall \ x,y \ \in \ C\)` (Si es `\(s\)` es irreducible)
+
+---
+
+# Cadenas de Markov: Descomponiendo el espacio de Estados
+
+
+Además esto implica que si `\(C \ \subseteq S\)` es cerrado, finito e irreducible todos los estados de `\(C\)` son recurrentes
+
+--
+
+Si el espacio conjunto de estados recurrentes `\(S_R\)` es distinto del vacio, se puede escribir como la unión disjunta de estados cerrados e irreducibles. Una vez que la cadena visita este estado se queda ahí para siempre y la **probabilidad de absorción del estado `\(y \in C\)`** está dada por `\(\rho_{xy} = p_C(x) = P_x(T_C &lt; \infty) = \sum_{y \in C}P(x,y) + \sum_{y \in S_T} P(x,y)P_C(y), \ x \ \in S_T\)`
+
+---
+
+# Cadenas de Markov: Distribución Estacionaria
+
+--
+
+Recordamos que en el contexto de simulación, nos interesa lo que sucede en equilibrio cuando `\(n \longrightarrow \infty\)`
+
+--
+
+Se dice que `\(\pi\)` es una distribución estacionaria de una cadena con matriz de probabilidades de transición `\(P\)` si: `$$\sum_{x \in S} \pi(x) P(x,y), \ \forall y \ \in \ S$$`
+
+--
+
+Cuando la cadena alcaza estado ( `\(\pi = \pi P\)` ) retiene esta distribución en todo paso subsecuente, razón por la cual a esta distribución se le llama invariante o distribución de equilibrio
+
+---
+
+# Cadenas de Markov: Distribución Estacionaria
+
+Más aún si es que esta distribución existe `$$\lim_{n \to \infty} P^n(x,y) = \pi(y)$$`
+
+--
+
+Sin importar la distribución en el estado `\(n\)` conforme `\(n \longrightarrow \infty\)` la cadena se aproxima a la distribución límite
+
+---
+
+# Cadenas de Markov: Aperiodicidad y Ergodicidad
+
+--
+
+Definimos el periodo de un estado `\(x\)`, `\(d_x\)` como el máximo común divisor de  `$$\{n \geq 1 : P^n(x,x) &gt; 0 \}$$`
+
+--
+
+  - Se dice que el estado es aperiódico si `\(d_x = 1\)` ($P^n(x,x) &gt; 0$)
+  
+--
+
+  - Si además el estado es recurrente positivo, se dice que el estado es ergódico
+  
+--
+
+  - Una cadena es aperiódica y ergodica si todos sus estados son aperiódicos y ergódicos
+  
+---
+
+# Cadenas de Markov: Convergencia a la distribución límite
+
+**TEO**
+
+
+  &gt; 
+  Sea `\(\{ \theta_{(n)} \}_{n \geq 0}\)` una cadena de Markov **homogenea**, **irreducible**, y **recurrente positiva** con distribución de equilibrio `\(\pi\)`
+  Si la cadena es aperiodica y ergódica `\(\Longrightarrow\)` `$$\lim_{n \to \infty} ||P^n(x, \cdot) - \pi( \cdot) || = 0$$`
+  `\(\forall \ x \ \in \ S\)`
+  
+---
+
+# Cadenas de Markov: Resultados límite
+
+--
+
+La propiedad de ergodicidad no es trivial, ya que es el prespuesto de los siguientes teoremas equivalente a la ley de los grandes números y Teorema del Límite Central para Cadenas de Markov especialmente relevantes en el contexto de simuación
+
+--
+
+**TEO ERGÓDICO** ( `\(\sim\)` Ley de Grandes Números)
+
+  &gt; Sea `\(\{ \theta_{(i)} \}_{n \geq 0}\)` una cadena de Markov homogenea, irreducible, aperiodica y ergódica `\(\Longrightarrow\)` el **promedio ergódico** de la función real `\(t(\theta)\)` es la *media muestral* `\(\overline{t}(\theta) = \frac{1}{n} \sum_{i=1}^n t(\theta^{(i)})\)`. Si además, `\(\mathbb{E}_{\pi}[t(\theta)] &lt; \infty\)` para la distribución única `\(\pi \ \Longrightarrow\)` `$$\lim_{n \to \infty} \overline{t}_n = \mathbb{E}_{\pi}[t(\theta)]$$`  
+  
+Este resultado implica que los promedios ergódicos de observaciones de la cadena son estimadores **consistentes** (en ECM) de distribución límite `\(\pi\)` **a pesar de su dependencia**
+
+---
+
+# Cadenas de Markov: Preeliminares TLC
+
+--
+
+Definimos
+
+**Ergodicidad Geométrica**
+
+  &gt; Una cadena se dice ergódica geométricamente si `\(\exists 0 \leq \lambda &lt; 1\)` y una función real integrable `\(M(x)\)` tal que: `$$|| P^(x, \cdot) - \pi(\cdot) \leq M(x) \lambda^n$$`
+  
+`\(\forall \ x \ \in \ S\)`
+
+--
+
+Si además `\(M\)` no depende de `\(x\)` se le conoce como ergodicidad uniforme
+
+--
+
+Además a la menor `\(\lambda\)` que satisface la propiedad se le concoe como **la tasa de convergencia**
+
+---
+
+# Cadenas de Markov: Preeliminares TLC
+
+--
+
+  - Sea `\(t^{(n)} =t(\theta^{(n)}) =Cov(t^{(n)}, t^{(n+k)} ) = \gamma_k\)` la autocovarianza de orden `\(k\)` ($k \geq 0$)
+
+--
+
+  - Sea `\(Var[t^{(n)}] = \sigma^2\)` y la autocorrelación de orden `\(k\)` como `\(\rho_k = \frac{\gamma_0}{\sigma}^2\)`
+
+--
+
+  - Sea `\(Var_{\pi}[\overline{t}_n] = \frac{\tau_n^2}{n}\)`
+
+--
+
+Ocurre que `$$\tau^2_n = \sigma^2 (1 + 2 \sum_{k = 1}^{n-1} \frac{n-k}{n} \rho_k)$$`
+
+--
+
+Si `\(n \longrightarrow \infty \ \tau_n^2 \longrightarrow \tau^2\)` donde: `$$\tau^2 = \sigma^2 (1 + 2 \sum_{k =1}^{\infty} \rho_k)$$` 
+
+---
+
+# Cadenas de Markov: Preeliminares TLC
+
+La serie de autocrrelaciones es sumable el término entre parentesis de la primera ecuasión se le conoce como **factor ineficiencia/autocorrelación de tiempo integrada** y mide que tan lejos están `\(t^{(n)}\)`'s están de ser una **muestra aleatoria** (i.i.d) y cuanta `\(Var_{\pi}[\overline{t}_n]\)` incrementa por eso
+
+--
+
+Así podemos derivar el **tamaño efectivo de muestra**
+
+  &gt; `$$n_{eff} = \frac{n}{1+2 \sum_{k =1}^{\infty} \rho_k}$$`
+  
+Que se puede entender como el tamaño de `\(\underline{X}_{(n)}\)` con la misma varianza ( `\(Var[\underline{t}_n] = \frac{\sigma^2}{n_{eff}}\)` )
+
+--
+
+OJO: `\(Var_{\pi}[t(\theta)] = \sigma^2 \neq \tau^2 = Var[\sqrt{n} \underline{t}]\)`, amabas son medidas de variablabilidad, pero la primera es con respecto de la distribución límite y la segunda es la incertidumbre del proceso de promediado
+
+---
+
+# Cadenas de Markov: TLC
+
+--
+
+**TEO** ( `\(\sim\)` TLC)
+
+  &gt; 
+  Sea `\(\{ \theta^{(n)} \}_{n \geq o}\)` un cadena uniformemente (geométricamente) ergódica y `\(t^2(\theta)( t^{2 + \epsilon}(\theta))\)` es integrable con respecto a `\(\pi\)` (para algún `\(\epsilon &gt; 0\)`) `\(\Longrightarrow\)` `$$\sqrt{n} \frac{\overline{t}_n - \mathbb{E}_{\pi}[t(\theta)]}{\tau}= \sqrt{n_{eff}} \frac{\overline{t}_n - \mathbb{E}_{\pi}[t(\theta)]}{\sigma} \xrightarrow{d} N(0,1))$$`
+  Conforme `\(n \longrightarrow \infty\)`
+  
+---
+
+# Cadenas de Markov: Inferencia Bayesiana
+
+
+El problema que necesitamos resolver ahora es 
+
+  &gt; ¿Cómo construir una Cadena de Markov:
+    1. Homogenea
+    2. Irreducible
+    3. Aperiódica
+    4. Ergódica uniformemente
+   Que tenga como distribución de equilibrio `\(P(\theta |\underline{x}_{(n)} )\)` ?
+
+---
+
+# ¿Qué sigue?
+
+--
+
+1. Caracterización de cadenas de Markov para espacios de estados conitnuo
+
+--
+  
+2. Muestreo de Gibbs
+
+--
+
+3. Algoritmo Metrópolis - Hastings
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
