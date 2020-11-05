@@ -402,6 +402,7 @@ Para esto, tomamos pasos discretos de un intervalo pequeño $\epsilon$, se divid
 
 la función $\alpha$ del algoritmo de Metrópolis-Hasting está dada por: $$min \{ 1, e^{[H(\rho, \theta)-H[\rho^*, \theta^*]]}\}$$
 
+
 ---
 
 # ¿Qué sigue?
@@ -427,3 +428,10 @@ la función $\alpha$ del algoritmo de Metrópolis-Hasting está dada por: $$min 
 
 5. Quiz(es) Finales
 
+---
+
+# Bibliografía
+
+1. Gmerman, D., *MCMC: Stochastic Simulation for Bayesian Analysis*.
+
+2. Stan:Reference Manual. https://mc-stan.org/docs/2_25/reference-manual/index.html
