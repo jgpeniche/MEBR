@@ -361,7 +361,7 @@ Para mover a la cadena a un nuevo estado de $\theta$
 
   1. Se simula un valor de momentum $\rho$. Dado el estado actual del sistema $(\theta, \rho)$ este evoluciona de acuerdo a las ecuaciones de Hamilton
   
-    - $$\frac{\partial \theta}{\partial t } = +\frac{\partial H}{\partial \rho} = \frac{\partial T}{\partial \rho}$$ $$\frac{\partial \rho}{\partial t} = -\frac{\partial H}{\partial \theta} = - frac{\partial T}{\partial \theta} - \frac{\partial V}{\partial \theta}$$
+    - $$\frac{\partial \theta}{\partial t } = +\frac{\partial H}{\partial \rho} = \frac{\partial T}{\partial \rho}$$ $$\frac{\partial \rho}{\partial t} = -\frac{\partial H}{\partial \theta} = - \frac{\partial T}{\partial \theta} - \frac{\partial V}{\partial \theta}$$
     
 ---
 
@@ -380,7 +380,7 @@ Como la variable momentum es indpendiente de la posterior este sistema se simpli
 
 # Monte Carlo Hamiltoneano
 
-## "Integrador Númerico Leapfrog"
+## Integrador Numérico "Leapfrog"
 
 --
 
@@ -388,4 +388,42 @@ Nos interesa ahora recueperar la información de las ecuasiones de Hamilton para
 
 --
 
-Para esto, tomamos pasos discretos de un intervalo pequeño $\epsilon$
+Para esto, tomamos pasos discretos de un intervalo pequeño $\epsilon$, se divide en $L$ pasos y actualiza un nuevo vector de posiciones $(\rho^*, \theta^*)$, tal que:
+
+  - $$\rho \leftarrow \rho - \epsilon \frac{\partial V}{\partial \theta}$$ $$\theta \leftarrow \theta + \epsilon M^{-1} \rho$$
+  
+---
+
+# Monte Carlo Hamiltoneano
+
+## Aceptación de Metrópolis
+
+--
+
+la función $\alpha$ del algoritmo de Metrópolis-Hasting está dada por: $$min \{ 1, e^{[H(\rho, \theta)-H[\rho^*, \theta^*]]}\}$$
+
+---
+
+# ¿Qué sigue?
+
+--
+
+1. Ejemplo práctico de un Muestreo de Gibbs
+
+
+--
+
+2. Inferencia Bayesiana en `Stan`
+
+--
+
+3. Cáculo de Factores de Bayes
+
+--
+
+4. Caso Práctico
+
+--
+
+5. Quiz(es) Finales
+
