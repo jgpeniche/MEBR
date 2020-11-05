@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Simulación Estocástica II
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-11-02
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+
+# La sesión pasada...
+
+--
+
+- Introdujimos la necesidad y la contexto hisórico de la simulación estocpastica para inferenci bayesiana
+
+--
+
+- Definimos las cadenas de Markov con espacio de estados discreto
+
+--
+
+- Enunciamos que características son necesarias para garantizar la convergencia de la cadena
+
+--
+
+- Enunciamos los Teoremas equivalentes de la Ley de los Grandes Números y TLC para cadenas de Markov
+
+
+---
+
+# Agenda
+
+--
+  
+  1. Redefinir la cimentación teórica para cadenas con espacio de estado continuo
+  
+--
+  
+  2. Definir el Muestro de Gibbs y sus propiedades
+  
+--
+
+  3. Definir el algoritmo de Metrópolis-Hastings y sus propiedades
+
+--
+
+  4. Definir el algortimo de Monte Carlo Hamiltoneano y sus propiedades
+  
+---
+
+class: inverse, center, middle
+
+# 1
+
+--
+
+# Cadenas de Markov con espacio de estados contínuo
+
+---
+
+# Cadenas de Markov con espacio de estados contínuo
+
+--
+
+Ocurre que muchas de las variables aleatorias de interés tienen un espacio muestral `\(\Omega \ \subseteq \ \mathbb{R}^d\)` que muchas veces puede ser infinito no-numerable
+
+--
+
+Si este es el caso no se puede definir la matriz de transición `\(P(x,y)\)` va a ser nulo para cualquier estado en `\(S\)`
+
+--
+
+Ya que `\(P(x,\cdot)\)` definie una medida de probabilidad reusamos la notación `\(P(x,y)\)` tal que : `$$P(x,y) = P(\theta^{(n+1)} \leq y | \theta^{(n)} = x) \ \forall x,y \ \in \ S$$`
+
+--
+
+Cuando `\(P\)` es absolutamente continua con respecto `\(y\)` podemos obtener la densidad condicional `\(p(x,y) = \frac{\partial P(x,y)}{\partial y}, \ x,y \ \in \ S\)`
+
+--
+
+Esta densidad define el **kernel de transición** `\(P(x, A)\)`
+
+---
+
+# Cadenas de Markov con espacio de estados continuo
+
+Dicho lo anterior definimos lo siguiente:
+
+--
+
+  1. **Propiedad de Markov**: `\(P(\theta^{(n+1)} \leq y | \theta^{(n)} = x, \theta^{(n-i)} = x_{n-1}, ..., \theta^{(n)} = x_0 ) = P(\theta^{(n+1)} \leq y | \theta^{(n)} = x)\)`
+    
+--
+
+  2. **Homegeneidad**: `\(P(\theta^{(n+1)} \leq y | \theta^{(n)}= x) =P(\theta^{(1)} \leq y | \theta^{(0)}= x)\)`
+    
+--
+
+  3. **Distribución invariante**: `\(\pi(y) = \int_{- \infty}^{\infty} \pi(x) p(x,y) d x\)`
+  
+--
+
+  4. **Irreducibilidad**: Sea el tiempo de golpe `\(T_A, \ A \ \subseteq \ S\)` y una medida de probabilidad `\(v \ \Longrightarrow\)` SE dice que la cadena es `\(v\)`-irreducible si `\(\rho_{xy} = P_x(T_A &lt; \infty) &gt; 0 \ \forall \ x \ \in \ S\)` o bien Si `\(\exists \ n\)` .,. `\(P^n(x, A)&gt;0\)` o bien si `\(\exists\)` al menos un medida de probabilidad `\(v\)` tal que la cadena es `\(v\)`-irreducible (normalmente a través de `\(v =\pi\)`) 
+  
+--
+
+  5. La noción de recurrencia positiva se reemplaza por **Recurrencia de Harris**
+  
+---
+
+# Cadenas de Markov con espacio de estados continuo
+
+  &gt; Irreducibilidad y aperiodicidad son equivalente a la ergodicidad (como en el caso discreto) y a la unicidad de `\(\pi\)` como la distribución límite en variación total de norma
+
+--
+
+  &gt; Los promedio ergódicos convergen de función reales `\(t(\theta)\)` casi con toda seguridad a su esperanza límite si esta existe (LGN)
+  
+--
+
+  &gt; El teorema del límite centa aplica a los promedios ergódicos
+  
+---
+
+# Simulación de una cadena de Markov
+
+--
+
+Considere una cadena de MArkov ergódica `\(\{ \theta^{(n)} \}_{n \geq0}\)` con espacio de estados `\(S \ \subseteq \ \mathbb{R}^d\)`, kernel de transición `\(p(x,y)\)` y distribución incial `\(\pi^{(0)}\)`
+
+--
+
+Se inicia con un valor `\(\theta^{(0)}\)` simulado de la distribución `\(\pi^{(0)}\)`
+
+--
+
+El valor `\(\theta^{(1)}\)` tiene densidad `\(p(\theta^{(0)}, \cdot)\)` totalmente conocida de la cual se puede generar este valor
+
+--
+
+Repetir este proceso para `\(n\)` simulaciones, conforme `\(n \longrightarrow \infty\)` se puede concluir que los valores `\(\theta^{(n)}\)` son observaciones de la distribución de equilibrio `\(\pi\)`
+
+---
+
+class: center, middle, inverse
+
+# 2
+
+--
+
+# Muestreo de Gibbs
+
+---
+
+# Muestreo de Gibbs 
+
+--
+
+Considere una distribución de interés `\(\pi(\theta)\)` con `\(\theta\)` un vector d-dimensional, donde cada entrada puede ser un escalar, un vector o una matriz
+
+--
+
+Considere además que, si bien `\(\pi\)` es desconocida, las **distribuciones condicionales completas** `\(\pi_i(\theta_i | \theta_{-i})\)` son completamente conocidas
+
+--
+
+  1. Iniciar el contador de la cadena `\(j = 0\)` e inicializar `\(\theta^{(0)} = (\theta^{(0)}_1, ..., \theta^{(0)}_d)\)`
+  
+--
+
+  2. Obtener una nueva cantidad `\(\theta^{(j)} = (\theta^{(j)}_1, ..., \theta^{(j)}_d)\)` simulando sucesivamente de `$$\theta^{(j)}_1 \sim \pi(\theta_1 | \theta^{(j-1)}_2, ... , \theta^{(j-1)}_d)$$`  `$$\theta^{(j)}_2 \sim \pi(\theta_1 | \theta^{(j-1)}_1, \theta^{(j-1)}_3,... , \theta^{(j-1)}_d)$$` `$$\theta^{(j)}_d \sim \pi(\theta_d | \theta^{(j-1)}_1, ... , \theta^{(j-1)}_{d-1})$$`
+  
+--
+
+  3. Cambiar el contador a `\(j+1\)` y regresar al paso 2 hasta que se alcance la convergencia
+  
+---
+
+# Muestreo de Gibbs
+
+Este esquema de muestreo propuesto por Gelfand y Smith (1990) retomando el trabajo original de Geman y Geman (1984) define una Cadena de Markov homogénea, irreducible, aperiódica, ergódica y recurrente de Harris con distribución de equilibrio `\(\pi(\theta)\)`
+
+--
+
+Si la cadena presenta mucha autocorrelación las muestras de la distribución límite al alcanzar el umbral de convergencia `\(n\)` se toman cada `\(m = \frac{n}{k}\)` pasos de la cadena
+
+---
+
+# Algoritmo de Metrópolis Hastings
+
+--
+
+Considere una **cadena reversible**, es decir el kernel de transición cumple que `$$\pi(\theta)p(\theta, \phi) = \pi(\phi)p(\theta, \phi), \ \forall \ (\theta, \phi)$$`
+
+--
+
+El kernel de transición `\(p(\theta, \phi)\)` es tal que `$$p(\theta, \phi) = q(\theta, \phi) \alpha(\theta, \phi), \ si \ \theta \neq \phi$$`
+
+--
+
+Donde la función de probabilidad `\(\alpha\)` se le concoe como la **probabilidad aceptación** y está dada por `$$\alpha(\theta, \phi) = min \{1, \frac{\pi(\phi)q(\phi, \theta)}{\pi(\theta)q(\theta, \phi)} \}$$`
+
+---
+
+# Algoritmo Metropolis Hastings
+
+
+1. inciar el contador de la cadena `\(j =1\)` e inicializar `\(\theta^{(0)}\)`
+
+--
+
+2. Generar una nueva cantidad nueva `\(\theta^{(j)}\)` de acuerdo al kernel de trasición `\(q(\theta^{{(j-1)}}. \cdot)\)`
+
+--
+
+3. Evaluar la probabilidad de aceptación `\(\alpha(\theta^{(j-1)}. \phi)\)` (simulando una uniforme)
+
+  - Si se acepta, `\(\theta^{(j)} = \phi\)` ( `\(u \leq \alpha\)` )
+  - Si no se acepta `\(\theta^{(j)} = \theta^{(j-1)}\)` y la cadena no se mueve ( `\(u \geq \alpha\)` )
+  
+--
+
+4. Mover el contador a `\(j = j +1\)` y regresar al paso 2 hasta se alcance la convergencia
+
+--
+
+Puesto que `\(q\)` define una transición simétrica alrededor de las posiciones anteriores de la cadena ocurre que `\(q(\theta, \phi) = q(\phi, \theta)\)` por lo que `$$\alpha(\theta, \phi) = min \{1, \frac{ \pi (\phi)}{\pi(\theta)} \}$$`
+
+--
+
+Queda definida por la propuesta de la posterior `\(\pi(\theta)\)` y el valor de la cadena en el estado anterior `\(\pi(\phi)\)`
+
+---
+
+# Algoritmo Metropolis Hastings
+
+Este algoritmo pertence a la familia de los algoritmos de *re-simulación* ("resampling") y dentro de estos mismos es un *algoritmo de rechazo* (a través del paso de `\(\alpha\)`) 
+
+--
+
+La idea central de estos algortimos descansa en definir una densidad `\(q\)` (en el caso de Cadenas de Markov es el kernel de transición) tal que `$$\pi (x) \leq A q(x)$$`
+
+--
+
+Además, si `\(\pi (x)\)` es especialmente complicada, se puede escoger otra función `\(s(x) \leq \pi(x)\)` de tal suerte de "*ensandwichar*" a `\(\pi(x)\)` con un paso de *pre-aceptación*
+
+--
+
+ESte algoritmo no requiere del conocimiento completo de `\(\pi\)`, ya que la constante de normalización `\(k\)` se puede integrar por `\(A^* = kA\)`, y es muy conveniente para regiones truncadas
+
+--
+
+El truco es escoger `\(q\)` similar a `\(\pi\)` y una `\(A\)` tal que `\(Aq(x)\)` **acobije** a `\(\pi\)` (blanketing distribution)
+
+---
+
+class: inverse, center, middle
+# 4
+
+--
+
+# Monte Carlo Hamiltoneano
+
+---
+
+# Monte Carlo Hamiltoneano
+
+--
+
+Desarrollado por Michael Betancourt (principal contribuidor de Stan) y Mark Girolami esta técnica de MCMC que usa las derivadas de la función de densidad de la cual se simula para generar transiciones eficentes de la distribución posterior
+
+--
+
+Usa la dinámica aproximada de Hamilton e integración numérica corregida por un paso de aceptación Metropolis
+
+--
+
+Utiliza una *variable de momentum axuliar* dada por `$$p(\rho, \theta) = p(\rho| \theta)p(\theta), \ \rho \sim N_m(0,M)$$`
+
+--
+
+  - Donde M es la **Medida Euclidena**
+  
+---
+
+# Monte Carlo Hamiltoneano
+
+--
+
+## Hamiltoneano
+
+--
+
+`\(p(\rho, \theta)\)` define un Hamiltoneano tal que:
+
+--
+  
+  - `\(H(\rho, \theta) = -log \ p(\rho, \theta) = - log \ p(\rho, \theta) = T(p | \theta) + V(\theta)\)`
+  
+--
+  
+  - A `\(T(\theta)\)` se le concoce como la energía kinética y a `\(V(\theta)\)` la energía potencial
+
+---
+
+# Monte Carlo Hamiltoneano
+
+## Generación Transiciones
+
+Para mover a la cadena a un nuevo estado de `\(\theta\)`
+--
+
+  1. Se simula un valor de momentum `\(\rho\)`. Dado el estado actual del sistema `\((\theta, \rho)\)` este evoluciona de acuerdo a las ecuaciones de Hamilton
+  
+    - `$$\frac{\partial \theta}{\partial t } = +\frac{\partial H}{\partial \rho} = \frac{\partial T}{\partial \rho}$$` `$$\frac{\partial \rho}{\partial t} = -\frac{\partial H}{\partial \theta} = - frac{\partial T}{\partial \theta} - \frac{\partial V}{\partial \theta}$$`
+    
+---
+
+# Monte Carlo Hamiltoneano
+
+## Generación Transiciones
+
+
+Como la variable momentum es indpendiente de la posterior este sistema se simplifica
+
+--
+
+  - `$$\frac{\partial \theta}{\partial t } = \frac{\partial T}{\partial \rho}$$` `$$\frac{\partial \rho}{\partial t} = -\frac{\partial V}{\partial \theta}$$`
+
+---
+
+# Monte Carlo Hamiltoneano
+
+## "Integrador Númerico Leapfrog"
+
+--
+
+Nos interesa ahora recueperar la información de las ecuasiones de Hamilton para llegar al nuevo estado de la cadena
+
+--
+
+Para esto, tomamos pasos discretos de un intervalo pequeño `\(\epsilon\)`
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
