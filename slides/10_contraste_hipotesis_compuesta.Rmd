@@ -113,11 +113,17 @@ Además si definimos una función de pérdida $\mathcal{L}(c(d_k, \theta)) = l_0
 
 # Contraste de Hipótesis (Compuesta contra Compuesta)
 
+--
+
+$$\mathbb{E}[\mathfrak{L}_i] < \mathbb{E}[\mathfrak{L}_k]$$
+
+--
+
 En el caso **continuo** forzozamente la pérdida esperada *a posteriori* queda definida como $$\mathbb{E}[\mathcal{L}(d_k,\theta)] = \int_{\Theta} l_k(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta$$
 
 --
 
-En consecuencia la regla decisión del cociente de pérdidas esperadas está dada por $$ \Lambda = \frac{\int_{\Theta} l_i(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta}{\int_{\Theta} l_j(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta} < 1$$
+En consecuencia la regla decisión del cociente de pérdidas esperadas está dada por $$\Lambda = \frac{\int_{\Theta} l_i(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta}{\int_{\Theta} l_j(\theta) P(\theta | \underline{X}_{(n)}) \partial \theta} < 1$$
 
 --
 
@@ -136,7 +142,7 @@ $$l_k(\theta) = \left\{ \begin{array}{rcl} 0 & \mbox{si} & \theta \epsilon A^k \
 
 El cociente se simplifica y está dado por:
 
-$$\Lambda = \frac{l_j \int_{A}  P(\theta | \underline{X}_{(n)}) \partial \theta}{l_i \int_{A^c} P(\theta | \underline{X}_{(n)}) \partial \theta} = \frac{l_j P(\theta \epsilon A)\int_{A}  P(\theta | \underline{X}_{(n)})P(\theta | \theta \epsilon A) \partial \theta}{l_i P(\theta \epsilon A^c) \int_{A^c} P(\theta | \underline{X}_{(n)})P(\theta | \theta \epsilon A^c) \partial \theta}< 1$$
+$$\Lambda = \frac{l_j \int_{A}  P(\theta | \underline{X}_{(n)}) \partial \theta}{l_i \int_{A^c} P(\theta | \underline{X}_{(n)}) \partial \theta} = \frac{l_j P(\theta \epsilon A)\int_{A}  P(\theta | \underline{X}_{(n)})P(\theta | \theta \epsilon A) \partial \theta}{l_i P(\theta \epsilon A^c) \int_{A^c} P(\theta | \underline{X}_{(n)})P(\theta | \theta \epsilon A^c) \partial \theta} = \frac{\mathbb{E}[L | H_0]}{  \mathbb{E}[L | H_1]} < 1$$
 --
 
 A esta contidad $\Lambda = BF$ tambipen se le conoce cómo **Factor de Bayes** y tiene la desventaja de que la posterior puede no tener forma análitica cerrada y requiere de *integración numérica* pero se puede generalizar para realizar el tipo de contraste $\mathcal{F}_i$ vs $\mathcal{F}_j$ dos familias paramétricas distintas. 
@@ -171,5 +177,13 @@ Esta expresión equiere el valor puntual de 𝜃y aquí cobra especial relevanci
 
 ---
 
-# Contraste de Hipótesis (Simple contra Compuesta)
+# ¿Qué sigue?
+
+--
+
+1. Estadística Bayesiana Computacional
+
+--
+
+2. MCMC; Monte Carlo Markov Chain y todo su aparato teórico
 
