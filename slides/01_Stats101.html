@@ -42,13 +42,31 @@ class: inverse, center, middle
 
 ---
 
-# Según [Drew Conway]([http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram)
+# ¿Porqué Estadística?
 
-&lt;img src="figs/ds_diagram.png" width="500px" height="500px" style="display: block; margin: auto;" /&gt;
+--
 
-???
+El problema fundamental en cualquier profesión es:
 
-_Comentar sobre la ciencia de datos como común denominador de casi todas la áreas profesionales_
+
+--
+
+&gt; ¿Cómo tomar decisiones **hoy** sujetas a la *incertudumbre* de **mañana**?
+
+
+--
+
+Ademas según [Drew Conway]([http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram)
+
+--
+
+&lt;img src="figs/ds_diagram.png" width="250px" height="300px" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle
+
+# La Ciencia de Datos está de moda...
 
 ---
 
@@ -90,11 +108,7 @@ class: middle
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-## Entendemos que describirmos estos fenómenos a través de **resúmenes** que deben ser **suficientes** y **minimales**
-
-???
-
-_Comentar sobre los acordiones para el exámen_
+## Entendemos que describimos estos fenómenos a través de **resúmenes** que deben ser **suficientes** y **minimales**
 
 ---
 
@@ -110,15 +124,75 @@ class: center, middle
 
 ## En otras palabras las inferencias deben ser **ÓPTIMAS**
 
-??? 
+---
 
-_Comentar sobre tener un suelo sólido dónde pisar_
+class: center, middle
+
+# Pero... ¿Qué es la inferencia (estadística)?
+
+---
+
+# Inferencia Estadística
+
+--
+
+Si bien el problema de la inferencia sigue siendo el mismo, puede ocurrir que no contemos con toda la información (datos) sobre la manifestación del fenómeno que nos interesa estudiar
+
+--
+
+Si este es el caso, decimos que estamos ante una **muestra** del fenómeno y nuestra información es **incompleta** por lo que solo podemos aspirar a realizar descripciones **aproximadas** del fenómeno
+
+--
+
+El problema de la inferencia es de natureleza *inductiva*, ya que a partir de la información que aporta la muestra buscamos realizar una *conjetura* o *juicio* de carácter **general** sobre el fenómeno de interés
+
+---
+
+# Inferencia Estadística (Paramétrica)
+
+--
+
+Cuando, adicional a las consideraciones anteriores, decidimos representar la *incertidumbre* del fenómeno a través de la forma funcional de una **familia de distribuciones de probabilidad** caracterizadas por cierto conjunto de parámetros, esto es:
+
+--
+
+`$$\mathcal{f} \ \in \mathcal{F} = \{ \mathcal{f}_{\theta} \ | \theta \ \in \ \Theta \}$$`
+
+--
+
+El problema de inferencia se reduce al conjunto de técnicas que permiten encontrar el parámetro `\(\theta\)` en el espacio parametral `\(\Theta\)` que mejor describe la incertidumbre del fenómeno
+
+--
+
+A esto se le conoce como **Inferencia Estadística Paramétrica**
+
+---
+
+# Inferencia Estadística Paramétrica
+
+A lo largo de la historia, particularmente durante el siglo XX, se confrontaron dos escuelas de inferencia:
+
+--
+
+  - La escuela de la Estadística Matemática (o escuela frecuentista)
+  
+--
+
+  - La escuela de la Teoría de Inferencia Bayesiana
+  
+--
+
+Si bien la primera, cuyos principales exponentes son Ronald A. Fisher, Karl Pearson y Jerzy Neyman, sigue siendo la escuela dominante debido a lo sencillo del los procedimientos, exhibe varias patologías que exploraremos a continuación
+
+--
+
+La segunda, cuyos máximos exponentes son Leonard J. Savage, Dennis Lindley, Harold Jeffreys y Alan E. Gelfand, propone una teoría formal de inferencia que estudiaremos a lo largo del curso
 
 ---
 
 class: inverse, center, middle
 
-# Algunos problemas con la estadística frecuentista...
+# Algunos problemas con la Estadística Matemática...
 
 ---
 
@@ -129,13 +203,14 @@ class: center, middle, inverse
 ---
 
 # ¿Qué es la probabilidad para la escuela de Fisher y Neyman?
+
 --
 
 `\(\rightarrow\)` Es el **límite** de **frecuencias relativas** al repetir un experimento en las **mismas condiciones** una infinidad de veces
 
 --
 
-`$$P(A) = \lim_{N\to\infty} \frac{a \epsilon A}{N}$$`
+`$$P(A) = \lim_{N\to\infty} \frac{a \ \in \ A}{N}$$`
 --
 
 `\(\rightarrow\)` Esta definición proviene del **positivismo** de Auguste Comte
@@ -154,13 +229,45 @@ class: center, middle, inverse
 
 ### *¿Cuál es la probabilidad de que Benito Juárez haya nacido en Jueves?*
 
-
-???
-
-_Ejemplo de las elecciones_
 --
 
 ### ¿Acaso Benito Juárez puede nacer a veces en Jueves, otras en Domingo y algunas otras en Lunes?
+
+---
+
+
+# Estadística Matemática
+
+--
+
+El proceso de inferencia frecuentista, descansa en una serie de criterios **matemáticos** deseables a través de los cuales se caracteriza la **optimlaidad** de una inferencia (de ahí el nombre) entre los cuales se encuentran:
+
+--
+
+  1. Insesgamiento
+  
+--
+
+  2. Consistencia
+  
+--
+
+  3. Eficiencia
+  
+--
+
+  4. Mínima Varianza
+  
+--
+
+Sin embargo, el proceso de inferencia **NO** está unificado, si bien el método de *Máxima Verosimilitud* es la principal herramienta de estimación puntual, la mayoría de los casos complejos (y no tan complejos) requieren de soluciones *ad-hoc* y en todos los casos existe un *trade-off* de estas características deseables. Este tipo de problemas siguen apareciendo en otras ramas de la inferencia como lo es el *contraste de hipótesis*
+
+---
+
+class: center, middle
+
+## ¿No sería deseable tener un solo procedimiento de inferencia y que siempre cumpliera con las características deseables?
+
 
 ---
 
@@ -199,7 +306,7 @@ Sabemos que `\(\overline{X} = \hat{\theta} = 1\)`
 
 Además, por el método pivotal...
 
-$$ \frac{X - \theta}{\sqrt{ \theta \cdot (1 - \theta)}} \sim ?$$
+$$ \frac{X - \hat{\theta}}{\sqrt{ \hat{\theta} \cdot (1 - \hat{\theta)}}} \sim ?$$
 --
 
 `\(\rightarrow\)` Sabemos que esto definitivamente **NO** es normal
@@ -293,6 +400,11 @@ Se puede probar que
 --
 
 ### Los padres de la estadística clásica **no lograron** establecer un cuerpo axiomático para consolidar a la estadística cómo una teoría en el primer cuarto del siglo XX
+
+--
+
+### De hecho la Estadística Matemática tal como la concoemos es un collage de las ideas de varios pensadores y siempre se vió minada por grandes discusiones en su ceno que evitaron llegar al concenso
+
 ---
 
 # El problema de toma de decisiones en ambiente de incertidumbre
@@ -301,7 +413,7 @@ Se puede probar que
 
 &lt;br&gt; 
 
-### Lo que nos generalmente nos interesa como profesionistas (economistas, actuarios, financieros, politologos, etc) es tener un **número** con el que podamos decidir nuestro siguiente paso y nos gustaría tener algún grado de certidumbre sobre ese número
+### Lo que generalmente nos interesa como profesionistas (economistas, actuarios, financieros, politologos, etc) es tener un **número** con el que podamos decidir nuestro siguiente paso y nos gustaría tener algún grado de certidumbre sobre ese número
 
 ---
 
@@ -315,7 +427,7 @@ class: center, middle
 
 class: inverse, center, middle
 
-# La Estadística Bayesiana nos provee de un procedimiento de inferencia ÓPTIMO para la toma de decisiones ante un ambiente de incertidumbre
+# La Estadística Bayesiana nos provee de un procedimiento de inferencia ÓPTIMO partiendo del problema de la toma de decisiones ante un ambiente de incertidumbre
 
 ---
 
@@ -324,11 +436,16 @@ class: center, middle
 ## **(Que si lo piensan bien, en realidad es nuestro día a día)**
 ---
 
-# ¿Qué es la Estadística Bayesiana?
+class:middle
+
+# **PREGUNTA:** ¿Qué es la Estadística Bayesiana?
 
 --
 
-### Una **teoría de inferencia** para la toma de decisiones en el ambiente de incertidumbre
+#**R:** Una TEORÍA DE INFERENCIA 
+---
+
+# Esatídistica Bayesiana
 
 --
 
@@ -408,7 +525,7 @@ class: center, middle
  - Se uso ampliamente en la milicia en los manuales de artillería Ingleses y Americanos para apuntar cañones
 --
 
- - Se utilizó para encontrar bombas nucleares perdidas en la guerra fría y para trazar trayectorias de balística contra submarinos rusos
+ - Se utilizó para encontrar bombas nucleares perdidas en la guerra fría, para trazar trayectorias de balística contra submarinos rusos y para diseñar rutas de búsqueda de naufragos por la marina estadounidense
   
 --
 
@@ -428,7 +545,7 @@ class: middle, center
 ### **Obviamente, toda esta información era secreta...**
 --
 
-### **...mientras tanto Fisher y anexos se encargaron de desacreditar sistemáticamente esta corriente por muchos, muchos años**
+### **...mientras tanto Fisher y anexos se encargaron de desacreditar sistemáticamente esta corriente por muchos, muchos años además de las (obvias) limitaciones computacionales**
 
 ---
 
@@ -446,7 +563,7 @@ class: middle, center
   
 --
 
-  3. Concluiremos que de acuerdo a los axiomas el criterio óptimo de toma de decisiones es el de **utilidad esperada**
+  3. Costruiremos a partir de los axiomas el criterio óptimo para la toma de decisiones
   
 --
 
@@ -463,6 +580,10 @@ class: middle, center
 --
 
   7. Pronóstico
+  
+--
+
+  8. Estadística Bayesiana Computacional
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
