@@ -1270,31 +1270,6 @@ window.buildTabsets = function(tocID) {
 };
 
 </script>
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-});
-</script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-      </style>
 
 
 
@@ -1576,18 +1551,18 @@ div.tocify {
 <h1><span class="header-section-number">1</span> Introducción</h1>
 <div id="estadística-para-qué" class="section level2">
 <h2><span class="header-section-number">1.1</span> Estadística… ¿Para qué?</h2>
-<p>Sin duda la herramienta por excelencia de la ciencia es la estadística, ya que es precisamente la estadísca el conducto por el cual se confrontan los modelos que viven en el plano de lo abstracto con los fenómenos que se manifiestan en el plano de tangible.</p>
-<p>Entonces, tal vez la primera pregunta que dberíamos contestar es <strong>¿Qué es la estadística?</strong></p>
+<p>Sin duda, la herramienta por excelencia de la ciencia es la estadística, ya que es precisamente la estadísca el conducto por el cual se confrontan los modelos que viven en el plano de lo abstracto con los fenómenos que se manifiestan en el plano de tangible.</p>
+<p>Entonces, tal vez la primera pregunta que dberíamos contestar es: <strong>¿Qué es la estadística?</strong></p>
 <p>De acuerdo con el profesor Manuel Mendoza<span class="math inline">\(^1\)</span> la estadística es:</p>
 <blockquote>
-<p>Un conjunto de técnicas cuyo fin es <strong>describir</strong> fenómenos que se manifiestan a través de <em>datos</em> que presentan <strong>aleatoriedad</strong></p>
+<p>Un conjunto de técnicas cuyo fin es <strong>describir</strong> fenómenos que se manifiestan a través de <em>datos</em> que presentan <strong>aleatoriedad</strong>.</p>
 </blockquote>
 <p>El estudio de la estadística se divide en dos grandes ramas:</p>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#aidqzymsbd .gt_table {
+#juwfuokckj .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1612,7 +1587,7 @@ div.tocify {
   border-left-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_heading {
+#juwfuokckj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1624,7 +1599,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_title {
+#juwfuokckj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1634,7 +1609,7 @@ div.tocify {
   border-bottom-width: 0;
 }
 
-#aidqzymsbd .gt_subtitle {
+#juwfuokckj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1644,13 +1619,13 @@ div.tocify {
   border-top-width: 0;
 }
 
-#aidqzymsbd .gt_bottom_border {
+#juwfuokckj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_col_headings {
+#juwfuokckj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1665,7 +1640,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_col_heading {
+#juwfuokckj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1685,7 +1660,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#aidqzymsbd .gt_column_spanner_outer {
+#juwfuokckj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1697,15 +1672,15 @@ div.tocify {
   padding-right: 4px;
 }
 
-#aidqzymsbd .gt_column_spanner_outer:first-child {
+#juwfuokckj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aidqzymsbd .gt_column_spanner_outer:last-child {
+#juwfuokckj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aidqzymsbd .gt_column_spanner {
+#juwfuokckj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1717,7 +1692,7 @@ div.tocify {
   width: 100%;
 }
 
-#aidqzymsbd .gt_group_heading {
+#juwfuokckj .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1739,7 +1714,7 @@ div.tocify {
   vertical-align: middle;
 }
 
-#aidqzymsbd .gt_empty_group_heading {
+#juwfuokckj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1754,15 +1729,15 @@ div.tocify {
   vertical-align: middle;
 }
 
-#aidqzymsbd .gt_from_md > :first-child {
+#juwfuokckj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aidqzymsbd .gt_from_md > :last-child {
+#juwfuokckj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aidqzymsbd .gt_row {
+#juwfuokckj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1781,7 +1756,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#aidqzymsbd .gt_stub {
+#juwfuokckj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1793,7 +1768,7 @@ div.tocify {
   padding-left: 12px;
 }
 
-#aidqzymsbd .gt_summary_row {
+#juwfuokckj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1803,7 +1778,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#aidqzymsbd .gt_first_summary_row {
+#juwfuokckj .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1813,7 +1788,7 @@ div.tocify {
   border-top-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_grand_summary_row {
+#juwfuokckj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1823,7 +1798,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#aidqzymsbd .gt_first_grand_summary_row {
+#juwfuokckj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1833,11 +1808,11 @@ div.tocify {
   border-top-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_striped {
+#juwfuokckj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aidqzymsbd .gt_table_body {
+#juwfuokckj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1846,7 +1821,7 @@ div.tocify {
   border-bottom-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_footnotes {
+#juwfuokckj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1860,13 +1835,13 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_footnote {
+#juwfuokckj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#aidqzymsbd .gt_sourcenotes {
+#juwfuokckj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1880,46 +1855,46 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#aidqzymsbd .gt_sourcenote {
+#juwfuokckj .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#aidqzymsbd .gt_left {
+#juwfuokckj .gt_left {
   text-align: left;
 }
 
-#aidqzymsbd .gt_center {
+#juwfuokckj .gt_center {
   text-align: center;
 }
 
-#aidqzymsbd .gt_right {
+#juwfuokckj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aidqzymsbd .gt_font_normal {
+#juwfuokckj .gt_font_normal {
   font-weight: normal;
 }
 
-#aidqzymsbd .gt_font_bold {
+#juwfuokckj .gt_font_bold {
   font-weight: bold;
 }
 
-#aidqzymsbd .gt_font_italic {
+#juwfuokckj .gt_font_italic {
   font-style: italic;
 }
 
-#aidqzymsbd .gt_super {
+#juwfuokckj .gt_super {
   font-size: 65%;
 }
 
-#aidqzymsbd .gt_footnote_marks {
+#juwfuokckj .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="aidqzymsbd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="juwfuokckj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -1940,32 +1915,32 @@ div.tocify {
   
   
 </table></div>
-<p>Vale la pena destacar que en ambos casos el fenómeno de estudio se manifiesta de a través de la misma clase de datos, la diferencia radica en que el caso de la estadística descriptiva contamos con <strong>información completa</strong>, es decir tenemos acceso a todas y cada una de las manifestaciones del fenomeno lo que nos permite <em>describir</em> el fenómeno de forma integral.</p>
-<p>Por su parte la <em>inferencia estadística</em> se ocupa del caso de la <strong>información incompleta</strong> donde a través de un proceso <strong>deductivo</strong> buscamos emitir juicios o conclusiones (inferir) de la población a través de la información contenida en la muestra. En este sentido solo podemos aspirar a hacer descripciones <strong>aproximadas</strong> del fenómeno de estudio y nos gustaría que estass descripciones fueran resúmenes <strong>suficientes</strong> y <strong>minimales</strong>.</p>
+<p>Vale la pena destacar que en ambos casos el fenómeno de estudio se manifiesta a través de la misma clase de datos. La diferencia radica en que, en el caso de la estadística descriptiva contamos con <strong>información completa</strong>, es decir, tenemos acceso a todas y cada una de las manifestaciones del fenomeno lo que nos permite <em>describir</em> el fenómeno de forma integral.</p>
+<p>Por su parte, la <em>inferencia estadística</em> se ocupa del caso de la <strong>información incompleta</strong> donde, a través de un proceso <strong>deductivo</strong>, buscamos emitir juicios o conclusiones (inferir) de la población a través de la información contenida en la muestra. En este sentido solo podemos aspirar a hacer descripciones <strong>aproximadas</strong> del fenómeno de estudio y nos gustaría que estas descripciones fueran resúmenes <strong>suficientes</strong> y <strong>minimales</strong>.</p>
 </div>
 <div id="fenómenos-inciertos" class="section level2">
 <h2><span class="header-section-number">1.2</span> Fenómenos inciertos</h2>
-<p>Ahora bien, como análistas, requerimos de una manera de representar la incertidumbre asociada a cierto fenómeno. Existen dos acercamientos a la caracterización de esta incertidumbre:</p>
+<p>Ahora bien, como analistas, requerimos de una manera de representar la incertidumbre asociada a cierto fenómeno. Existen dos acercamientos a la caracterización de esta incertidumbre:</p>
 <ol style="list-style-type: decimal">
 <li>Estadística Paramétrica</li>
 <li>Estadística No Paramétrica</li>
 </ol>
-<p>En el caso que nos compete (Estadística Paramétrica) echamos mano del cálculo de probabilidades y optamos por describir la incertidumbre asociada a dicho fenómeno utilizando una <em>familia paramétrica</em>. Matematicamente la incertidumbre asociada a un fenómeno dado tiene una forma funcional pertenciente a una familia de <em>densidades de probabilidad</em> <span class="math inline">\(\mathfrak{F}\)</span> y queda queda perfectamente defiinida por un vector <span class="math inline">\(\theta\)</span> de parámetros. Esto es <span class="math display">\[\mathfrak{F} = \{ \quad  f_X(x ; \theta) \quad | \quad \theta \quad \epsilon \quad \Theta \subseteq \mathbb{R}^n \quad \}\]</span></p>
-<p>Habiendo definido la incertidumbre con esta representación el problema de la <strong>inferencia estadística</strong> se reduce a encontrar el vector de parámetros desconocidos <span class="math inline">\(\theta\)</span> que caracteriza la incertidumbre del fenómeno para cierta familia <span class="math inline">\(\mathfrak{F}\)</span></p>
+<p>En el caso que nos compete (Estadística Paramétrica) echamos mano del cálculo de probabilidades y optamos por describir la incertidumbre asociada a dicho fenómeno utilizando una <em>familia paramétrica</em>. Matemáticamente, la incertidumbre asociada a un fenómeno dado tiene una forma funcional perteneciente a una familia de <em>densidades de probabilidad</em> <span class="math inline">\(\mathfrak{F}\)</span> y queda queda perfectamente definida por un vector <span class="math inline">\(\theta\)</span> de parámetros. Esto es: <span class="math display">\[\mathfrak{F} = \{ \quad  f_X(x ; \theta) \quad | \quad \theta \quad \epsilon \quad \Theta \subseteq \mathbb{R}^n \quad \}\]</span></p>
+<p>Una vez definida la incertidumbre con esta representación, el problema de la <strong>inferencia estadística</strong> se reduce a encontrar el vector de parámetros desconocidos <span class="math inline">\(\theta\)</span> que caracteriza la incertidumbre del fenómeno para cierta familia <span class="math inline">\(\mathfrak{F}\)</span>.</p>
 </div>
-<div id="porqué-hacemos-inferencia" class="section level2">
-<h2><span class="header-section-number">1.3</span> ¿Porqué hacemos inferencia?</h2>
-<p>A pesar de que el estudio de la estadística tiene un fin muy claro ¿Cuál es el objeto de análisar datos y reportar <em>media</em>, <em>varianza</em>, <em>rango intercuartílico</em>, <em>mediana</em>, <em>moda</em>, <em>sesgo</em>, <em>curtósis</em>, <em>error cuadrático medio</em>, <em>error absouto porcentual medio</em>, etc? ¿Porque nos interesa caraceterizar la incertidumbre?</p>
-<p>Como analista es necesario tener presente que las empresas no destinarían recursos al área de analytics (o cualquiera que sea el nombre de la misma) si el trabajo que realizacemos fuera ocioso, es decir, no ajustamos modelos simplemente “porque podemos”.</p>
-<p>Entonces ¿cuál es el objeto de la inferencia? De acuerdo con Robert Schlaifer<span class="math inline">\(^2\)</span>, en el contexto de negocios, el principal problema al que se enfrentan la administración de la empresa es <strong>la toma de decisiones en ambiente de incertidumbre</strong>. En otras palabras, el problema al que se enfrentan directores y gerentes es al de tomar decisiones <strong>hoy</strong> sujetas a eventos inciertos del día de <strong>mañana</strong>. Luego entonces, es precisamente por la razón que acabamos de exhibir que las empresas destinan recursos económicos al área de <em>analytics</em> y el rol de los analistas es:</p>
+<div id="por-qué-hacemos-inferencia" class="section level2">
+<h2><span class="header-section-number">1.3</span> ¿Por qué hacemos inferencia?</h2>
+<p>A pesar de que el estudio de la estadística tiene un fin muy claro, ¿cuál es el objeto de análizar datos y reportar <em>media</em>, <em>varianza</em>, <em>rango intercuartílico</em>, <em>mediana</em>, <em>moda</em>, <em>sesgo</em>, <em>curtósis</em>, <em>error cuadrático medio</em>, <em>error absoluto porcentual medio</em>, etc? ¿Por qué nos interesa caracterizar la incertidumbre?</p>
+<p>Como analista es necesario tener presente que las empresas no destinarían recursos al área de <em>analytics</em> (o cualquiera que sea el nombre de la misma) si el trabajo que realizaramos fuera ocioso, es decir, no ajustamos modelos simplemente “porque podemos”.</p>
+<p>Entonces, ¿cuál es el objeto de la inferencia? De acuerdo con Robert Schlaifer<span class="math inline">\(^2\)</span>, en el contexto de negocios, el principal problema al que se enfrentan la administración de la empresa es <strong>la toma de decisiones en ambiente de incertidumbre</strong>. En otras palabras, el problema al que se enfrentan directores y gerentes es al de tomar decisiones <strong>hoy</strong> sujetas a eventos inciertos del día de <strong>mañana</strong>. Es precisamente por la razón que acabamos de exhibir que las empresas destinan recursos económicos al área de <em>analytics</em> y el rol de los analistas es:</p>
 <blockquote>
-<p>Proveer de información para la toma de decisiones (en un ambiente de incertidumbre)</p>
+<p>Proveer de información para la toma de decisiones (en un ambiente de incertidumbre).</p>
 </blockquote>
 </div>
 <div id="la-estadística-como-herramienta-de-pronóstico" class="section level2">
 <h2><span class="header-section-number">1.4</span> La estadística como herramienta de pronóstico</h2>
-<p>Con lo anterior dicho se hace evidentemente que el tener una descripción de la incertidumbre asociada a cierto fenómeno se requiere para extrapolarse y hacer declaraciones de índole <strong>probabilística</strong> sobre eventos futuros que no se han manifestado aún.</p>
-<p>Al final, en el contexto de los negocios, el fin último de la estadística es precisamente el de tener “<em>solid grounds to stand on when making a desicion</em>” y el output final requerido para la toma de una decisión en la mayoría de los casos va a ser un <strong>pronóstico</strong></p>
+<p>Dicho lo anterior, se hace evidente que el tener una descripción de la incertidumbre asociada a cierto fenómeno se requiere para extrapolar y hacer declaraciones de índole <strong>probabilística</strong> sobre eventos futuros que no se han manifestado aún.</p>
+<p>Al final, en el contexto de los negocios, el fin último de la estadística es precisamente el de tener “<em>solid grounds to stand on when making a decision</em>” y el output final requerido para la toma de una decisión en la mayoría de los casos va a ser un <strong>pronóstico</strong>.</p>
 </div>
 <div id="modelado-estadístico-101" class="section level2">
 <h2><span class="header-section-number">1.5</span> Modelado Estadístico 101</h2>
@@ -1987,20 +1962,20 @@ div.tocify {
 </div>
 <div id="contexto-histórico" class="section level1">
 <h1><span class="header-section-number">2</span> Contexto Histórico</h1>
-<p>Aunque parece que nos estámos ocupando de un problema de naturaleza técnica, lo cierto es que el problema de “hacer inferencia” es una discusión fundamentalmente filósófica, particularmente sobre la manera de concebir el concepto de probabilidad. Esta discusión dio luz a dos escuelas de inferencia: la escuela frecuentista o de la Estadística Matemática y la escuela Bayesiana.</p>
+<p>Aunque parece que nos estamos ocupando de un problema de naturaleza técnica, lo cierto es que el problema de “hacer inferencia” es una discusión fundamentalmente filósófica, particularmente sobre la manera de concebir el concepto de probabilidad. Esta discusión dio luz a dos escuelas de inferencia: la escuela frecuentista o de la Estadística Matemática y la escuela Bayesiana.</p>
 <p>En lo subsecuente nos ocuparemos de estudiar la primera no sin hacer breve mención de aquellas diferencias con la escuela Bayesiana</p>
 <div id="probabilidad-frecuentista" class="section level2">
 <h2><span class="header-section-number">2.1</span> Probabilidad frecuentista</h2>
-<p>Recordemos que durante la segunda mitad del siglo XIX cobró auge el <em>positivismo científico</em> de <em>Auguste Comte</em> y <em>Henri de Saint Simon</em>. Bajo esta corriente filosófica, cuyo discurso lógico descansa basicamente en el empiricísmo científico, se concibe a la experiencia como fuente última del conociento científico, así el concenso era entender la probabilidad como la <em>frecuencia relativa</em> de un evento de interés al realizar un experimento una infinidad de veces en las misma condiciones, esto es: <span class="math display">\[P(A) = \lim{n \to \infty} \frac{\# (A)}{n}\]</span></p>
-<p>Hijos de esta corriente de pensamiento y con la inercia de la misma, durante la primera mitad del siglo XX un grupo de científicos desarrollaron la corriente de la <em>Estadística Matemática</em> como una alternativa con pies y cabeza para hacer inferencia de manera formal. Entre ellos destacan Ronald A. Fisher, Jerzy Neyman, Karl Pearson, Egon Pearson y C. Radhakrishna Rao.</p>
-<p>Estos personajes desarrollaron una serie <strong>procedimientos inferencia</strong> partiendo de un conjunto de <strong>criterios de optimalidad</strong> que hoy conocemos como Estadística Matemática. Cabe resaltar que, si bien esta manera de hacer inferencia tiene un sabor práctico y una construcción elegantemente sencilla que la popularizo entre profesionales sin formción matemática, nunca logró consolidarse como una teoría de inferencia (a diferencia de su media hermana la probabilidad con la publicación de los axiomas de probabilidad de Andréi Kolmogorov en 1928). Esto podría considerarse el mayor fracaso de la escuela frecuentista en cuanto al estatus de la Estadísctica como una teoría, la carencia de un cuerpo axiomático deriva en la falta de homogeneidad en el proceso de inferencia (muchas solucions <em>ad-hoc</em>) y múltiples patologías.</p>
+<p>Recordemos que durante la segunda mitad del siglo XIX cobró auge el <em>positivismo científico</em> de <em>Auguste Comte</em> y <em>Henri de Saint Simon</em>. Bajo esta corriente filosófica, cuyo discurso lógico descansa básicamente en el empirismo científico, se concibe a la experiencia como fuente última del conocimiento científico. Así el consenso era entender la probabilidad como la <em>frecuencia relativa</em> de un evento de interés al realizar un experimento una infinidad de veces en las misma condiciones, esto es: <span class="math display">\[P(A) = \lim{n \to \infty} \frac{\# (A)}{n}\]</span></p>
+<p>Hijos de esta corriente de pensamiento y con la inercia de la misma, durante la primera mitad del siglo XX, un grupo de científicos desarrollaron la corriente de la <em>Estadística Matemática</em> como una alternativa con pies y cabeza para hacer inferencia de manera formal. Entre ellos destacan Ronald A. Fisher, Jerzy Neyman, Karl Pearson, Egon Pearson y C. Radhakrishna Rao.</p>
+<p>Estos personajes desarrollaron una serie de <strong>procedimientos de inferencia</strong> partiendo de un conjunto de <strong>criterios de optimalidad</strong> que hoy conocemos como Estadística Matemática. Cabe resaltar que, si bien esta manera de hacer inferencia tiene un sabor práctico y una construcción elegantemente sencilla que la popularizo entre profesionales sin formación matemática, nunca logró consolidarse como una teoría de inferencia (a diferencia de su media hermana la probabilidad con la publicación de los axiomas de probabilidad de Andréi Kolmogorov en 1928). Esto podría considerarse el mayor fracaso de la escuela frecuentista en cuanto al estatus de la Estadísctica como una teoría, la carencia de un cuerpo axiomático deriva en la falta de homogeneidad en el proceso de inferencia (muchas solucions <em>ad-hoc</em>) y múltiples patologías.</p>
 </div>
 </div>
 <div id="estadística-matemática" class="section level1">
 <h1><span class="header-section-number">3</span> Estadística Matemática</h1>
-<p>La construcción del proceso de inferencia debe incorporar explícitamente nuestro deseo de que nuestras inferencia sean <strong>óptimas</strong>. En todo, caso cualquier persona puede dar un número de la inflación esperada para el siguiente año en Grecia, el reto radica en que el proceso detrás de la obtención de ese número tenga sustancia teoríca y además cumpla, por construcción, estos criterios de <em>optimalidad</em>. La diferencia entre ambas escuelas de inferencia se encuentra en la manera de construir estos criterios (además de la concepción básica de la probabilidad).</p>
-<div id="criterios-de-optamilidad" class="section level2">
-<h2><span class="header-section-number">3.1</span> Criterios de optamilidad</h2>
+<p>La construcción del proceso de inferencia debe incorporar explícitamente nuestro deseo de que nuestras inferencia sean <strong>óptimas</strong>. En todo, caso cualquier persona puede dar un número de la inflación esperada para el siguiente año en Grecia, el reto radica en que el proceso detrás de la obtención de ese número tenga sustancia teoríca y, además, cumpla por construcción estos criterios de <em>optimalidad</em>. La diferencia entre ambas escuelas de inferencia se encuentra en la manera de construir estos criterios (además de la concepción básica de la probabilidad).</p>
+<div id="criterios-de-optimalidad" class="section level2">
+<h2><span class="header-section-number">3.1</span> Criterios de optimalidad</h2>
 <p>Llamemos a nuestro <strong>estimador</strong> para cierta cantidad desconocida <span class="math inline">\(\theta\)</span> como <span class="math inline">\(\hat{\theta} = \hat{\theta}(X_{(n)})\)</span> donde <span class="math inline">\(X_{(n)}\)</span> representa la información en forma de datos (nuestra muestra).</p>
 <p><strong>¿Qué características debe cumplir <span class="math inline">\(\hat{\theta}\)</span> para concluir que es un buen estimador de la cantidad desconocida <span class="math inline">\(\theta\)</span>?</strong></p>
 <p>En la corriente de la estadística matemática resolvemos la pregunta anterior de la siguiente manera:</p>
@@ -2015,26 +1990,26 @@ div.tocify {
 <li>Es <strong>INSESGADO</strong>: <span class="math inline">\(\mathbb{E}[\hat{\theta}] = \theta\)</span></li>
 <li>Es <strong>CONSISTENTE EN ERROR CUADRÁTICO MEDIO</strong> <span class="math inline">\(\epsilon = \theta - \mathbb{E}[\hat{\theta}] \longrightarrow 0\)</span> conforme <span class="math inline">\(n \longrightarrow \infty\)</span> es decir converge en probabilidad al verdadero valor conforme la muestra se hace más grande</li>
 <li>Es <strong>EFICIENTE</strong> su varianza alcanza la menor varianza posible (En otras palabras alcanza la cota inferior de Crámer y Rao)</li>
-<li>Es el estimdor de varianza mínima de entre tdos los estimdores posibles</li>
+<li>Es el estimador de varianza mínima de entre tdos los estimadores posibles</li>
 </ol>
 </blockquote>
 </blockquote>
-<p>Si bien nos gustaría que todos y cada uno de nuestros estimadores cumpliera todas estas características, es más, que nuestro proceso de inferencia nos llevara unívocamente a estimadores con ests cracterístiscas, una de las críticas más grandes a la escuela frecuentista es que en la mayoría de los casos esto no sucede.</p>
+<p>Si bien nos gustaría que todos y cada uno de nuestros estimadores cumpliera todas estas características, es más, que nuestro proceso de inferencia nos llevara unívocamente a estimadores con estas cracterísticas, una de las críticas más grandes a la escuela frecuentista es que en la mayoría de los casos esto no sucede.</p>
 </div>
 <div id="estimación-puntual" class="section level2 tabset">
 <h2><span class="header-section-number">3.2</span> Estimación Puntual</h2>
 <p>Considere una muestra <span class="math display">\[\underline{X}_{(n)}\]</span> tal que <span class="math inline">\(x_i \sim N(\mu, \sigma^2)\)</span>, <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\sigma^2\)</span> desconocidos. ¿Cómo hacemos inferencia sobre estos parámetros?</p>
 <p>En la estadística matemática existen varias técnicas <em>ad-hoc</em>, sin embargo, la principal herramienta de inferencia, propuesta por Ronald A. Fisher, parte de algo conocido como el <strong>principio de máxima verosimilitud</strong>. En palabras llanas, este principio sugiere que <span class="math inline">\(\hat{\theta}\)</span> es el valor que haga <strong>más probable</strong> la manifestación de la muestra con la que estamos tratando. La propuesta de Fisher para hacer inferencia paramétrica es <strong>maximizar</strong> la <em>función de verosimilitud</em> <span class="math inline">\(\mathbb{L}[\theta ; \underline{X}_{(n)}]\)</span></p>
-<p>La notación sugiere, inituitivamente, que el problema de maximización tiene como función objetivo a <span class="math inline">\(\mathbb{L}\)</span> <em>como si</em> la denisdad conjunta de la muestra fuera una función de los datos y no del parámtero. Debe llamar la atención que el lingüe <em>problema de maximización</em> (como un criterio de optimalidad) y <em>función objetivo</em> se toman directamente del cálculo y son precisamente estas las directrices “matemáticas” del proceso de inferencia, razón por la cual se le da el nombre de “Estadística Matemática”.</p>
-<p>Además el método de Máxima Verosimilitud tiene la propiedad de <strong>invarianza</strong> ante transformaciones del parámetro <span class="math inline">\(\theta\)</span>.</p>
-<p>Ahora bien, definimos la función de verosimilitud como <span class="math display">\[\mathbb{L}[\theta ; \underline{X}_{(n)}] = f(\underline{X}_{(n)} ; \theta)\]</span></p>
-<p>Si además nuestra muestra es <strong>independiente</strong> (en los subsecuente nos referiremos a <span class="math inline">\(\underline{X}_{(n)}\)</span> como una <strong>muestra aleatoria</strong>, es decir una colección de variables aleatorias independientes identicamente distribuidas), la verosimilitud/función de densidad conjunta está dada por:</p>
+<p>La notación sugiere, inituitivamente, que el problema de maximización tiene como función objetivo a <span class="math inline">\(\mathbb{L}\)</span> <em>como si</em> la densidad conjunta de la muestra fuera una función de los datos y no del parámetro. Debe llamar la atención que el lingüe <em>problema de maximización</em> (como un criterio de optimalidad) y <em>función objetivo</em> se toman directamente del cálculo y son precisamente estas las directrices “matemáticas” del proceso de inferencia, razón por la cual se le da el nombre de “Estadística Matemática”.</p>
+<p>Además, el método de Máxima Verosimilitud tiene la propiedad de <strong>invarianza</strong> ante transformaciones del parámetro <span class="math inline">\(\theta\)</span>.</p>
+<p>Ahora bien, definimos la función de verosimilitud como: <span class="math display">\[\mathbb{L}[\theta ; \underline{X}_{(n)}] = f(\underline{X}_{(n)} ; \theta)\]</span></p>
+<p>Si además nuestra muestra es <strong>independiente</strong> (en los subsecuente nos referiremos a <span class="math inline">\(\underline{X}_{(n)}\)</span> como una <strong>muestra aleatoria</strong>, es decir, una colección de variables aleatorias independientes idénticamente distribuidas), la verosimilitud/función de densidad conjunta está dada por:</p>
 <p><span class="math display">\[f(\underline{X}_{(n)} ; \theta) = \prod f(x_i ; \theta)\]</span></p>
-<p>Aunque el concepto de muestreo aleatorio parece trivial fue una de las grandes aportaciones de Fisher a la estadística en el área del diseño experimentar. Iniciar el experimento conun muestro de esta naturaleza es lo soporta la hipótesis <span class="math inline">\(i.i.d\)</span>.</p>
-<p>Continuenado con nuestro ejemplo, si tenemos un muestreo normal independiente la verosimilitud está dada por la siguiente expresión:</p>
+<p>Aunque el concepto de muestreo aleatorio parece trivial fue una de las grandes aportaciones de Fisher a la estadística en el área del diseño experimental. Iniciar el experimento con un muestreo de esta naturaleza es lo que soporta la hipótesis <span class="math inline">\(i.i.d\)</span>.</p>
+<p>Continuando con nuestro ejemplo, si tenemos un muestreo normal independiente la verosimilitud está dada por la siguiente expresión:</p>
 <p><span class="math display">\[f(\underline{X}_{(n)} ; \theta) = \prod_{i = 1}^n (2 \pi \sigma^2)^{-\frac{1}{2}} e^{-\frac{(x_i - \mu)^2}{2 \sigma^2}} = (2 \pi \sigma^2)^{-\frac{n}{2}} e^{-\frac{\sum (x_i - \mu)^2}{2 \sigma^2}}\]</span></p>
 <p>Lo que nos resta, de acuerdo con el procedimiento sugerido por Fisher es maximizar la función haciendo uso del cálculo diferencial.</p>
-<p>Para las familias exponenciales es conveniente aplicar el logaritmo a la verosimilitud y operar el problema equivalente. En este caso se busca maximizar la <em>log-verosimilitud</em> (Simplemente hace el algebra más sencilla). Así la log verosimiltud <span class="math inline">\(\mathcal{l}(\theta)\)</span> está dada por: <span class="math display">\[\mathcal{l}(\theta) = -\frac{n}{2}ln(2\pi \sigma^2) -\sum\frac{(x_i - \mu)^2}{2\sigma^2}\]</span></p>
+<p>Para las familias exponenciales es conveniente aplicar el logaritmo a la verosimilitud y operar el problema equivalente. En este caso se busca maximizar la <em>log-verosimilitud</em> (simplemente hace el álgebra más sencilla). Así la log-verosimiltud <span class="math inline">\(\mathcal{l}(\theta)\)</span> está dada por: <span class="math display">\[\mathcal{l}(\theta) = -\frac{n}{2}ln(2\pi \sigma^2) -\sum\frac{(x_i - \mu)^2}{2\sigma^2}\]</span></p>
 <div id="estimación-puntual-de-la-media" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Estimación puntual de la media</h3>
 <p>Tomando la derivada con respecto a <span class="math inline">\(\mu\)</span>:</p>
@@ -2056,11 +2031,11 @@ div.tocify {
 </div>
 <div id="suficiencia" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> Suficiencia</h3>
-<p>Según el criterio de factorización de Fisher-Neyman</p>
+<p>Según el criterio de factorización de Fisher-Neyman:</p>
 <blockquote>
 <p>Sea <span class="math inline">\(f_(x; \theta)\)</span> entonces <span class="math inline">\(T = T(\underline{X}_{(n)})\)</span> es un estadístico suficiente para <span class="math inline">\(\theta\)</span> si y solo si se puden encontrar dos funciones no-negativas <span class="math inline">\(g\)</span> y <span class="math inline">\(h\)</span> tales que: <span class="math display">\[f(x; \theta) = h(x)g_{\theta}(T(x))\]</span></p>
 </blockquote>
-<p>Es decir si podemos descompner la densidad conjunta de tal suerte que dependa de un factor <span class="math inline">\(h(x)\)</span> que no dependa <span class="math inline">\(\theta\)</span> y otra función <span class="math inline">\(g\)</span> que solo dependa de los datos a través de <span class="math inline">\(T(x)\)</span></p>
+<p>Es decir, si podemos descomponer la densidad conjunta de tal manera que dependa de un factor <span class="math inline">\(h(x)\)</span> que no dependa <span class="math inline">\(\theta\)</span> y otra función <span class="math inline">\(g\)</span> que sólo dependa de los datos a través de <span class="math inline">\(T(x)\)</span></p>
 <p>Para nuestro ejemplo</p>
 <p><span class="math display">\[f(\underline{X_{(n)}} | \theta) = (2 \pi \sigma^2)^{-\frac{n}{2}} e^{-\frac{1}{2}\sum (x_i - \overline{x})^2} e^{-\frac{n}{2\sigma^2}(\mu - \overline{x})}\]</span></p>
 <ol style="list-style-type: decimal">
@@ -2068,8 +2043,8 @@ div.tocify {
 <li><span class="math inline">\(g_{\theta}(x) = e^{-\frac{n}{2\sigma^2}(\mu - \overline{x})}\)</span></li>
 <li><span class="math inline">\(T(x) = \overline{x}\)</span></li>
 </ol>
-<p>Además</p>
-<p><span class="math display">\[f(\underline{X_{(n)}} | \theta) = (2 \pi \sigma^2)^{-\frac{\hat{n}}{2}} e^{-\frac{\hat{\sigma}^2}{2 n \sigma^2}} e^{-\frac{n}{2\sigma^2}(\mu - \overline{x})}\]</span> Por lo que es trivial observar que el vector <span class="math inline">\(\hat{\theta}= (\overline{x}. \hat{\sigma}^2)\)</span> es un estadistico suficiente para <span class="math inline">\(\theta = (\mu, \sigma^2)\)</span></p>
+<p>Además ,</p>
+<p><span class="math display">\[f(\underline{X_{(n)}} | \theta) = (2 \pi \sigma^2)^{-\frac{\hat{n}}{2}} e^{-\frac{\hat{\sigma}^2}{2 n \sigma^2}} e^{-\frac{n}{2\sigma^2}(\mu - \overline{x})}\]</span> Por lo que es trivial observar que el vector <span class="math inline">\(\hat{\theta}= (\overline{x}, \hat{\sigma}^2)\)</span> es un estadístico suficiente para <span class="math inline">\(\theta = (\mu, \sigma^2)\)</span></p>
 </div>
 <div id="insesgamiento" class="section level3">
 <h3><span class="header-section-number">3.2.5</span> Insesgamiento</h3>
@@ -2077,7 +2052,7 @@ div.tocify {
 <li><p><span class="math inline">\(\hat{\mu}: \mathbb{E}[\hat{\mu}] = \mathbb{E}[\frac{\sum x_i}{n}] = \sum \mathbb{E}[\frac{x_i}{n}] = \sum \frac{\mu}{n} = \frac{n \mu}{n} = \mu\)</span></p></li>
 <li><p><span class="math inline">\(\hat{\sigma}^2: \mathbb{E}[\hat{\sigma}^2] = \mathbb{E}[\frac{\sum(x_i - \overline{x})^2}{n}] = \mathbb{E}[\sum x_i^2 - N \overline{x}^2 = \mathbb{E}[x^2] - \mathbb{E}[\overline{x}^2] = \frac{n-1}{n} \sigma^2\)</span></p></li>
 </ul>
-<p>Noten que el estimador <span class="math inline">\(\hat{\sigma}^2\)</span> <strong>no</strong> es insesgado pero <span class="math inline">\(\tilde{\sigma}^2 = \frac{n}{n-1}\hat{\sigma}^2\)</span> si lo es</p>
+<p>Noten que el estimador <span class="math inline">\(\hat{\sigma}^2\)</span> <strong>no</strong> es insesgado pero <span class="math inline">\(\tilde{\sigma}^2 = \frac{n}{n-1}\hat{\sigma}^2\)</span> sí lo es.</p>
 </div>
 <div id="consistencia" class="section level3">
 <h3><span class="header-section-number">3.2.6</span> Consistencia</h3>
@@ -2088,7 +2063,7 @@ div.tocify {
 </div>
 <div id="eficiencia" class="section level3">
 <h3><span class="header-section-number">3.2.7</span> Eficiencia</h3>
-<p>Definimos <em>la cota inferior de Cramér y Rao</em> como <span class="math display">\[\frac{1}{I(\hat{\theta)}}\]</span> Donde <span class="math inline">\(I(\theta)\)</span> denota la <strong>información de Fisher</strong> que defnimos como:</p>
+<p>Definimos <em>la cota inferior de Cramér y Rao</em> como <span class="math display">\[\frac{1}{I(\hat{\theta)}}\]</span> donde <span class="math inline">\(I(\theta)\)</span> denota la <strong>información de Fisher</strong> que definimos como:</p>
 <p><span class="math display">\[I(\theta) = n \mathbb{E}[(\frac{\partial l(x; \theta)}{\partial \theta})^2] = -n \mathbb{E}[\frac{\partial^2l(x ; \theta)}{\partial \theta^2}]\]</span> Así decimos que un estimador es <strong>eficiente</strong> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math inline">\(Var(\hat{\theta}) \geq CRLB(\theta)\)</span> o bien el error <span class="math inline">\(e(\hat{\theta}) = \frac{I^{-1}(\hat{\theta})}{VaR(\hat{\theta})} \leq 1\)</span></p>
 <ul>
 <li><span class="math inline">\(I(\hat{\mu}) = \frac{n}{\sigma^2}\)</span> <span class="math inline">\(\Longrightarrow\)</span> <span class="math display">\[e(\hat{\mu}) = \frac{\sigma^2}{n} \frac{n}{\sigma^2} = 1\]</span></li>
@@ -2098,47 +2073,47 @@ div.tocify {
 <div id="mínima-varianza" class="section level3">
 <h3><span class="header-section-number">3.2.8</span> Mínima Varianza</h3>
 <p>Este criterio requiere que la varianza (muestral) del estimador sea la mínima de otros estimadores posibles (p.e. momentos).</p>
-<p>Aunque se omite en estas notas, tanto <span class="math inline">\(\hat{mu}\)</span> y <span class="math inline">\(\tilde{\sigma}^2\)</span> son estimadores de varianza mínima.</p>
+<p>Aunque se omite en estas notas, tanto <span class="math inline">\(\hat{mu}\)</span> como <span class="math inline">\(\tilde{\sigma}^2\)</span> son estimadores de varianza mínima.</p>
 </div>
 </div>
 <div id="comentarios" class="section level2">
 <h2><span class="header-section-number">3.3</span> Comentarios</h2>
-<p>A pesar que la inferencia vía Máxima Verosimilitud funciona la mayoría de las veces no garantiza el insesgamienta ni la eficiencia. Hay casos en los que es necesario buscar un estimador <strong>no-verosímil</strong> como: la <span class="math inline">\(x_{[n]}\)</span> (la enésima estadística de órden) para el parámetro <span class="math inline">\(b\)</span> de una uniforme; existen 2 estimdores no-máximo-verosímiles en el caso log-normal que funcionan mejor en la práctica. Además la derivada de la verosimilitud no tiene forma cerrada en muchos casos (t, F, Ji-cuadrada, Gamma) y se requiere optimización numérica de la verosimilitud aun sin necesidad de considerar modelos multivariados o más complejos.</p>
+<p>A pesar de que la inferencia vía Máxima Verosimilitud funciona la mayoría de las veces no garantiza el insesgamienta ni la eficiencia. Hay casos en los que es necesario buscar un estimador <strong>no-verosímil</strong> como: la <span class="math inline">\(x_{[n]}\)</span> (la enésima estadística de órden) para el parámetro <span class="math inline">\(b\)</span> de una uniforme; existen 2 estimadores no-máximo-verosímiles en el caso log-normal que funcionan mejor en la práctica. Además, la derivada de la verosimilitud no tiene forma cerrada en muchos casos (t, F, Ji-cuadrada, Gamma) y se requiere optimización numérica de la verosimilitud aun sin necesidad de considerar modelos multivariados o más complejos.</p>
 <p>Generalmente modelos complejos implican un <em>trade-off</em> entre estas características <em>deseables</em> de nuestros estimadores.</p>
 </div>
 </div>
 <div id="estimación-por-regiones" class="section level1">
 <h1><span class="header-section-number">4</span> Estimación por regiones</h1>
-<p>Ocurre que no importa si estámos en en el caso discreto o el continuo (particularmente porque en el caso continuo los átomos del soporte tienen probabilidad 0) la probabilidad de que nuestra estimación puntual sea exactamente el valor del parámetro desconcoido es nula. Por esta razón interesa <strong>estimar por regiones</strong> al parámtro de interés.</p>
-<p>Así, se dice que <span class="math inline">\(A \quad \subseteq \quad \Theta\)</span> es una <strong>estimación por regiones</strong> de <span class="math inline">\(\theta\)</span> si <span class="math inline">\(A\)</span> se contruye a partir de la muestra y existen razones para suponer que <span class="math inline">\(\theta \quad \epsilon \quad A\)</span>. A esta contrucción de <strong>intervalos</strong> de la forma <span class="math display">\[\theta \quad \epsilon \quad [a(\underline{X}_{(n)}),b(\underline{X}_{(n)})]\]</span> Se les conoce en Estadística Matemática como <strong>intervalos de confianza</strong>.</p>
-<p>Llama la atención que las aseveraciones que se hacen sobre la construcción de esta región sujeta a una muestra <strong>FIJA</strong> <strong>NO</strong> son de naturaleza probabilística ya que al observarse la muestra el intervalo queda *¨FIJO<strong> y constituye una construcción especifica dada la muestra observada.Por esta razón se tiene un nivel de </strong>confianza** al nivel <span class="math inline">\((1-\alpha)\)</span>% de que al realizarse una muestra de este fenómeno el <span class="math inline">\((a -\alpha)\)</span>% de las veces el verdadero valor de <span class="math inline">\(\theta\)</span> estará contenido en esta región.</p>
-<p>Concpetualmente lo que significa el párrafo anterior es que en límite del experimento de una realización de la muestra <span class="math inline">\(\underline{X}_{(n)} = \underline{x}_{(n)}\)</span> y el estimador <span class="math inline">\(\hat{\theta}\)</span> esté fijo se espera con confianza de <span class="math inline">\((1- \alpha\)</span>% el verdadero valor <span class="math inline">\(\theta\)</span> se encuentre en A.</p>
+<p>Ocurre que no importa si estámos en en el caso discreto o el continuo (particularmente porque en el caso continuo los átomos del soporte tienen probabilidad 0) la probabilidad de que nuestra estimación puntual sea exactamente el valor del parámetro desconcoido es nula. Por esta razón interesa <strong>estimar por regiones</strong> al parámetro de interés.</p>
+<p>Así, se dice que <span class="math inline">\(A \quad \subseteq \quad \Theta\)</span> es una <strong>estimación por regiones</strong> de <span class="math inline">\(\theta\)</span> si <span class="math inline">\(A\)</span> se construye a partir de la muestra y existen razones para suponer que <span class="math inline">\(\theta \quad \epsilon \quad A\)</span>. A esta contrucción de <strong>intervalos</strong> de la forma <span class="math display">\[\theta \quad \epsilon \quad [a(\underline{X}_{(n)}),b(\underline{X}_{(n)})]\]</span> se les conoce en Estadística Matemática como <strong>intervalos de confianza</strong>.</p>
+<p>Llama la atención que las aseveraciones que se hacen sobre la construcción de esta región sujeta a una muestra <strong>FIJA</strong> <strong>NO</strong> son de naturaleza probabilística, ya que al observarse la muestra el intervalo queda <em>FIJO</em> y constituye una construcción específica dada la muestra observada.Por esta razón se tiene un nivel de <strong>confianza</strong> al nivel <span class="math inline">\((1-\alpha)\)</span>% de que al realizarse una muestra de este fenómeno el <span class="math inline">\((a -\alpha)\)</span>% de las veces el verdadero valor de <span class="math inline">\(\theta\)</span> estará contenido en esta región.</p>
+<p>Conceptualmente lo que significa el párrafo anterior es que en límite del experimento de una realización de la muestra <span class="math inline">\(\underline{X}_{(n)} = \underline{x}_{(n)}\)</span> y el estimador <span class="math inline">\(\hat{\theta}\)</span> esté fijo se espera con confianza de <span class="math inline">\((1- \alpha\)</span>% el verdadero valor <span class="math inline">\(\theta\)</span> se encuentre en A.</p>
 <div id="método-pivotal" class="section level2 tabset">
 <h2><span class="header-section-number">4.1</span> Método Pivotal</h2>
-<p>Si bien también para el caso de estimación por regiones existen muchos métodos <em>ad-hoc</em> el método más común es el <strong>método pivotal</strong> y consiste en lo siguiente:</p>
+<p>Si bien para el caso de estimación por regiones existen muchos métodos <em>ad-hoc</em>, el método más común es el <strong>método pivotal</strong> y consiste en lo siguiente:</p>
 <blockquote>
 <p>Sea <span class="math inline">\(\underline{X}_{(n)}\)</span> con función de densidad de probabilidad genralizada (f.d.p.g) <span class="math inline">\(f(x; \theta)\)</span>. Para estimar por regiones a <span class="math inline">\(\theta\)</span> por el método pivotal se requiere:</p>
 </blockquote>
 <ol style="list-style-type: decimal">
-<li><p>Encontrar una variable pivotal <span class="math inline">\(U\)</span> que es variable aleatoria (v.a) que:</p>
+<li><p>Encontrar una variable pivotal <span class="math inline">\(U\)</span> que es una variable aleatoria (v.a) que:</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(U = h(\underline{X}_{(n)}; \theta)\)</span> (depende de los datos y el parámetro)</li>
 <li>Tiene una función de distribución <strong>totalmente</strong> conocida <span class="math inline">\(F_{U}(u)\)</span></li>
 <li><span class="math inline">\(\exists \quad h^{-1}(u)\)</span> para cada muestra fija <span class="math inline">\(\underline{x}_{(n)}\)</span></li>
-<li>U no depende de ninguna otra canitdad desconocidad además de <span class="math inline">\(\theta\)</span></li>
+<li>U no depende de ninguna otra cantidad desconocidad ademásde <span class="math inline">\(\theta\)</span></li>
 </ol></li>
 <li><p>Determinar <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> cantidades conocidas .,. <span class="math inline">\(P[a \leq U \leq b] = 1- \alpha\)</span></p></li>
 <li><p>Expresar a U en función de <span class="math inline">\(\theta\)</span>, esto es: <span class="math display">\[P[a \leq h(\underline{X}_{(n)}; \theta) \leq b] = 1- \alpha \]</span> entonces debe ocurrir <span class="math display">\[P[h^{-1}(a,\underline{X}_{(n)}) \leq  \theta \leq h^{-1}(b,\underline{X}_{(n)})] = 1- \alpha \]</span></p></li>
-<li><p>Una vez observada la muestra <span class="math inline">\(\underline{X}_{(n)} = \underline{x}_{(n)})\)</span> se tiene que <span class="math inline">\(h^{-1}(a,\underline{X}_{(n)})\)</span> y <span class="math inline">\(h^{-1}(b,\underline{X}_{(n)})\)</span> son un número fijo y el intervalo FIJO <span class="math inline">\([h^{-1}(a,\underline{X}_{(n)}),h^{-1}(b,\underline{X}_{(n)})]\)</span> se declara un intervalo de confianza al nivel <span class="math inline">\((1 - \alpha)\)</span>% para <span class="math inline">\(\theta\)</span></p></li>
+<li><p>Una vez observada la muestra <span class="math inline">\(\underline{X}_{(n)} = \underline{x}_{(n)})\)</span> se tiene que <span class="math inline">\(h^{-1}(a,\underline{X}_{(n)})\)</span> y <span class="math inline">\(h^{-1}(b,\underline{X}_{(n)})\)</span> son un número fijo y el intervalo fijo <span class="math inline">\([h^{-1}(a,\underline{X}_{(n)}),h^{-1}(b,\underline{X}_{(n)})]\)</span> se declara un intervalo de confianza al nivel <span class="math inline">\((1 - \alpha)\)</span>% para <span class="math inline">\(\theta\)</span> .</p></li>
 </ol>
-<p>Siguiendo con nuestro ejemplo normal</p>
+<p>Siguiendo con nuestro ejemplo normal:</p>
 <p>Sabemos que <span class="math inline">\(x \sim (\mu, \sigma^2)\)</span>, <span class="math inline">\(\frac{(n-1)\tilde{\sigma}^2}{\sigma^2} \sim \mathfrak{X}^2_{n-1}\)</span> y que <span class="math inline">\(\hat{\mu} \sim N(\mu,\frac{\sigma^2}{n})\)</span> <span class="math inline">\(\Longrightarrow\)</span></p>
 <div id="ic-para-la-media" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> IC para la media</h3>
 <p><span class="math display">\[(\overline{x} - \hat{\mu}) \sim N(0, \frac{\sigma^2}{n})\]</span> <span class="math inline">\(\Longrightarrow\)</span></p>
 <p><span class="math display">\[\frac{(\overline{x}- \mu) \sqrt{n}}{\sigma} \sim N(0,1)\]</span> Como <span class="math inline">\(\sigma\)</span> aún es desconocida <span class="math inline">\(\Longrightarrow\)</span></p>
 <p><span class="math display">\[U =\frac{(\overline{x}- \mu) \sqrt{n}}{\sigma \sqrt{\frac{\tilde{\sigma}^2}{\sigma^2}}} = \frac{(\overline{x}- \mu) \sqrt{n}}{\tilde{\sigma}} \sim t_{(n-1)}\]</span></p>
-<p>Luego entonces se tiene que</p>
+<p>Entonces se tiene que</p>
 <p><span class="math display">\[P[a \leq \frac{(\overline{x}- \mu) \sqrt{n}}{\tilde{\sigma}} \leq b] = 1 - \alpha\]</span> Si y solo si</p>
 <ul>
 <li><span class="math inline">\(a = -t_{(n-1)}^{1-\frac{\alpha}{2}}\)</span> y</li>
@@ -2153,31 +2128,31 @@ div.tocify {
 <p><span class="math display">\[U = \frac{(n-1)\tilde{\sigma}^2}{\sigma^2} \sim \mathfrak{X}^2_{(n-1)}\]</span> <span class="math inline">\(\Longrightarrow\)</span></p>
 <p><span class="math display">\[P[\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})} \leq \frac{(n-1)\tilde{\sigma}^2}{\sigma^2} \leq \mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}] = 1 - \alpha\]</span></p>
 <p><span class="math inline">\(\Longrightarrow\)</span></p>
-<p><span class="math display">\[P[\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}} \leq \sigma^2 \leq \frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})}}] = 1 - \alpha\]</span> Así al observarse la muestra, el intervalo fijo <span class="math display">\[[\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}},\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})}} ]\]</span></p>
-<p>Se declara un intervalo de confianza al nivel <span class="math inline">\((1 - \alpha)\)</span>% para <span class="math inline">\(\sigma^2\)</span></p>
-<p><strong>OJO:</strong> Este intervalo no es simétrico. Además pudimos acotar unicamente el límite superioir (ya que la varianza siempre es positiva) y proponer el intervalo <span class="math display">\[[0, \frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \alpha)}}]\]</span></p>
+<p><span class="math display">\[P[\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}} \leq \sigma^2 \leq \frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})}}] = 1 - \alpha\]</span> Así, al observarse la muestra, el intervalo fijo es <span class="math display">\[[\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1,  \frac{\alpha}{2})}},\frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \frac{\alpha}{2})}} ]\]</span></p>
+<p>Se declara un intervalo de confianza al nivel <span class="math inline">\((1 - \alpha)\)</span>% para <span class="math inline">\(\sigma^2\)</span>.</p>
+<p><strong>OJO:</strong> Este intervalo no es simétrico. Además, pudimos acotar únicamente el límite superior (ya que la varianza siempre es positiva) y proponer el intervalo <span class="math display">\[[0, \frac{(n-1)\tilde{\sigma}^2}{\mathfrak{X}^2_{(n-1, 1- \alpha)}}]\]</span></p>
 </div>
 </div>
 <div id="comentarios-1" class="section level2">
 <h2><span class="header-section-number">4.2</span> Comentarios</h2>
-<p>El método pivotal está limitado porque se pueda encontrar la variable pivotal en cuestión, cosa que muchas veces no sucede. Por esta razón se suele recurrir al TCL.</p>
-<p>Además este método exhibe patologías en el caso bernoulli, cociente de medias de dos poblaciones o incluso intervalos de confianza a un nivel <span class="math inline">\((1- \alpha)\)</span>% <span class="math inline">\(&lt;\)</span> 100% que abarcan to el espacio parametral.</p>
+<p>El método pivotal está limitado a que se pueda encontrar la variable pivotal en cuestión, cosa que muchas veces no sucede. Por esta razón se suele recurrir al TCL.</p>
+<p>Además, este método exhibe patologías en el caso bernoulli, cociente de medias de dos poblaciones o incluso intervalos de confianza a un nivel <span class="math inline">\((1- \alpha)\)</span>% <span class="math inline">\(&lt;\)</span> 100% que abarcan todo el espacio parametral.</p>
 </div>
 </div>
-<div id="contraste-de-hpótesis" class="section level1">
-<h1><span class="header-section-number">5</span> Contraste de Hpótesis</h1>
+<div id="contraste-de-hipótesis" class="section level1">
+<h1><span class="header-section-number">5</span> Contraste de Hipótesis</h1>
 <p>La construcción de conocimiento requiere la confrontación de las hipótesis científicas con la nueva evidencia disponible, de tal suerte de poder hacer una declaración sobre su validez. En el contexto de estadística paramétrica, una hipótesis es equivalente a cuestionarnos sobre la validez de un <strong>modelo</strong> en específico.</p>
-<p>Tal vez una de las discusiones mas acalarodas en el ceno de la escuela frecuentista fue precisamente la que versó sobre un procedimiento aceptable para realizar este aprendizaje y valiación científica. Esta discusión la protaganizaron Ronald A. Fisher contra Jerzy Neyman y Karl Pearson durante la decada de los 30’s.</p>
-<p>El acercamiento que estudiaremos en este caso es la teoría de “<em>Pruebas de Significancia de Hipótesis Nula</em>” de Neyman-Pearson ya que ofrece <strong>criterios de optimilidad</strong> y en palabras de Jerzy Neyman y Karl Pearson:</p>
+<p>Tal vez una de las discusiones mas acalarodas en el centro de la escuela frecuentista fue precisamente la que versión sobre un procedimiento aceptable para realizar este aprendizaje y validación científica. Esta discusión la protaganizaron Ronald A. Fisher contra Jerzy Neyman y Karl Pearson durante la década de los 30’s.</p>
+<p>El acercamiento que estudiaremos en este caso es la teoría de “<em>Pruebas de Significancia de Hipótesis Nula</em>” de Neyman-Pearson, ya que ofrece <strong>criterios de optimalidad</strong> y en palabras de Jerzy Neyman y Karl Pearson:</p>
 <blockquote>
 <p>“Without hoping to know whether each separate hypothesis is true or false”, the authors wrote, “we may search for rules to govern our behavior with regard to them, in following which we insure that, in the long run of experience, we shall not be too often wrong.”</p>
 </blockquote>
-<p>En el esquema propuesto por Neyman y Pearson se definimos:</p>
+<p>En el esquema propuesto por Neyman y Pearson definimos:</p>
 <p><style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#jhdlldzjhm .gt_table {
+#edldcrmqeh .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2202,7 +2177,7 @@ div.tocify {
   border-left-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_heading {
+#edldcrmqeh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2214,7 +2189,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_title {
+#edldcrmqeh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2224,7 +2199,7 @@ div.tocify {
   border-bottom-width: 0;
 }
 
-#jhdlldzjhm .gt_subtitle {
+#edldcrmqeh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2234,13 +2209,13 @@ div.tocify {
   border-top-width: 0;
 }
 
-#jhdlldzjhm .gt_bottom_border {
+#edldcrmqeh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_col_headings {
+#edldcrmqeh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2255,7 +2230,7 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_col_heading {
+#edldcrmqeh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2275,7 +2250,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#jhdlldzjhm .gt_column_spanner_outer {
+#edldcrmqeh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2287,15 +2262,15 @@ div.tocify {
   padding-right: 4px;
 }
 
-#jhdlldzjhm .gt_column_spanner_outer:first-child {
+#edldcrmqeh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jhdlldzjhm .gt_column_spanner_outer:last-child {
+#edldcrmqeh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jhdlldzjhm .gt_column_spanner {
+#edldcrmqeh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2307,7 +2282,7 @@ div.tocify {
   width: 100%;
 }
 
-#jhdlldzjhm .gt_group_heading {
+#edldcrmqeh .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2329,7 +2304,7 @@ div.tocify {
   vertical-align: middle;
 }
 
-#jhdlldzjhm .gt_empty_group_heading {
+#edldcrmqeh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2344,15 +2319,15 @@ div.tocify {
   vertical-align: middle;
 }
 
-#jhdlldzjhm .gt_from_md > :first-child {
+#edldcrmqeh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jhdlldzjhm .gt_from_md > :last-child {
+#edldcrmqeh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jhdlldzjhm .gt_row {
+#edldcrmqeh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2371,7 +2346,7 @@ div.tocify {
   overflow-x: hidden;
 }
 
-#jhdlldzjhm .gt_stub {
+#edldcrmqeh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2383,7 +2358,7 @@ div.tocify {
   padding-left: 12px;
 }
 
-#jhdlldzjhm .gt_summary_row {
+#edldcrmqeh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2393,7 +2368,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#jhdlldzjhm .gt_first_summary_row {
+#edldcrmqeh .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2403,7 +2378,7 @@ div.tocify {
   border-top-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_grand_summary_row {
+#edldcrmqeh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2413,7 +2388,7 @@ div.tocify {
   padding-right: 5px;
 }
 
-#jhdlldzjhm .gt_first_grand_summary_row {
+#edldcrmqeh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2423,11 +2398,11 @@ div.tocify {
   border-top-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_striped {
+#edldcrmqeh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jhdlldzjhm .gt_table_body {
+#edldcrmqeh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2436,7 +2411,7 @@ div.tocify {
   border-bottom-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_footnotes {
+#edldcrmqeh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2450,13 +2425,13 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_footnote {
+#edldcrmqeh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#jhdlldzjhm .gt_sourcenotes {
+#edldcrmqeh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2470,46 +2445,46 @@ div.tocify {
   border-right-color: #D3D3D3;
 }
 
-#jhdlldzjhm .gt_sourcenote {
+#edldcrmqeh .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#jhdlldzjhm .gt_left {
+#edldcrmqeh .gt_left {
   text-align: left;
 }
 
-#jhdlldzjhm .gt_center {
+#edldcrmqeh .gt_center {
   text-align: center;
 }
 
-#jhdlldzjhm .gt_right {
+#edldcrmqeh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jhdlldzjhm .gt_font_normal {
+#edldcrmqeh .gt_font_normal {
   font-weight: normal;
 }
 
-#jhdlldzjhm .gt_font_bold {
+#edldcrmqeh .gt_font_bold {
   font-weight: bold;
 }
 
-#jhdlldzjhm .gt_font_italic {
+#edldcrmqeh .gt_font_italic {
   font-style: italic;
 }
 
-#jhdlldzjhm .gt_super {
+#edldcrmqeh .gt_super {
   font-size: 65%;
 }
 
-#jhdlldzjhm .gt_footnote_marks {
+#edldcrmqeh .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="jhdlldzjhm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="edldcrmqeh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="3" class="gt_heading gt_title gt_font_normal" style>Realidad</th>
@@ -2528,7 +2503,7 @@ div.tocify {
   <tbody class="gt_table_body">
     <tr>
       <td class="gt_row gt_left">Rechazar H0</td>
-      <td class="gt_row gt_left">Error Tipi I</td>
+      <td class="gt_row gt_left">Error Tipo I</td>
       <td class="gt_row gt_left">Acierto</td>
     </tr>
     <tr>
@@ -2539,32 +2514,32 @@ div.tocify {
   </tbody>
   
   
-</table></div> Matemáticamente</p>
+</table></div> Matemáticamente:</p>
 <ul>
 <li><span class="math inline">\(P(EI) = P[\underline{X}_{(n)} \quad \epsilon \quad \mathcal{C} | f(x) = f(x ; \theta_0)]] = \alpha\)</span></li>
 <li><span class="math inline">\(P(EII) = P[\underline{X}_{(n)} \quad \epsilon \quad \mathcal{C}^c | f(x) = f(x ; \theta_1)]] = \beta\)</span></li>
 </ul>
-<p>Donde a <span class="math inline">\(\mathcal{C}\)</span> se le conoce como la <strong>región de rechazo</strong> (<span class="math inline">\(\mathcal{C}^c\)</span> se le conoce como la región de aceptación).</p>
+<p>donde a <span class="math inline">\(\mathcal{C}\)</span> se le conoce como la <strong>región de rechazo</strong> (<span class="math inline">\(\mathcal{C}^c\)</span> se le conoce como la región de aceptación).</p>
 <p>En el contexto de la inferencia estadística el error tipo I es equivalente a “condenar a un acusado inocente”, por esta razón la teoría de Neyman-Pearson parte de un nivel fijo (tolerable) de <span class="math inline">\(\alpha\)</span> y minimizar <span class="math inline">\(\beta\)</span> por lo que no se condena a un inocente a menos que la evidencia en contra de la inocencia sea abrumadora.</p>
-<p>La pregunta que resta es <em>¿Cómo construir la región de rechazo <span class="math inline">\(\mathcal{C}\)</span></em>.</p>
-<div id="hipotesis-simple-contra-simple" class="section level2 tabset">
-<h2><span class="header-section-number">5.1</span> Hipotesis simple contra simple</h2>
+<p>La pregunta que resta es: <em>¿cómo construir la región de rechazo <span class="math inline">\(\mathcal{C}\)</span> ?</em></p>
+<div id="hipótesis-simple-contra-simple" class="section level2 tabset">
+<h2><span class="header-section-number">5.1</span> Hipótesis simple contra simple</h2>
 <p>Sea una <span class="math inline">\(\underline{X}_{(n)}\)</span> con <span class="math inline">\(X\)</span> con f.d.p.g <span class="math inline">\(f(x;\theta)\)</span>, <span class="math inline">\(\theta\)</span> <span class="math inline">\(\epsilon\)</span> <span class="math inline">\(\Theta\)</span> <span class="math inline">\(\subseteq\)</span> <span class="math inline">\(\mathbb{R}^k\)</span>. Considere las hipótesis: <span class="math display">\[H_0: \theta = \theta_0 \quad vs. \quad H_1: \theta = \theta_1\]</span></p>
-<p><span class="math inline">\(H_0\)</span> se le concoe como la <strong>hipótesis nula</strong> y a <span class="math inline">\(H_1\)</span> se le concoe como la <strong>hipótesis alternativa</strong>. El contraste se realiza a partir de la evidencia que aporta <span class="math inline">\(\underline{X}_{(n)}\)</span>. En este contesto las hipótesis son equivalentes a <span class="math inline">\(H_0: f(x) = f(x;\theta_0)\)</span> y <span class="math inline">\(H_1:f(x)=f(x;\theta_1)\)</span>.</p>
-<p>Para un contraste de hipótesis <em>simple contra simple</em> en virtud del <strong>Lemma de Neyman-Pearson</strong> propnemos la región <strong>óptima</strong> <span class="math inline">\(\mathcal{C}\)</span> para el nivel de significancia <span class="math inline">\(\alpha\)</span></p>
+<p><span class="math inline">\(H_0\)</span> se le conoce como la <strong>hipótesis nula</strong> y a <span class="math inline">\(H_1\)</span> se le conoce como la <strong>hipótesis alternativa</strong>. El contraste se realiza a partir de la evidencia que aporta <span class="math inline">\(\underline{X}_{(n)}\)</span>. En este contesto las hipótesis son equivalentes a <span class="math inline">\(H_0: f(x) = f(x;\theta_0)\)</span> y <span class="math inline">\(H_1:f(x)=f(x;\theta_1)\)</span>.</p>
+<p>Para un contraste de hipótesis <em>simple contra simple</em> en virtud del <strong>Lemma de Neyman-Pearson</strong> proponemos la región <strong>óptima</strong> <span class="math inline">\(\mathcal{C}\)</span> para el nivel de significancia <span class="math inline">\(\alpha\)</span></p>
 <blockquote>
 <p><span class="math display">\[\mathcal{C} \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \Lambda = \frac{\mathbb{L}(\theta_0 ; x)}{\mathbb{L}(\theta_1 ; x)} &lt; k \}\]</span> con <span class="math inline">\(k\)</span> tal que: <span class="math display">\[P(EI) = \alpha \longrightarrow P(\underline{X}_{(n)} \quad \epsilon \quad \mathcal{c} | H_0) = \alpha\]</span></p>
 </blockquote>
-<p>Esta región es óptima en el sentido de que minimiza la probabilidad de Tipo II y depende de la muestra a través de una estadística suficiente</p>
+<p>Esta región es óptima en el sentido de que minimiza la probabilidad de Tipo II y depende de la muestra a través de una estadística suficiente.</p>
 <div id="media" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Media</h3>
 <p>Considere: <span class="math display">\[H_0: \mu = \mu_0 \quad vs \quad H_1: \mu = \mu_1\]</span></p>
 <p>Sea <span class="math display">\[\Lambda = e^{-\frac{1}{2 \sigma}[\sum (x_i - \mu_0)^2 - \sum(x_i - \mu_1)^2]}\]</span></p>
 <p>Ahora:</p>
 <ol style="list-style-type: decimal">
-<li>Operamos el <strong>cociente de verosimilitudes</strong> hasta que <span class="math inline">\(\Lambda\)</span> sea solo una función de la muestra (buscamos un estadístico de prueba)</li>
-<li>Acumulamos todas las constantes en la cantidad desconocida <span class="math inline">\(k\)</span> pudeindo cambiar el sentido de la desigualdad</li>
-<li>Determinamos la distribución muestral del estadístico de prueba (o recurrimos al TCL)</li>
+<li>Operamos el <strong>cociente de verosimilitudes</strong> hasta que <span class="math inline">\(\Lambda\)</span> sea solo una función de la muestra (buscamos un estadístico de prueba).</li>
+<li>Acumulamos todas las constantes en la cantidad desconocida <span class="math inline">\(k\)</span> pudiendo cambiar el sentido de la desigualdad.</li>
+<li>Determinamos la distribución muestral del estadístico de prueba (o recurrimos al TCL).</li>
 <li>Determinamos la cantidad <span class="math inline">\(k^* = c\)</span> tal que la probabilidad de error tipo I dado <span class="math inline">\(H_0\)</span> sea precisamente <span class="math inline">\(\alpha\)</span></li>
 </ol>
 <p><span class="math inline">\(\Longrightarrow\)</span> <span class="math display">\[\lambda \leq k\]</span> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math display">\[\overline{x} &gt; c\]</span> Más aún <span class="math display">\[P(\overline{x} &gt; c | H_0: \overline{x} \sim N(\mu_0, \frac{\sigma^2}{n})) = \alpha\]</span> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math display">\[P[t &gt; \frac{(c - \mu_0) \sqrt{n}}{\tilde{\sigma}}] = \alpha\]</span> <span class="math inline">\(\therefore\)</span> <span class="math display">\[c = t_{1 - \alpha} \frac{\tilde{\sigma}}{\sqrt{n}} + \mu_0\]</span> Finalmente <span class="math display">\[\mathcal{C} = \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \overline{x} &gt;  t_{1 - \alpha} \frac{\tilde{\sigma}}{\sqrt{n}} + \mu_\} \]</span></p>
@@ -2573,55 +2548,55 @@ div.tocify {
 <h3><span class="header-section-number">5.1.2</span> Varianza</h3>
 <p>Considere: <span class="math display">\[H_0: \sigma = \sigma_0 \quad vs \quad H_1: \sigma = \sigma_1\]</span></p>
 <p>Sea <span class="math inline">\(\Lambda = (\frac{\sigma^0}{\sigma_1})^{-\frac{n}{2}} e^{- \frac{1}{2}\sum (x_i - \hat{\mu})^2 [\frac{1}{\sigma_0^2} - \frac{1}{\sigma_1^2}]}\)</span></p>
-<p>Ahora bien <span class="math inline">\(\Lambda \leq k\)</span> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math display">\[\sum (x_i - \overline{x})^2 &gt; k\]</span> Pero <span class="math display">\[ \sum \frac{(x_i - \hat{\mu})^2}{\sigma_0^2} \sim \mathfrak{X}_{(n-1)}^2\]</span> <span class="math inline">\(\therefore\)</span> <span class="math display">\[P[\frac{(x_i - \hat{\mu})^2}{\sigma_0^2} &gt; c | H_0: \overline{x} \sim N(\mu, \frac{\sigma_0^2}{n})] = \alpha\]</span> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math display">\[c = \mathfrak{X}^2_{1-\alpha}\]</span> Finalmente <span class="math display">\[\mathcal{C} = \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \tilde{\sigma}^2 &gt;  \frac{\sigma^2_0 \mathfrak{X}^2_{1-\alpha}}{n-1} \}\]</span></p>
+<p>Ahora bien <span class="math inline">\(\Lambda \leq k\)</span> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math display">\[\sum (x_i - \overline{x})^2 &gt; k\]</span> Pero <span class="math display">\[ \sum \frac{(x_i - \hat{\mu})^2}{\sigma_0^2} \sim \mathfrak{X}_{(n-1)}^2\]</span> <span class="math inline">\(\therefore\)</span> <span class="math display">\[P[\frac{(x_i - \hat{\mu})^2}{\sigma_0^2} &gt; c | H_0: \overline{x} \sim N(\mu, \frac{\sigma_0^2}{n})] = \alpha\]</span> <span class="math inline">\(\Longleftrightarrow\)</span> <span class="math display">\[c = \mathfrak{X}^2_{1-\alpha}\]</span> Finalmente, <span class="math display">\[\mathcal{C} = \{ \underline{X}_{(n)} \quad \epsilon \quad \underline{\mathcal{X}}_{(n)} | \quad \tilde{\sigma}^2 &gt;  \frac{\sigma^2_0 \mathfrak{X}^2_{1-\alpha}}{n-1} \}\]</span></p>
 </div>
 </div>
 <div id="hipótesis-compuesta-contra-compuesta" class="section level2">
 <h2><span class="header-section-number">5.2</span> Hipótesis compuesta contra compuesta</h2>
-<p>Considere ahora el juego de hipótesis <span class="math display">\[H_0: \theta \quad \epsilon \quad A \quad \subseteq \quad \Theta \quad vs \quad H_1: \theta \quad \epsilon \quad A^c \quad \subseteq \quad \Theta\]</span></p>
+<p>Considere ahora el juego de hipótesis: <span class="math display">\[H_0: \theta \quad \epsilon \quad A \quad \subseteq \quad \Theta \quad vs \quad H_1: \theta \quad \epsilon \quad A^c \quad \subseteq \quad \Theta\]</span></p>
 <p>¿Podremos <em>re-utilizar</em> el Lemma de Neyman-Pearson?</p>
 <div id="cociente-de-verosimilitudes-generalizado" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Cociente de Verosimilitudes Generalizado</h3>
 <p>Sea <span class="math display">\[\alpha(\theta) = P[T(\underline{X}_{(n)}) &gt; c |T(\underline{X}_{(n)}) \sim f(x; \theta)] \forall \theta \quad \epsilon \quad A\]</span></p>
-<p>Observamos que <span class="math inline">\(\alpha(\theta)\)</span> es una función monótona de <span class="math inline">\(\theta\)</span> en virtud de la monoticidad de F, además definimos <span class="math display">\[\alpha^* = \sup_{\theta \epsilon A} \alpha(\theta)\]</span> Por la característica de monotonía ocurre que para hipótesis de la forma <span class="math inline">\(\theta \leq \theta_0\)</span> <span class="math inline">\(\Longrightarrow\)</span> <span class="math display">\[\alpha^* = \alpha(\theta_0)\]</span> <span class="math inline">\(\therefore\)</span> <span class="math display">\[\Lambda = \frac{\sup_{H_0} \mathbb{L}(\theta: x)}{\sup_{H_0 \cup H_1} \mathbb{L}(\theta: x)}\]</span> Donde:</p>
+<p>Observamos que <span class="math inline">\(\alpha(\theta)\)</span> es una función monótona de <span class="math inline">\(\theta\)</span> en virtud de la monoticidad de F- Además, definimos <span class="math display">\[\alpha^* = \sup_{\theta \epsilon A} \alpha(\theta)\]</span> Por la característica de monotonía ocurre que para la hipótesis de la forma <span class="math inline">\(\theta \leq \theta_0\)</span> <span class="math inline">\(\Longrightarrow\)</span> <span class="math display">\[\alpha^* = \alpha(\theta_0)\]</span> <span class="math inline">\(\therefore\)</span> <span class="math display">\[\Lambda = \frac{\sup_{H_0} \mathbb{L}(\theta: x)}{\sup_{H_0 \cup H_1} \mathbb{L}(\theta: x)}\]</span> Donde:</p>
 <ul>
 <li><span class="math inline">\(sup_{H_0} \mathbb{L}(\theta: x) = \mathbb{L}(\theta_0; x)\)</span></li>
 <li><span class="math inline">\(sup_{H_0 \cup H_1} \mathbb{L}(\theta: x) = \mathbb{L}(\hat{\theta}_{MV};x)\)</span></li>
-<li><span class="math inline">\(\hat{\theta}_{MV}\)</span> denota el estimador Máximo Verosímil</li>
+<li><span class="math inline">\(\hat{\theta}_{MV}\)</span> denota el estimador máximo verosímil</li>
 </ul>
 </div>
 </div>
 <div id="valores-p" class="section level2">
 <h2><span class="header-section-number">5.3</span> Valores <em>p</em></h2>
-<p>En la praxis estadística actual, particularmente aquella involucrada en el <em>Machine Learning</em> y la <em>Ciencia de Datos</em>. Existe lo que bien podría llamarsele una “mal sana fijación” con los <span class="math inline">\(valores \quad p\)</span> como evidencia suficiente en contra de la hipótesis nula.</p>
+<p>En la praxis estadística actual, particularmente aquella involucrada en el <em>Machine Learning</em> y la <em>Ciencia de Datos</em>, existe lo que bien podría llamarse una “mal sana fijación” con los <span class="math inline">\(valores \quad p\)</span> como evidencia suficiente en contra de la hipótesis nula.</p>
 <p>Esta mala práctica documentada por la Asociación Americana de Estadística (puedes consultar <a href="https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf">aqui</a>) no proviene ni siquiera de las teorías en debacle durante la década de los 30.</p>
-<p>Elaborando un poco más sobre este punto, aunque Fisher no propuso una regla de rechazo y su teoría sobre contraste de hipótesis solo tenía como medida cuantitaitiva los <span class="math inline">\(valores \quad p\)</span> sostuvo que debía no rechazarse una hipótesis nula unicamente con base en estos últimos y el investigador debía hacer uso de su juicio.</p>
-<p>Matemáticamente <span class="math display">\[p = P[T(\underline{X}_{(n)}) &gt;/&lt; c | H_0]\]</span> Donde el sentido de la desigualdad se puede derivar del procedimiento propuesto por la contrucción de regiones de rechazo vía cociente de verosimilitudes.</p>
+<p>Elaborando un poco más sobre este punto, aunque Fisher no propuso una regla de rechazo y su teoría sobre contraste de hipótesis sólo tenía como medida cuantitaitiva los <span class="math inline">\(valores\quad p\)</span>, sostuvo que debía no rechazarse una hipótesis nula únicamente con base en estos últimos y el investigador debía hacer uso de su juicio.</p>
+<p>Matemáticamente: <span class="math display">\[p = P[T(\underline{X}_{(n)}) \lessgtr  c | H_0]\]</span> donde el sentido de la desigualdad se puede derivar del procedimiento propuesto por la contrucción de regiones de rechazo vía cociente de verosimilitudes.</p>
 <p>En palabras un valor p es:</p>
 <blockquote>
 <p>La probabilidad de observar resultados tan extremos como aquellos observados con el presupuesto de que la hipótesis nula sea cierta</p>
 </blockquote>
-<p>Para el observador atento, la definición matemática debe sugerir inmediatamente alguna relación con la probabilidad fija de Error Tipo I <span class="math inline">\(\alpha\)</span>. De alguna manera un <em>valor p</em> es la probabilidad empírica de erro Tipo I es por eso que suele tomarse como punto de referencia precisamente este valor <span class="math inline">\(\alpha\)</span> y la regla de decisión es que el <em>valor p</em> sea “suficientemente más pequeño que” <span class="math inline">\(\alpha\)</span> para rechazar la hipótesis nula.</p>
+<p>Para el observador atento, la definición matemática debe sugerir inmediatamente alguna relación con la probabilidad fija de error tipo I <span class="math inline">\(\alpha\)</span>. De alguna manera un <em>valor p</em> es la probabilidad empírica de error tipo I es por eso que suele tomarse como punto de referencia precisamente este valor <span class="math inline">\(\alpha\)</span> y la regla de decisión es que el <em>valor p</em> sea “suficientemente más pequeño que” <span class="math inline">\(\alpha\)</span> para rechazar la hipótesis nula.</p>
 </div>
 <div id="comentarios-2" class="section level2">
 <h2><span class="header-section-number">5.4</span> Comentarios</h2>
-<p>A pesar de que el Lema de Neyman-Pearson garantiza <em>optimalidad</em>, tiene la desventaja de que no ajusta manualmente <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span> lo que puede generar (de nuevo) patologías. Además, ocurre que este procedimiento presupone cierta la hipótesis nula, sin embargo, al rechzar/aceptar la misma no nos da información sobre la <strong>probabilidad</strong> de esta.</p>
-<p>Con respecto a los <em>valores p</em> tiene cualiad de ser <em>surprise reactive</em> y <em>sample size sensitive</em> por lo que su uso indiscriminado rechaza la hipótesis nula sistemáticamente conforme la muestra crece.</p>
+<p>A pesar de que el Lema de Neyman-Pearson garantiza <em>optimalidad</em>, tiene la desventaja de que no se ajusta manualmente <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(\beta\)</span> lo que puede generar (de nuevo) patologías. Además, ocurre que este procedimiento presupone como cierta la hipótesis nula, sin embargo, al rechazar/aceptar la misma no nos da información sobre la <strong>probabilidad</strong> de esta hipótesis.</p>
+<p>Con respecto a los <em>valores p</em>, tienen la cualidad de ser <em>surprise reactive</em> y <em>sample size sensitive</em>, por lo que su uso indiscriminado rechaza la hipótesis nula sistemáticamente conforme la muestra crece.</p>
 </div>
 </div>
 <div id="pronóstico" class="section level1">
 <h1><span class="header-section-number">6</span> Pronóstico</h1>
-<p>Continuando con el problema de inferencia, debemos ahora abordar el problema de <strong>pronóstico</strong>. Si bien, desde el punto de vista frecuentista, para hacer estimación puntual basta partir de <span class="math inline">\(x \sim f(x; \hat{\theta})\)</span> para hacer estimación puntual. Podríamos sentirnos inclinados a hacer lo mismo con la estimación por regiones, sin embargo, esta última debe de incorporar la <strong>incertidumbre</strong> de una observación que aún <strong>no</strong> se ha manisfetado.</p>
-<p>Así, la construcción de un <strong>intervalor de predicción</strong> para la una observación <span class="math inline">\(x^* = x_{n+1}\)</span> por el método pivotal está dado por:</p>
+<p>Continuando con el problema de inferencia, debemos ahora abordar el problema de <strong>pronóstico</strong>. Si bien, desde el punto de vista frecuentista, basta partir de <span class="math inline">\(x \sim f(x; \hat{\theta})\)</span> para hacer estimación puntual. Podríamos sentirnos inclinados a hacer lo mismo con la estimación por regiones. Sin embargo, esta última debe de incorporar la <strong>incertidumbre</strong> de una observación que aún <strong>no</strong> se ha manifestado.</p>
+<p>Así, la construcción de un <strong>intervalo de predicción</strong> para una observación <span class="math inline">\(x^* = x_{n+1}\)</span> por el método pivotal está dado por:</p>
 <p><span class="math display">\[x^* - \hat{\mu} \sim N(0, \frac{\sigma^2}{(1 + \frac{1}{n})})\]</span> <span class="math inline">\(\Longrightarrow\)</span></p>
 <p><span class="math display">\[U = \frac{(x^* - \hat{\mu}) \sqrt{1 + \frac{1}{n}}}{\tilde{\sigma}^2}\sim t_{n-1}\]</span> Finalmente, al observar la muestra, el intervalo <strong>FIJO</strong> de predicción al nivel de confianza <span class="math inline">\((1-\alpha)\)</span>% <span class="math display">\[[\overline{x} \pm t_{n-1}^{1 - \frac{\alpha}{2}} \tilde{\sigma} \sqrt{1 + \frac{1}{n}}]\]</span> se declara un intervalo de predicción para <span class="math inline">\(x_{n+1}\)</span></p>
 </div>
 <div id="validación-de-supuestos" class="section level1">
 <h1><span class="header-section-number">7</span> Validación de Supuestos</h1>
-<p>Finalmente nos interesa saber si nuestro supuesto sobre nuestra elección de una determinada familia paramétrica <span class="math inline">\(\mathfrak{F}\)</span> es razonable. Esta no es una pregunta trivial ya que puede ser perfectametne válido ajustar una exponencial o una <span class="math inline">\(\Gamma\)</span>. Más aún aunque la diferencia entre una Normal y una <span class="math inline">\(T\)</span> puede ser sutíl, en el contexto de la administración de riesgos puede tener implicaciones reelevantes para la toma de decisiones. A continuación se presentan una serie de criterios para decidir sobre una <strong>licitación de modelos</strong>.</p>
-<p>Esta serie de criterios pertence a una discplina en la estadística desafortunadamente conocida <strong>bondad de ajuste</strong> por su traducción literal del inglés (“Goodness of Fit”). ¿Qué ajuste es malevolo? La idea general de estas pruebas es buscar <em>parsimonia</em> entre la complejidad del modelo y su capacidad de ajustar los datos.</p>
+<p>Por último, nos interesa saber si nuestro supuesto sobre nuestra elección de una determinada familia paramétrica <span class="math inline">\(\mathfrak{F}\)</span> es razonable. Esta no es una pregunta trivial ya que puede ser perfectametne válido ajustar una exponencial o una <span class="math inline">\(\Gamma\)</span>. Más aún, aunque la diferencia entre una Normal y una <span class="math inline">\(T\)</span> puede ser sutil, en el contexto de la administración de riesgos puede tener implicaciones relevantes para la toma de decisiones. A continuación se presentan una serie de criterios para decidir sobre una <strong>licitación de modelos</strong>.</p>
+<p>Esta serie de criterios pertence a una discplina en la estadística desafortunadamente conocida como <strong>bondad de ajuste</strong> por su traducción literal del inglés (“Goodness of Fit”). ¿Qué ajuste es malévolo? La idea general de estas pruebas es buscar <em>parsimonia</em> entre la complejidad del modelo y su capacidad de ajustar los datos.</p>
 <p>Este tipo pruebas caen en el dominio del contraste de hipótesis con el siguiente juego de hipótesis: <span class="math display">\[H_0: f(x; \theta) = \mathfrak{f}_i(x; \theta) \quad vs \quad H_1: f(x; \theta) = \mathfrak{f}_j(x; \theta)\]</span></p>
-<p>vuelve a ocurrir que el procedimiento no está unficado con la herramienta frecuentista.</p>
+<p>Vuelve a ocurrir que el procedimiento no está unficado con la herramienta frecuentista.</p>
 <p>Criterios de <strong>Calidad</strong> de Ajuste</p>
 <ol style="list-style-type: decimal">
 <li>Criterio Máximo Verosímil</li>
@@ -2634,69 +2609,72 @@ div.tocify {
 </ol>
 <div id="criterio-máximo-verosímil" class="section level2">
 <h2><span class="header-section-number">7.1</span> Criterio Máximo Verosímil</h2>
-<p><strong>Regla de decisión escoger</strong>: el modelo con mayor verosimilitud.</p>
-<p>Aunque este es el más sencillo de todos, padece de sobreajuste y numericamente es conveniente usar la log-verosimilitud.</p>
+<p><strong>Regla de decisión </strong>: escoger el modelo con mayor verosimilitud.</p>
+<p>Aunque este criterio es el más sencillo de todos, padece de sobreajuste y numéricamente es conveniente usar la log-verosimilitud.</p>
 </div>
 <div id="criterio-de-verosimilitud-predictiva" class="section level2">
 <h2><span class="header-section-number">7.2</span> Criterio de Verosimilitud Predictiva</h2>
 <p>Considere <span class="math inline">\(\underline{X}_{(n)}^p\)</span> y <span class="math inline">\(\underline{X}_{(n)}^e\)</span> tales que <span class="math inline">\(\underline{X}_{(n)}^e \cup \underline{X}_{(n)}^p = \underline{X}_{(n)}\)</span></p>
-<p>Considere además que la inferencia se hace usando el <em>conjunto de entrenamiento</em> <span class="math inline">\(\underline{X}_{(n)}^e\)</span>.</p>
-<p><strong>Regla de decisión:</strong> Escoger el modelo que maximice la verosmilitud evaluada en el <strong>conjunto de preuba</strong> <span class="math inline">\(\underline{X}_{(n)}^p\)</span>.</p>
-<p>Aunque este criterio no tiene el problema del sobreajuste y toma en cuenta incertidumbre de datos no incorporados en el modelo no toma en cuenta la compejidad del mismo. Como regla general en inferencia tendemos a darle preferencia a modelos más sencillos, pero este hecho no se incorpora funcinalmente.</p>
+<p>Considere, además, que la inferencia se hace usando el <em>conjunto de entrenamiento</em> <span class="math inline">\(\underline{X}_{(n)}^e\)</span>.</p>
+<p><strong>Regla de decisión:</strong> escoger el modelo que maximice la verosmilitud evaluada en el <strong>conjunto de preuba</strong> <span class="math inline">\(\underline{X}_{(n)}^p\)</span>.</p>
+<p>Aunque este criterio no tiene el problema del sobreajuste y toma en cuenta la incertidumbre de datos no incorporados en el modelo no toma en cuenta la complejidad del mismo. Como regla general en inferencia tendemos a darle preferencia a modelos más sencillos, pero este hecho no se incorpora funcionalmente.</p>
 </div>
 <div id="criterio-de-anderson-darling" class="section level2">
 <h2><span class="header-section-number">7.3</span> Criterio de Anderson-Darling</h2>
 <p>Considere el juego de hipóteis <span class="math display">\[H_0: f(x; \theta) = \mathfrak{f}_i(x; \theta) \quad vs \quad H_1: f(x; \theta) \neq \mathfrak{f}_i(x; \theta)\]</span></p>
 <p>Para una muestra <strong>ordenada</strong> de datos se propone el estadístico de prueba <span class="math display">\[A^2 =  -n - S\]</span></p>
-<p>Donde - <span class="math inline">\(n\)</span> es el tamaño de muestra - <span class="math inline">\(S = \sum \frac{(2i -1)}{n} [ln(F(x_i) + ln(1 - F(x_{n + 1-i})))]\)</span></p>
-<p><strong>Regla de decisón:</strong> Rechzar <span class="math inline">\(H_0\)</span> si la esta´distica de prueba es mayor que el valor crítico <span class="math inline">\(c\)</span> que depende de la distribución muestral del estadístico de prueba.</p>
-<p>Este estadístico tiene la desventaja de su complejidad y que la distribución muestral del mismo pueda no estar definida. Además solo permite contrastar un modelo consigo mismo y no otra familia paramétrica. Es importante que requiere que la densidad esté acotada.</p>
+<p>donde - <span class="math inline">\(n\)</span> es el tamaño de muestra - <span class="math inline">\(S = \sum \frac{(2i -1)}{n} [ln(F(x_i) + ln(1 - F(x_{n + 1-i})))]\)</span></p>
+<p><strong>Regla de decisión:</strong> rechazar <span class="math inline">\(H_0\)</span> si la estadística de prueba es mayor que el valor crítico <span class="math inline">\(c\)</span> que depende de la distribución muestral del estadístico de prueba.</p>
+<p>Este estadístico tiene la desventaja de su complejidad y que la distribución muestral del mismo pueda no estar definida. Además, sólo permite contrastar un modelo consigo mismo y no otra familia paramétrica. Es importante que requiere que la densidad esté acotada.</p>
 </div>
 <div id="criterio-de-kolmogorov-smirnoff" class="section level2">
-<h2><span class="header-section-number">7.4</span> Criterio de Kolmogorov smirnoff</h2>
-<p>Considere el mismo juego de hipótesis y la misma muestra ordenada, el prueba de K-S es una prueba <em>no-paramétrica</em> que mide la distancia entre la Función de Distribución de probabilidad empírica <span class="math inline">\(Fê\)</span> y la Función de Distribución de Probabilidad Teórica <span class="math inline">\(F\)</span>.</p>
+<h2><span class="header-section-number">7.4</span> Criterio de Kolmogorov Smirnoff</h2>
+<p>Considere el mismo juego de hipótesis y la misma muestra ordenada, el prueba de K-S es una prueba <em>no-paramétrica</em> que mide la distancia entre la función de distribución de probabilidad empírica <span class="math inline">\(Fê\)</span> y la función de fistribución de probabilidad teórica <span class="math inline">\(F\)</span>.</p>
 <p>Se propone el siguiente estadístico de prueba: <span class="math display">\[D = \max_{1 \leq i \leq n}(F(x_i) - \frac{i -1}{n}, \frac{1}{n} - F(x_i))\]</span></p>
-<p><strong>Regla de decisión:</strong> Rechazar <span class="math inline">\(H_0\)</span> si el estadístico de prueba es mayor que el valor crítico <span class="math inline">\(c\)</span>.</p>
-<p>Esta prueba solo puede realizarse para densidades continuas y es sensible a valores en la media.</p>
+<p><strong>Regla de decisión:</strong> rechazar <span class="math inline">\(H_0\)</span> si el estadístico de prueba es mayor que el valor crítico <span class="math inline">\(c\)</span>.</p>
+<p>Esta prueba sólo puede realizarse para densidades continuas y es sensible a valores en la media.</p>
 </div>
 <div id="prueba-de-ji-cuadrada" class="section level2">
 <h2><span class="header-section-number">7.5</span> Prueba de Ji-Cuadrada</h2>
-<p>Considere el mismo juego de hipótesis y la misma muestra ordenada. Esta prueba vuelve a caer en el dominicio de pruebas no-paramétricas.</p>
-<p>Proponemos el estadístico de prueba <span class="math display">\[\mathfrak{X}^2 = \sum^k (O_i - E_i)^2 / E_i\]</span> Donde:</p>
+<p>Considere el mismo juego de hipótesis y la misma muestra ordenada. Esta prueba vuelve a caer en el dominio de pruebas no-paramétricas.</p>
+<p>Proponemos el estadístico de prueba <span class="math display">\[\mathfrak{X}^2 = \sum^k (O_i - E_i)^2 / E_i\]</span> donde:</p>
 <ul>
 <li><span class="math inline">\(k\)</span> es el número de slots</li>
 <li><span class="math inline">\(O_i\)</span> es la frecuencia observada en el slot <span class="math inline">\(i\)</span></li>
 <li><span class="math inline">\(E_i = \#(F(x_u ) - F(x_l))\)</span>, las observaciones esperadas para el slot <span class="math inline">\(i\)</span> y <span class="math inline">\(x_u\)</span>, <span class="math inline">\(x_l\)</span> los límites superiores e inferiores respectivamente para la clase <span class="math inline">\(i\)</span></li>
 </ul>
-<p><strong>Regla de decisión:</strong> Rechazar <span class="math inline">\(H_0\)</span> si el estadísitco de prueba es mayor al valor crítico <span class="math inline">\(c\)</span>. La estadística se distribuye asintóticamente Ji-Cuadrada con <span class="math inline">\(l + 1\)</span> grados de libertad, donde <span class="math inline">\(l\)</span> denota el número de parámetros estimados.</p>
+<p><strong>Regla de decisión:</strong> rechazar <span class="math inline">\(H_0\)</span> si el estadístico de prueba es mayor al valor crítico <span class="math inline">\(c\)</span>. La estadística se distribuye asintóticamente Ji-Cuadrada con <span class="math inline">\(l + 1\)</span> grados de libertad, donde <span class="math inline">\(l\)</span> denota el número de parámetros estimados.</p>
 <p>Este test es un refinamiento de la prueba K-S. Además de que depende severamente de <span class="math inline">\(k\)</span>.</p>
 </div>
 <div id="criterio-de-información-de-akaike" class="section level2">
 <h2><span class="header-section-number">7.6</span> Criterio de Información de Akaike</h2>
 <p>Esta técnica se basa en la <strong>entropía</strong> y es una medida aproximada de la cantidad de infromación perdida al ajustar cierta familia paramétrica <span class="math inline">\(\mathfrak{f}\)</span>. Este estadístico en particular calcula la divergencia de <em>Kullback-Leibier</em>. En este sentido no viene acompañado de un par de hipótesis.</p>
 <p>Proponemos el estádisco de prueba <span class="math display">\[AIC = 2k -2ln(\mathbb{L}(\theta; \underline{X}_{(n)}^p))\]</span></p>
-<p>Donde:</p>
+<p>donde:</p>
 <ul>
 <li><span class="math inline">\(k\)</span> es el número de parámetros del vector <span class="math inline">\(\theta\)</span></li>
 </ul>
-<p><strong>Regla de decisión:</strong> Escoger el modelo con menor AIC</p>
+<p><strong>Regla de decisión:</strong> escoger el modelo con menor AIC.</p>
 </div>
-<div id="criterio-de-infromación-bayesiano" class="section level2">
-<h2><span class="header-section-number">7.7</span> Criterio de Infromación Bayesiano</h2>
-<p>Partiendo de la misma base de <em>Teoría de la Información</em>, la construcción de este estadístico tiene un argumento bayesiano y es un resultado asintótico relacionado con los <em>facotres de Bayes</em>.</p>
-<p>Porponemos el estadístico <span class="math display">\[BIC = kln(n) - 2ln(\mathbb{L}[\theta; \underline{X}_{(n)}^e])\]</span> <strong>Regla de decisión:</strong> Escoger el modelo que minimice BIC.</p>
+<div id="criterio-de-información-bayesiano" class="section level2">
+<h2><span class="header-section-number">7.7</span> Criterio de Información Bayesiano</h2>
+<p>Partiendo de la misma base de <em>Teoría de la Información</em>, la construcción de este estadístico tiene un argumento bayesiano y es un resultado asintótico relacionado con los <em>factores de Bayes</em>.</p>
+<p>Porponemos el estadístico <span class="math display">\[BIC = kln(n) - 2ln(\mathbb{L}[\theta; \underline{X}_{(n)}^e])\]</span> <strong>Regla de decisión:</strong> escoger el modelo que minimice BIC.</p>
 </div>
 </div>
 <div id="la-necesidad-de-una-teoría-de-inferencia" class="section level1">
 <h1><span class="header-section-number">8</span> La necesidad de una Teoría de Inferencia</h1>
-<p>Los modelos que construimos tienen un efecto en el mundo real en el grado en el que son utilizados para tomar decisiones con mayor o menor impacto en nuestra realidad. Por esta razón y precisamente en el contexto de la toma de desiciones (y no de las matemáticas) es imperante contar con criterios que nos garanticen que la inferencia que se está haciendo el el contexto de la toma de decisiones es <strong>óptima</strong>.</p>
-<p>La escuela de la Estadística Mtemática de elegante sencillez deja un resabio algo amargo e invita al científico a mirar al lado contrario cuando al dar vuelta en una esquina se encuentra inevitablemente con alguna patología que se sabe incurable. Esta maldición deja al mítico personaje del tomador de decisiones sentado en un banco de 3 patas… en peligro de caer en cualquier momento.</p>
-<p>La gravedad del asunto se nos hace manifiesta cuando son los responsables de la política pública los que están sentados en estos bancos. Se nos hace manifiesta cuando aquello en riesgo es la vida de las personas o un aspecto fundamental de la mis (salud, patrimonio, etc).</p>
-<p>La Estadística Matemática NO es una teoría. La Esta´disitica es una serie de presupuestos técnicos de gran ingenio, repleto de paleativos de una creatividad incocebible y de notas innegablemente prácticas. Son precisamente estas cualidades las que la convierten en la antitésis por excelencia del discurso dialéctico de aprendizaje.</p>
+<p>Los modelos que construimos tienen un efecto en el mundo real en el grado en el que son utilizados para tomar decisiones con mayor o menor impacto en nuestra realidad. Por esta razón y precisamente en el contexto de la toma de decisiones (y no de las matemáticas) es imperante contar con criterios que nos garanticen que la inferencia que se está haciendo en el el contexto de la toma de decisiones es <strong>óptima</strong>.</p>
+<p>La escuela de la Estadística Matemática de elegante sencillez deja un resabio algo amargo e invita al científico a mirar al lado contrario, cuando al dar vuelta en una esquina se encuentra inevitablemente con alguna patología que se sabe incurable. Esta maldición deja al mítico personaje del tomador de decisiones sentado en un banco de 3 patas… en peligro de caer en cualquier momento.</p>
+<p>La gravedad del asunto se nos manifiesta cuando son los responsables de la política pública los que están sentados en estos bancos. Se nos manifiesta cuando aquello en riesgo es la vida de las personas o un aspecto fundamental de la salud, patrimonio, etc.</p>
+<p>La Estadística Matemática NO es una teoría. La Estadísitica es una serie de presupuestos técnicos de gran ingenio, repleto de paleativos de una creatividad inconcebible y de notas innegablemente prácticas. Son precisamente estas cualidades las que la convierten en la antitésis por excelencia del discurso dialéctico de aprendizaje.</p>
 <p>Por una serie de intereses políticos no hubo un cuerpo suficientemente nutrido que pudiera proponer una alternativa real a la escuela de los frecuentistas, pero más allá de esto, debería invitar al investigador a cuestionarse sobre las implicaciones ético-profesionales de su trabajo y su opinión profesional.</p>
-<p>La naturaleza práctica de la estadística pide a gritos un cuerpo axiomático que la invista del estatus de teoría, se requiere no un “cálculo estadístico” si no de una “Teoría de Inferencia” para la toma de decisiones en ambiente de incertidumbre.</p>
-<p>Este cuestionamiento, se lo plantearon principalmente Neyman y Pearson, y aunque futílmente, intentaron construir una teoría de inferencia a partir de la Teoría de Probabilidad. Este intento tan noble y tan necesario no debe pasar desapercibido, más aún, debiera contribuir con más ímpetu a la toma de conciencia sobre la precaireidad de la situación.</p>
-<p>En resúmen, parece ser que hay algo de lo intrínseco del objeto de la estadística que no se logró capturar con fidelidad en este primer intento de hacer inferencia formalmente. ggit # Bibliografía</p>
+<p>La naturaleza práctica de la estadística pide a gritos un cuerpo axiomático que la envista del estatus de teoría. Se requiere no un “cálculo estadístico”, si no de una “Teoría de Inferencia” para la toma de decisiones en ambiente de incertidumbre.</p>
+<p>Este cuestionamiento, se lo plantearon principalmente Neyman y Pearson e intentaron construir una teoría de inferencia a partir de la Teoría de Probabilidad. Este intento tan noble y tan necesario no debe pasar desapercibido, más aún, debiera contribuir con más ímpetu a la toma de conciencia sobre la precaireidad de la situación.</p>
+<p>En resúmen, parece ser que hay algo de lo intrínseco del objeto de la estadística que no se logró capturar con fidelidad en este primer intento de hacer inferencia formalmente.</p>
+</div>
+<div id="bibliografía" class="section level1">
+<h1><span class="header-section-number">9</span> Bibliografía</h1>
 <ol style="list-style-type: decimal">
 <li>Mendoza, M. <em>Estadística Bayesiana</em>. <a href="http://allman.rhon.itam.mx/~lnieto/index_archivos/NotasBayesMR.pdf">ITAM</a></li>
 <li>Schlaifer, R. <em>Probability and Statistics for Business Decisions</em>. McGraw-Hill, 1959</li>
@@ -2755,7 +2733,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
