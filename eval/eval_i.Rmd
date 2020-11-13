@@ -1,0 +1,62 @@
+---
+title: "Evaluación I"
+author: "Métodos Estaídsticos con R"
+date: "Teoría I"
+output: html_document
+---
+
+# Métodos Estadísticos con R
+
+## **Evaluación Teórica I** 
+
+**iNSTRUCCIONES:** Lee con atención las preguntas y responde en una hoja blanca **a mano**. Toma foto a las respuestas numéricas y envíamelas por nuestra conversación de whatsapp
+
+## Preguntas Abiertas
+
+1. ¿Qué es estadística?
+
+2. ¿Cuáles son las las dos escuelas de inferencia y su principales exponentes?
+
+3. ¿Cuál es la definición de probabilidad que caracteriza a ambas corientes de inferencia?
+
+4. ¿Qué es la Estadística Bayesiana?
+
+5. Nombra los 4 criterios de optimialidad deseables de la escuela clásica de inferencia
+
+6. Nombra los 5 axiomas de coherencia y explicalos
+
+7. ¿Cuál es el criterio óptimo de decisión derivado de los 5 axiomas de coherencia?
+
+8. Define formamente un problema de decisión y explica cada uno de sus 4 elementos
+
+9. Define el problema de inferencia estadística paramétrica como un problema de decisión
+
+## Numericas
+
+1. Considere $\underline{X}_{(n)}$ una muestra aleatoria de $x_i \sim f.d.p.g \ =N(\mu, \sigma^2)$, con $(\mu,\sigma^2) \in \ \mathbb{R} \times \mathbb{R}^*$ ambos desconocidos
+
+  a. Estima por *máxima verosimilitud* ambos parámetros
+  b. ¿Son insesgados?
+  
+2. Considere $\underline{X}_{(n)}$ una muestra aleatoria de $x_i \sim f.d.p.g. \ =Bernoulli(\theta)$. El estimador Máximo Verosímil ($\hat{\theta}$) está dado por $\overline{x}$ (Recuerde que la varianza de una variable aleatoria Bernoulli está dada por $\theta \cdot (1 - \theta)$). Considere además la variable pivotal $$U = \frac{(\theta - \hat{\theta})n}{\sqrt{\hat{\theta} \cdot (1- \hat{\theta})}} \ddot{\sim} N(0,1)$$
+Donde $\ddot{\sim}$ denota que la variable pivotal es casi aproximadamente normal.
+
+De esta variable pivotal se deduce que que el intervalo de confianza al nivel $(1- \alpha)$% para $\theta$ est+a dado por $$[\hat{\theta} \pm z_{1 - \frac{\alpha}{2}} \sqrt{\frac{\hat{\theta}(1 - \hat{\theta})}{n}}$$
+
+  a. Considere $n = 7$, $\overline{x} = .72$ y $\alpha = .05$. Evalue el intervalo y comente si descubre algún tipo de patología
+  b. Evalue el íntervalo $n \longrightarrow \infty$ ¿Qué ocurre?
+  
+3. Considere el siguiente problema de decisión:
+
+Freddy tiene que decidir entre usar su bicicleta y usar su coche para ir al trabajo. El mes es agosto y hay 62% de probabilidad de que llueva. Si no llueve y usa la moto, Freddy llega más rápido al trabajo y recibe una utilidad de .8. Si usa la moto y llueve, a pesar de llegar más rápido, se moja y percibe una utilidad de 0. Si por el contrario toma el coche y no llueve, estará atorado en el tráfico y percibe una utlidad de .6, Finalmente si llueve y usa el coche, esta´ra atorado en el tráfico pero al menos estará seco por lo que percibe una utiliad de 1.
+
+  a. Plantee el problema de decisión de Freddy y especifique todos los elementos
+  b. Dibuje el árbol de decisión 
+  c. Resuelva el problema por el criterio optimista
+  d. Resuelva el problema por el criterio pesimista
+  e. Resuelva el problema por el criterio de consecuencia más probable
+  f. Resuelva el problema por el criterio de utilidad promedio
+  g. Resuelva el problema por el criterio de utilidad esperada
+  h. ¿Es la utilidad de Freddy canónica?
+  
+
