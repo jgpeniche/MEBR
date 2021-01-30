@@ -245,7 +245,7 @@ Estas matrices tienen algunas cualidades interasantes:
   
 --
 
-  - La probabilidad de transición del estado $x$ a estado $y$ en $m$ pasos está dada por $P^m(x,y) = P(\theta^{(m)} = y | \theta^{(0)} = x )= \sum_{1} \cdots \sum_{m-1} P(x,x_1)P(x_1,x_2) \cdots P(x_{m-1},y) = \prod_{1}^m P = P^{m-1} P$ ($P^{n+m} = P^nP^m$)
+  - La probabilidad de transición del estado $x$ a estado $y$ en $m$ pasos está dada por $P^m(x,y) = P(\theta^{(m)} = y | \theta^{(0)} = x )= \sum_{1} \cdots \sum_{m-1} P(x,x_1)P(x_1,x_2) \cdots P(x_{m-1},y) = \prod_{1}^m P = P^{m-1} P$ ( $P^{n+m} = P^nP^m$ )
   
 --
 
@@ -402,7 +402,7 @@ Definimos
 
 **Ergodicidad Geométrica**
 
-  > Una cadena se dice ergódica geométricamente si $\exists 0 \leq \lambda < 1$ y una función real integrable $M(x)$ tal que: $$|| P^(x, \cdot) - \pi(\cdot) \leq M(x) \lambda^n$$
+  > Una cadena se dice ergódica geométricamente si $\exists 0 \leq \lambda < 1$ y una función real integrable $M(x)$ tal que: $$|| P^n(x, \cdot) - \pi(\cdot)|| \leq M(x) \lambda^n$$
   
 $\forall \ x \ \in \ S$
 
