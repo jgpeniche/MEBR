@@ -49,15 +49,15 @@ class: title-slide, middle
 
 --
 
-### Platicamos sobre la finalidad de la inferencia
+  - Platicamos sobre la finalidad de la inferencia
 
 --
 
-### Expusimos algunos de los problemas de la estadística frecuentista
+  - Expusimos algunos de los problemas de la estadística frecuentista
 
 --
 
-### Concluimos que la estadística bayesiana no es una serie de técnicas, es una Teoría de Inferencia
+  - Concluimos que la estadística bayesiana no es una serie de técnicas, es una Teoría de Inferencia
 
 ---
 
@@ -65,23 +65,23 @@ class: title-slide, middle
 
 --
 
-###  1. ¿Qué es un problema de decisión?
+1. ¿Qué es un problema de decisión?
 
 --
 
-###  2. Criterios de decisión
+2. Criterios de decisión
   
 --
 
-###  3. Teoría de decisión
+3. Teoría de decisión
 
 --
 
-###  4. Utilidad canónica
+4. Utilidad canónica
 
 --
 
-### 5. Probabilidad subjetiva
+5. Probabilidad subjetiva
   
 ---
 
@@ -110,6 +110,10 @@ _Comentar sobre las preferencias_
 ---
 
 class: center, middle, inverse
+# 1
+
+--
+
 # Formalizando el problema de decisión
 
 ---
@@ -118,7 +122,7 @@ class: center, middle, inverse
 
 --
 
-¿Cómo formalizariamos matemáticamente el problema de decisión?
+¿Cómo formalizaríamos matemáticamente el problema de decisión?
 
 --
 
@@ -142,7 +146,7 @@ _Comentar que esto sugiere que estas preferencias deben de tener ciertas caracte
 
 --
 
-De esta manera nuestra definición *parcial* de un problema de decisón es la siguiente: $$(\mathbb{D}, \mathbb{C}, \prec)$$ 
+De esta manera nuestra definición *parcial* de un problema de decisión es la siguiente: $$(\mathbb{D}, \mathbb{C}, \prec)$$ 
 
 --
 
@@ -158,7 +162,7 @@ El tomador de decisiones debe de elegir **uno y solo un** elemento de $d_i$ $\ep
 
 --
 
-Si, en particular, nos enfrentaramos a un problema de decisión dónde hubiera **certidumbre** alrededor de todas las consecuencias la cosa es fácil:
+Si en particular, nos enfrentaramos a un problema de decisión dónde hubiera **certidumbre** alrededor de todas las consecuencias la cosa es fácil:
 
 --
 
@@ -234,15 +238,15 @@ La mayoría de las veces tenemos que enfrentarnos al problema de decisión, en e
 
 --
 
-Por esta razón incorporamos esta incertidumbre a nuestra definición matemática del problema de decisión...
+Por esta razón incorporaremos esta incertidumbre a nuestra definición matemática del problema de decisión...
 
 --
 
-  - $\mathfrak{E} = \{ E_1, ..., E_{n_1},..., E_k, ... ,E_{n_k} \}$ el conjunto de eventos inciertos
+  - $\mathcal{E} = \{ E_1, ..., E_{n_1},..., E_k, ... ,E_{n_k} \}$ el conjunto de eventos inciertos
   
 --
 
-Así, nuestro problema de decisión queda formalmente definido por: $$(\mathbb{D}, \mathbb{C},\mathfrak{E} , \prec) $$
+Así, nuestro problema de decisión queda formalmente definido por: $$(\mathbb{D}, \mathbb{C},\mathcal{E} , \prec) $$
 
 ---
 
@@ -256,7 +260,11 @@ knitr::include_graphics('figs/arbol2.png')
 ---
 
 class: inverse, center, middle
-# Resolviendo el problema de decisión
+# 2
+
+--
+
+# Criterios de Decisión
 
 ---
 
@@ -301,6 +309,10 @@ _Se poda el arbol dejando las peores consecuencias y se elije la menos peor_
 ---
 
 class: inverse, center, middle
+
+#3
+--
+
 # Teoría Axiomática de decisión
 
 ---
@@ -324,7 +336,7 @@ _Comentar que no fueron tan egolatras para llamarlos de "racionalidad"_
 
 --
 
-### Fué un matemático de la universidad de Michigan que trabajó de cerca con Milton Friedman
+### Fue un matemático de la universidad de Michigan que trabajó de cerca con Milton Friedman
 
 --
 
@@ -332,7 +344,7 @@ _Comentar que no fueron tan egolatras para llamarlos de "racionalidad"_
 
 --
 
-### No es coincidencia que los axiomas que vamos a estudiar estén fuermente influenciados por la teoría de juegos y la teoría de utilidad
+### No es coincidencia que los axiomas que vamos a estudiar esten fuermente influenciados por la teoría de juegos y la teoría de utilidad
 
 
 ???
@@ -341,7 +353,7 @@ _mencionar que vamos a discutir los axiomas, que si se dan por aceptados ya no h
 ---
 
 class: inverse, center, middle,
-# 1
+# I
 
 --
 
@@ -352,23 +364,27 @@ class: inverse, center, middle,
 # Axioma de Comprabilidad
 --
 
-La relación de preferencia del tomador de decisiones es tal que para $d_i$ y $d_j$ $\epsilon$ $\mathbb{D}$ $\Longrightarrow$ necesariamente ocurre **una y solo una de las siguientes** :
+   > La relación de preferencia del tomador de decisiones es tal que para $d_i$ y $d_j$ $\in$ $\mathbb{D}$ $\Longrightarrow$ necesariamente ocurre **una y solo una de las siguientes** :
 
 --
-
+  >
   i. $d_i$ es más preferible que  $d_j$ ( $d_i \prec d_j$ )
   
 --
-
+  >
   ii. $d_i$ es menos preferible que $d_j$ ( $d_j \prec d_i$ )
   
 --
-
+  >
   iii. $d_i$ es igualmente preferible que $d_j$ ( $d_i \sim d_j$ )
   
 --
 
-Adicionalmente $\exists$ $c_*$ y $c^*$ $\epsilon$ $\mathbb{C}$ *.,.* $c_* \preceq c$ y $c \preceq c^*$ $\forall$ $c$ $\epsilon$ $\mathbb{C}$
+  > Adicionalmente $\exists$ $c_*$ y $c^*$ $\in$ $\mathbb{C}$ *.,.* $c_* \preceq c$ y $c \preceq c^*$ $\forall$ $c$ $\epsilon$ $\mathbb{C}$
+
+--
+
+  > Esto quiere implica que existen dos consecuencias, una la **más preferida de todas** y una la **menos preferida de todas** (el cielo y el infierno) que **acotan** la relación de preferencia
 
 ???
 
@@ -377,7 +393,7 @@ _Comentar sobre la existencia de cotas de preferencia, y bautizar al cielo y al 
 ---
 
 class: inverse, middle, center
-# 2
+# II
 --
 
 ## TRANSITIVIDAD
@@ -388,17 +404,17 @@ class: inverse, middle, center
 
 --
 
-La relación de preferencias del tomador de decisiones es tal que para $\{ d_i, d_j, d_k \}$ $\epsilon$ $\mathbb{D}$ ocurre que si $d_i \prec d_j$ y $d_j \prec d_k$ $\Longrightarrow$ necesariamente $d_i \prec d_k$
+  > La relación de preferencias del tomador de decisiones es tal que para $\{ d_i, d_j, d_k \}$ $\in$ $\mathbb{D}$ ocurre que si $d_i \prec d_j$ y $d_j \prec d_k$ $\Longrightarrow$ necesariamente $d_i \prec d_k$
 
 --
 
-Equivalentemente decimos que si $d_i \sim d_j$ y $d_j \sim d_k$ $\Longrightarrow$ necesariamente $d_i \sim d_k$
+  > Equivalentemente decimos que si $d_i \sim d_j$ y $d_j \sim d_k$ $\Longrightarrow$ necesariamente $d_i \sim d_k$
 
 
 ---
 
 class: inverse, center, middle
-# 3
+# III
 --
 
 ## SUSTITUIBILIDAD
@@ -409,11 +425,15 @@ class: inverse, center, middle
 
 --
 
-También se le conoce cómo principio de la cosa segura
+También se le conoce como *Principio de la Cosa Segura*
 
 --
 
-Para $\{d_i, d_j \}$ $\epsilon$ $\mathbb{D}$ y $A$ es un suceso incierto. Si ocurre que $d_i \prec d_j | A$ y  $d_i \prec d_j | A^c$ $\Longrightarrow$ $d_i \prec d_j$
+   > Para $\{d_i, d_j \}$ $\in$ $\mathbb{D}$ y $A$ es un suceso incierto. Si ocurre que $d_i \prec d_j | A$ y  $d_i \prec d_j | A^c$ $\Longrightarrow$ $d_i \prec d_j$
+
+--
+
+En palabras este axioma pide que el tomador de decisiones sea **congruente** en sus preferencias ante la manifestación, o no manifestación, de eventos inciertos
 
 ???
 
@@ -423,7 +443,7 @@ _Comentar que estamos partiendo de que nuestro tomador de decsiones en nuestro m
 ---
 
 class: center, middle, inverse
-# 4
+# IV
 --
 
 ## EVENTOS DE REFERENCIA
@@ -434,7 +454,7 @@ class: center, middle, inverse
 
 --
 
-El tomador de decisiones puede imaginar un mecanismo para generar puntos en el cuadrado unitario $I$ $\epsilon$ $\mathbb{R}^2$ de tal manera que si $R_1$ y $R_2$ con dos regiones de $I$ $\Longrightarrow$ el evento $\{ z$ $\epsilon$ $R_1 \}$ es más **creible** que el evento $\{ z$ $\epsilon$ $R_2 \}$ $\Longleftrightarrow$ Área( $R_1$ ) > Área( $R_2$ )
+   > El tomador de decisiones puede imaginar un mecanismo para generar puntos en el cuadrado unitario $I$ $\epsilon$ $\mathbb{R}^2$ de tal manera que si $R_1$ y $R_2$ con dos regiones de $I$ $\Longrightarrow$ el evento $\{ z$ $\epsilon$ $R_1 \}$ es más **creible** que el evento $\{ z$ $\epsilon$ $R_2 \}$ $\Longleftrightarrow$ Área( $R_1$ ) > Área( $R_2$ )
 
 <br>
 
@@ -449,7 +469,7 @@ knitr::include_graphics('figs/i.png')
 --
 
 <br>
-**OJO**: La ocurrencia de esto eventos del tipo 'z' es *independiente* de los eventos inciertos de nuestro problema de decisión
+**OJO**: La ocurrencia de esto eventos del tipo ' $z$ ' es *independiente* de los eventos inciertos de nuestro problema de decisión
 
 ???
 
@@ -458,7 +478,11 @@ _Confrontarlos con que es el más raro, pero el punto es que si ellos se lo pued
 ---
 
 class: center, inverse, middle
-# UTILIDAD
+# 4
+
+--
+
+# Utilidad
 
 ---
 
@@ -478,14 +502,14 @@ Lo que no puntualizamos más atrás es el **CÓMO** realiza esta evaluación...
 
 --
 
-Sea $c$ una consecuencia cualquiera en $\mathbb{C}$. Definimos entonces la *utilidad canónica* $u_0$ de $c$ como el área de una región $R$ $\epsilon$ $I$ .,.
+   > Sea $c$ una consecuencia cualquiera en $\mathbb{C}$. Definimos entonces la *utilidad canónica* $u_0$ de $c$ como el área de una región $R$ $\epsilon$ $I$ .,.
 
 --
-
+  >
 $$u_0(c) = Área(R)$$
 
 --
-
+  >
 $$u_0: \mathbb{C} \rightarrow [0,1]$$
 ---
 
@@ -505,11 +529,21 @@ $$u_0: \mathbb{C} \rightarrow [0,1]$$
 
 **TEO**
 
-Sean $c_i$ y $c_j$ $\epsilon$ $\mathbb{C}$ $\Longrightarrow$ $c_i$ $\prec$ $c_j$ $\Longleftrightarrow$ $u_o(c_i)$ < $u_0(c_j)$
+  > Sean $c_i$ y $c_j$ $\epsilon$ $\mathbb{C}$ $\Longrightarrow$ $c_i$ $\prec$ $c_j$ $\Longleftrightarrow$ $u_o(c_i)$ < $u_0(c_j)$
+
+--
+  >
+Además $u_0(c_*) = 0$ y $u_0(c^*) = 1$
+
+---
+
+class: center, inverse, middle
+
+# 5
 
 --
 
-Además $u_0(c_*) = 0$ y $u_0(c^*) = 1$
+# Probabilidad subjetiva
 
 ---
 
@@ -525,10 +559,10 @@ Tampoco hemos hablado de los eventos inciertos de nuestro problema de decisión 
 
 --
 
-Sea $E$ $\epsilon$ $\mathfrak{E}$ un evento incierto relevante. Definimos la probailidad subjetiva del evento $E$ como el área de $R$ $\subseteq$ $I$ .,.
+  > Sea $E$ $\epsilon$ $\mathcal{E}$ un evento incierto relevante. Definimos la probailidad subjetiva del evento $E$ como el área de $R$ $\subseteq$ $I$ .,.
 
 --
-
+  >
 $$P(E|H) = Área(R)$$
 
 --
@@ -545,7 +579,7 @@ Esta proabilidad **existe** y es **única** como consecuencia de los axiomas de 
 
 **TEO**
 
-La función de probabilidad $P(E|H)$ definida sobre los eventos inciertos, satisface los axiomas de Kolmogorov
+  > La función de probabilidad $P(E|H)$ definida sobre los eventos inciertos, satisface los axiomas de Kolmogorov
 
 
 ---
@@ -576,7 +610,7 @@ Deducir el criterio óptimo para tomar decisiones con base en nuestro recién cr
 
 --
 
-Aterriar nuestra teoría al caso de inferencia
+Aterrizar nuestra teoría al caso de inferencia
 
 --
 
@@ -589,8 +623,8 @@ Hacer inferencia bayesiana
 ---
 
 class: center, middle, inverse
-# Ya no se vale echarse para atrás
+# Si están de acuerdo con los axiomas de coherencia...
 
 --
 
-## Tampoco hacer menjurjes...
+# A partir de este momento no se vale echarse para atrás

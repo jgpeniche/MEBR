@@ -53,7 +53,7 @@ class: title-slide, middle
 
 --
 
-- $(\mathbb{D}, \mathbb{C}, \mathfrak{E}, \prec)$
+- $(\mathbb{D}, \mathbb{C}, \mathcal{E}, \prec)$
 
 --
 
@@ -89,11 +89,19 @@ class: title-slide, middle
 
 ---
 
+class: inverse, center, middle
+# 1
+--
+
+# Resolviendo el problema de Decisión
+
+---
+
 # Resolviendo el problema de Decisión
 
 --
 
-### Sea $(\mathbb{D}, \mathbb{C}, \mathfrak{E}, \prec)$ un problema de decisión en **ambiente de incertidumbre** que enfrenta el *tomador de decisiones*
+### Sea $(\mathbb{D}, \mathbb{C}, \mathcal{E}, \prec)$ un problema de decisión en **ambiente de incertidumbre** que enfrenta el *tomador de decisiones*
 
 --
 
@@ -107,15 +115,15 @@ knitr::include_graphics('figs/arbol2.png')
 --
 
 
-### ¿Cómo Resolvemos el problema?
+### ¿Cómo resolvemos el problema?
 
 ---
 
 class: inverse, center, middle
-# 1
+# Paso 1
 --
 
-## 'Amplificamos' $\mathbb{D}$
+# 'Amplificamos' $\mathbb{D}$
 
 ---
 
@@ -151,7 +159,7 @@ knitr::include_graphics('figs/arbol3.png')
 ---
 
 class: inverse, center, middle
-# 2
+# Paso 2
 --
 
 ## Amplificamos $\mathbb{D}_1$
@@ -162,7 +170,7 @@ class: inverse, center, middle
 
 --
 
-Definimos $\mathbb{D}_2$ *.,.* $\mathbb{D}_1 \subseteq \mathbb{D}_2$ donde añadimos las opciones **ficticias** de la forma $d_E = \{c_* | E^c, c^*|E \}$ $\forall$ *E* $\epsilon$ $\mathfrak{E}$
+Definimos $\mathbb{D}_2$ *.,.* $\mathbb{D}_1 \subseteq \mathbb{D}_2$ donde añadimos las opciones **ficticias** de la forma $d_E = \{c_* | E^c, c^*|E \}$ $\forall$ *E* $\epsilon$ $\mathcal{E}$
 
 --
 
@@ -204,6 +212,12 @@ Sin embargo, para aliviar la notación definimos $d_{R_z} = d_R$
 
 ---
 
+class: center, middle
+
+# Nuestro árbol ahora se ve así
+
+---
+
 background-image: url('figs/jungla.jpg')
 background-position: center
 background-size: contain
@@ -214,7 +228,7 @@ background-size: contain
 
 --
 
-- Tenemos ahora tantas ramas en nuestro arbol como regiones en $I$ que es infinita no-mumerable
+- Tenemos ahora tantas ramas en nuestro arbol como regiones $R$ en $I$ que es infinita no-numerable
 
 --
 
@@ -226,7 +240,7 @@ A pesar de esto, por construcción, todos nuestros axiomas siguen aplicando en n
 
 --
 
-- Para resolver nuestro problema nosostros andamos buscando $d^*$ $\epsilon$ $\mathbb{D}$ (no en $\mathbb{D}_3$) *.,.* $d \preceq d^*$ $\forall$ $d$ $\epsilon$ $\mathbb{D}$
+- Para resolver nuestro problema nosostros andamos buscando $d^*$ $\in$ $\mathbb{D}$ (no en $\mathbb{D}_3$) *.,.* $d \preceq d^*$ $\forall$ $d$ $\in$ $\mathbb{D}$
 
 --
 
@@ -243,7 +257,7 @@ class: center, middle
 ---
 
 class: inverse, center, middle
-# Axioma 5
+# V
 --
 
 ## DENSIDAD
@@ -252,15 +266,16 @@ class: inverse, center, middle
 
 # Axioma de Densidad
 
-El conjunto de opciones $d_R$, con $R \subseteq I$, es *densa* respecto de la relación de preferencia en $\mathbb{D}_3$
+
+  > El conjunto de opciones $d_R$, con $R \subseteq I$, es *densa* respecto de la relación de preferencia en $\mathbb{D}_3$
 
 --
-
+  >
 Esto es $\forall d$ $\epsilon$ $\mathbb{D}_3$ $\exists$ $d_R$ *.,.* $d \sim d_R$
 
 --
 
-Esto lo que quiere decir es que podemos encontrar una equivalencia entre las opciones y las regiones en $R$ para medir preferencias
+Esto lo que quiere decir es que podemos encontrar una **equivalencia** entre las opciones y las regiones en $R$ para medir preferencias
 
 ---
 
@@ -272,23 +287,19 @@ Ahora, gracias al axioma V sabemos que podemos encontrar una región lo suficien
 
 --
 
-$$\Longrightarrow \{c|\Omega \} \sim \{c_*|R^c, c^*|R \}$$
+  > $$\Longrightarrow \{c|\Omega \} \sim \{c_*|R^c, c^*|R \}$$
 
 --
-
-$\forall$ $c$ $\epsilon$ $\mathbb{C}$ y $R$ $\subseteq$ $I$
-
---
-
-Más aún, podemos encontrar siempre una región *.,.*
+  > $\forall$ $c$ $\in$ $\mathbb{C}$ y $R$ $\subseteq$ $I$
 
 --
-
-$$\Longrightarrow d_E = \{c_* | E^c, c^* | E \} \sim  \{ c_* | R^c, c^* | R \} = d_R$$
+  > Más aún, podemos encontrar siempre una región *.,.*
 
 --
+  > $$\Longrightarrow d_E = \{c_* | E^c, c^* | E \} \sim  \{ c_* | R^c, c^* | R \} = d_R$$
 
-$\forall$ $E$ $\epsilon$ $\mathfrak{E}$ y $R$ $\subseteq$ $I$
+--
+  > $\forall$ $E$ $\in$ $\mathcal{E}$ y $R$ $\subseteq$ $I$
 
 ---
 
@@ -304,7 +315,7 @@ knitr::include_graphics('figs/i2.png')
 
 --
 
-Las $Area(R_x) = x$ $\therefore$
+Como estamo en el cuadrado unitario $Area(R_x) = x \cdot 1 = x $ $\therefore$
 
 --
 
@@ -343,11 +354,11 @@ Sabemos que $\exists$ $R_1 \subseteq I$ *.,.* $c_1 \sim R_1$ ( $c_1 \sim \{c_*|R
 
 # Resolviendo el problema de decisión
 
-Sea $$d^{(1)} = \{d_{R_1}|E_1, c_2|E_2, ... , c_k | E_k  \}$$
-
+Partiendo de $d_1 = \{c_1|E_1, c_2|E_2, ... , c_k | E_k  \}$ sea $$d^{(1)} = \{d_{R_1}|E_1, c_2|E_2, ... , c_k | E_k  \} = \{ [c_*|R_1^c, c^*|R_1]|E_1, c_2|E_2, ... , c_k | E_k  \}$$
 --
 
-$$= \{ [c_*|R_1^c, c^*|R_1]|E_1, c_2|E_2, ... , c_k | E_k  \}$$
+Lo que estamos haciendo es sustituir una de las ramas originales del evento $E_1$ por una rama *tipo volado* equivalente, graficamente tenemos lo siguiente 
+
 --
 
 ```{r arbol5, fig.align='center', out.height=200, out.width=400, echo=FALSE}
@@ -424,7 +435,7 @@ class: center, middle
 
 # ¿Bajo qué condiciones $d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2$?
 
-$d_1^{(k)} \prec d_2^{(k)}$ $\Longleftrightarrow$ $A_1$ es **más** *creible* que $A_2$ 
+$\{c_* | A_1^c, c^*|A_1 \} = d_1^{(k)} \prec d_2^{(k)} = \{c_* | A_2^c, c^*|A_2 \}  $ $\Longleftrightarrow$ $A_1$ es **más** *creible* que $A_2$ 
 
 --
 
@@ -444,24 +455,20 @@ Pero $$P(A_j) = P[ \cup_{i=1}^{k_i = 1}(E_{j,i} \cap R_{j,i} )]$$
 --
 
 $$= \sum_{i=1}^{k_i} P(E_{j,i} \cap R_{j,i})$$ 
-
-
----
-
-# ¿Bajo qué condiciones $d_1 \sim d_1^{(k)} \prec d_2^{(k)} \sim d_2$?
+--
 
 Por probabilidad condicional
 
-$$= \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i}|E_{j,i})$$
+$$\sum_{i=1}^{k_i} P(E_{j,i} \cap R_{j,i}) = \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i}|E_{j,i})$$
 
 --
 
-Por independencia
+Por independencia y Axioma III
 
 
 --
 
-$$= \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i})$$
+$$\sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i}|E_{j,i}) = \sum_{i=1}^{k_i} P(E_{j,i}) P( R_{j,i})$$
 
 ---
 
@@ -549,7 +556,7 @@ class: inverse, center, middle
 
 --
 
-# Escoger $d_{\theta}$ que conduzca a $\theta$ en el espacio parametral $\Theta$
+# Escoger $d_{\theta}$ que conduzca a $\theta$ en el espacio parametral $\Theta$ que maximice la utilidad esperada asociada al problema
 
 ---
 
@@ -557,7 +564,7 @@ class: inverse, center, middle
 
 --
 
-Hasta ahora nuestro algoritmo de 3 pasos se ocupa de colecciones finitas de $( \mathbb{D}, \mathbb{C} ,\mathfrak{E})$
+Hasta ahora nuestro algoritmo de 3 pasos se ocupa de colecciones finitas de $( \mathbb{D}, \mathbb{C} ,\mathcal{E})$
 
 --
 
@@ -565,11 +572,11 @@ Sin embargo, el problema de inferencia generalmente involucra un conjunto infini
 
 --
 
-A pesar de esto sabemos que $u_0$ siempre va a existir y va a estar acotada y el problema es equivalente a encontrar el supremo
+A pesar de esto sabemos que $u_0$ siempre va a existir, va a estar acotada y el problema es equivalente a encontrar el supremo
 
 --
 
-Para esto podemos aproximar el conjunto finito numerable de $E_{i,j}$ mediante un *familia paramétrica*
+Para esto podemos aproximar el conjunto finito numerable de $E_{i,j}$ mediante un *familia paramétrica* $\mathcal{F}$
 
 ---
 

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Métodos Estadísticos con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gibrán Peniche" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide, middle
+
+.pull-left[ 
+# Métodos Estadísticos Bayesianos con R
+## Diagnóstico de Convergencia MCMC
+### Gibrán Peniche
+### v. 0.0.1
+### 2020-11-05
+####  &lt;i class="fab fa-github"&gt;&lt;/i&gt; [jgpeniche](https://github.com/jgpeniche)
+####  &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; [PenicheGibran](https://twitter.com/PenicheGibran)
+####  &lt;i class="fab fa-google"&gt;&lt;/i&gt; jgpeniche@gmail.com
+
+]
+
+.pull-right[
+
+![](figs/logo_g.png)
+
+]
+
+---
+
+# La sesión pasada...
+
+--
+
+- Presentamos la caracterizción de las cadenas de Markov para espacios de estados continuos
+
+--
+
+- Presentamos 3 algortimos de simulación de Monte Carlo con Cadenas de MArkov 
+
+--
+
+  1. Muestreo de Gibbs
+
+--
+
+  2. Metrópolis Hastings
+
+--
+
+  3. Monte Carlo Hamiltoneano
+
+---
+
+# Agenda
+
+--
+  
+  1. Diagnóstico de Convergencia de MCMC
+  
+--
+  
+  2. Ejemplo práctico muestreo de Gibbs
+
+---
+
+class: inverse, center, middle
+
+# 1
+
+--
+
+# Diagnóstico de Convergencia MCMC
+
+---
+
+# Diagnóstico de Convergencia MCMC
+
+--
+
+Si bien habiendo probado las propiedades teóricas de un algortimo de simulación que define una Cadena de Markov `\(\{\theta^{(n)} \}_{n \geq 0}\)` (homegeneidad, aperiodidicad, ergodicidad, recurrencia de Harris, etc...) hay resultados fuertes que nos garantizan la convergencia del mismo a `\(\pi(\theta)\)` en la práctica, ya que estamos utilizando numero pseudo-aleatorios y no hay manera de determinar el umbral `\(n^*\)` de convergencia, es necesario evaluar el proceso de simulación
+
+--
+
+Este no es un problema trivial, la discusión hoy en día sigue abierta y a la fecha inconclusa
+
+--
+
+A continuación estudiaremos una serie de tecnicas formales e informales para diagnosticar la convergencia de los algoritmos MCMC y por transitividad, la validez de nuestras inferencias
+
+---
+class: center, middle
+
+# Diagnóstico (Informal) de Convergencia
+
+---
+
+# Diagnóstico (Informal) de Convergencia
+
+--
+
+**Diagnóstico Gráfico** (Gelfand y Smith, 1990)
+
+--
+
+  1. Graficar los histogramas de todos los componentes de `\(\theta\)` después del **periodo de calentamiento** y graficarlos cada `\(k\)` pasos de la cadena: Se acepta la cnvergencia si los histogramas son indistingbles los unos de los otros
+  
+--
+
+  2. Graficar Trayecorias y Promedios Ergódicos: Graficar la trayetoria de la simulación para `\(\theta\)` y su promedio ergódico. Si estos presetan el mismo comportamiento cualitativo (estabilidad) a lo largo de `\(t\)` se acepta la convergencia
+  
+--
+
+Lamentablemente estas medidas no son un resultado teórico y puede haber factores (como la escala) que instroduzcan distorciones
+
+---
+
+class: center, middle
+
+# Diagnóstico (Formal) de Convergencia
+
+---
+
+# Diagnóstico (Formal) de Convergencia
+
+--
+
+1. Muestreo por `\(m^*\)` retrazos: este método busca controlar el error del Estimador de Monte Carlo `\(t(\theta)\)` mediante el TLC para cadenas de Markov y elergir un tamaño de muestra `\(n^*\)` tal que los intervalos posteriores sean creibles a cierto nivel (ver Gamerman, p. 162)
+
+--
+
+2. Series de tiempo: Considere `\(n_b + n_a &lt; n\)` donde despupes de `\(m\)` pasos de entrenamiento `\(\psi_a\)` y `\(\psi_b\)` son los promedios (ergódicos) después del periodo de convergencia. Sea `\(Z_G = \frac{\psi_a - \psi_b}{\sqrt{Var(\psi_a) + Var(\psi_b)}} \xrightarrow{d} N(0,1)\)`. Esto sugiere que diferecnias grndes no implican convergencia, pero el converso no implica convergencia
+
+--
+
+3. Evaluación de cadenas: Correr `\(m\)` cadenas paralelas y verificar que el comportamiento individual sea igual al global, así como la estabilidad de los estimadores ergódicos en cada una de las cadenas
+
+
+--
+
+4. `\(\hat{R}\)`: La idea detrás de este estadístico de prueba es dividir las `\(n\)` simulaciones en `\(m_a\)` y `\(m_b\)` y estimar la varianza global del promedio ergódico con una combinación convexa dada por la partición `\(m_a\)`, `\(m_b\)`. Se acepta la convergecnia si `\(\hat{R} &lt; 1.2\)` según Gelman,1996. (Ver Gamerman, p.167)
+
+--
+
+Existen muchos otros métodos que apalancan cualidades estadísticas del resultado de la simulación, sin mebargo, los antes mencionados son los más populares y más estudiados por su aplicación general a cualquier procesos MCMC
+
+---
+
+class: inverse, center, middle
+
+# 2
+
+--
+
+# Ejemplo de muestreo de Gibbs
+
+---
+
+class: center, middle
+
+# [un ejemplo poisson](http://www.dme.ufrj.br/mcmc/)
+
+---
+
+# ¿Qué sigue?
+
+--
+
+1. Necesidad de software para análisis bayesiano
+
+--
+
+2. Stan y `RStan`
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"self_contained": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
