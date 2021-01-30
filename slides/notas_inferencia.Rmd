@@ -566,7 +566,7 @@ Por una serie de intereses políticos no hubo un cuerpo suficientemente nutrido 
 
 La naturaleza práctica de la estadística pide a gritos un cuerpo axiomático que la envista del estatus de teoría. Se requiere no un "cálculo estadístico", si no de una "Teoría de Inferencia" para la toma de decisiones en ambiente de incertidumbre. 
 
-Este cuestionamiento, se lo plantearon principalmente Neyman y Pearson e intentaron construir una teoría de inferencia a partir de la Teoría de Probabilidad. Este intento tan noble y tan necesario no debe pasar desapercibido, más aún, debiera contribuir con más ímpetu a la toma de conciencia sobre la precaireidad de la situación.
+Este cuestionamiento, se lo plantearon principalmente Neyman y Pearson e intentaron construir una teoría de inferencia a partir de la Teoría de Probabilidad. Este intento tan noble y tan necesario no debe pasar desapercibido, más aún, debiera contribuir con más ímpetu a la toma de conciencia sobre la precaireidad de la situación. 
 
 En resúmen, parece ser que hay algo de lo intrínseco del objeto de la estadística que no se logró capturar con fidelidad en este primer intento de hacer inferencia formalmente.
 
