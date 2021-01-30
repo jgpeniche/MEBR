@@ -29,7 +29,7 @@ library(gt)
 
 Sin duda, la herramienta por excelencia de la ciencia es la estadística, ya que es precisamente la estadísca el conducto por el cual se confrontan los modelos que viven en el plano de lo abstracto con los fenómenos que se manifiestan en el plano de tangible.
 
-Entonces, tal vez la primera pregunta que dberíamos contestar es: **¿Qué es la estadística?**
+Entonces, tal vez la primera pregunta que deberíamos contestar es: **¿Qué es la estadística?**
 
 De acuerdo con el profesor Manuel Mendoza$^1$ la estadística es:
 
@@ -566,7 +566,7 @@ Por una serie de intereses políticos no hubo un cuerpo suficientemente nutrido 
 
 La naturaleza práctica de la estadística pide a gritos un cuerpo axiomático que la envista del estatus de teoría. Se requiere no un "cálculo estadístico", si no de una "Teoría de Inferencia" para la toma de decisiones en ambiente de incertidumbre. 
 
-Este cuestionamiento, se lo plantearon principalmente Neyman y Pearson e intentaron construir una teoría de inferencia a partir de la Teoría de Probabilidad. Este intento tan noble y tan necesario no debe pasar desapercibido, más aún, debiera contribuir con más ímpetu a la toma de conciencia sobre la precaireidad de la situación.
+Este cuestionamiento, se lo plantearon principalmente Neyman y Pearson e intentaron construir una teoría de inferencia a partir de la Teoría de Probabilidad. Este intento tan noble y tan necesario no debe pasar desapercibido, más aún, debiera contribuir con más ímpetu a la toma de conciencia sobre la precaireidad de la situación. 
 
 En resúmen, parece ser que hay algo de lo intrínseco del objeto de la estadística que no se logró capturar con fidelidad en este primer intento de hacer inferencia formalmente.
 
