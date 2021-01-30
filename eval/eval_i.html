@@ -387,47 +387,47 @@ summary {
 <div id="preguntas-abiertas" class="section level2">
 <h2>Preguntas Abiertas</h2>
 <ol style="list-style-type: decimal">
-<li><p>¿Qué es estadística?</p></li>
-<li><p>¿Cuáles son las las dos escuelas de inferencia y su principales exponentes?</p></li>
-<li><p>¿Cuál es la definición de probabilidad que caracteriza a ambas corientes de inferencia?</p></li>
-<li><p>¿Qué es la Estadística Bayesiana?</p></li>
-<li><p>Nombra los 4 criterios de optimialidad deseables de la escuela clásica de inferencia</p></li>
-<li><p>Nombra los 5 axiomas de coherencia y explicalos</p></li>
-<li><p>¿Cuál es el criterio óptimo de decisión derivado de los 5 axiomas de coherencia?</p></li>
-<li><p>Define formamente un problema de decisión y explica cada uno de sus 4 elementos</p></li>
-<li><p>Define el problema de inferencia estadística paramétrica como un problema de decisión</p></li>
+<li><p>¿Qué es estadística? (1pt)</p></li>
+<li><p>¿Cuáles son las las dos escuelas de inferencia y su principales exponentes? (1pt)</p></li>
+<li><p>¿Cuál es la definición de probabilidad que caracteriza a ambas corientes de inferencia? (1pt)</p></li>
+<li><p>¿Qué es la Estadística Bayesiana? (1pt)</p></li>
+<li><p>Nombra los 4 criterios de optimialidad deseables de la escuela clásica de inferencia (2pt)</p></li>
+<li><p>Nombra los 5 axiomas de coherencia y explicalos (2pt)</p></li>
+<li><p>¿Cuál es el criterio óptimo de decisión derivado de los 5 axiomas de coherencia? (1pt)</p></li>
+<li><p>Define formamente un problema de decisión y explica cada uno de sus 4 elementos (2pt)</p></li>
+<li><p>Define el problema de inferencia estadística paramétrica como un problema de decisión (1pt)</p></li>
 </ol>
 </div>
 <div id="numericas" class="section level2">
 <h2>Numericas</h2>
 <ol style="list-style-type: decimal">
-<li>Considere <span class="math inline">\(\underline{X}_{(n)}\)</span> una muestra aleatoria de <span class="math inline">\(x_i \sim f.d.p.g \ =N(\mu, \sigma^2)\)</span>, con <span class="math inline">\((\mu,\sigma^2) \in \ \mathbb{R} \times \mathbb{R}^*\)</span> ambos desconocidos</li>
+<li>Considere <span class="math inline">\(\underline{X}_{(n)}\)</span> una muestra aleatoria de <span class="math inline">\(x_i \sim f.d.p.g \ =N(\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma{2}}}\)</span>, con <span class="math inline">\((\mu,\sigma^2) \in \ \mathbb{R} \times \mathbb{R}^*\)</span> ambos desconocidos</li>
 </ol>
 <ol style="list-style-type: lower-alpha">
-<li>Estima por <em>máxima verosimilitud</em> ambos parámetros</li>
-<li>¿Son insesgados?</li>
+<li>Estima por <em>máxima verosimilitud</em> ambos parámetros (2pt)</li>
+<li>¿Son insesgados? (1pt)</li>
 </ol>
 <ol start="2" style="list-style-type: decimal">
 <li>Considere <span class="math inline">\(\underline{X}_{(n)}\)</span> una muestra aleatoria de <span class="math inline">\(x_i \sim f.d.p.g. \ =Bernoulli(\theta)\)</span>. El estimador Máximo Verosímil (<span class="math inline">\(\hat{\theta}\)</span>) está dado por <span class="math inline">\(\overline{x}\)</span> (Recuerde que la varianza de una variable aleatoria Bernoulli está dada por <span class="math inline">\(\theta \cdot (1 - \theta)\)</span>). Considere además la variable pivotal <span class="math display">\[U = \frac{(\theta - \hat{\theta})n}{\sqrt{\hat{\theta} \cdot (1- \hat{\theta})}} \ddot{\sim} N(0,1)\]</span> Donde <span class="math inline">\(\ddot{\sim}\)</span> denota que la variable pivotal es casi aproximadamente normal.</li>
 </ol>
 <p>De esta variable pivotal se deduce que que el intervalo de confianza al nivel <span class="math inline">\((1- \alpha)\)</span>% para <span class="math inline">\(\theta\)</span> est+a dado por <span class="math display">\[[\hat{\theta} \pm z_{1 - \frac{\alpha}{2}} \sqrt{\frac{\hat{\theta}(1 - \hat{\theta})}{n}}\]</span></p>
 <ol style="list-style-type: lower-alpha">
-<li>Considere <span class="math inline">\(n = 7\)</span>, <span class="math inline">\(\overline{x} = .72\)</span> y <span class="math inline">\(\alpha = .05\)</span>. Evalue el intervalo y comente si descubre algún tipo de patología</li>
-<li>Evalue el íntervalo <span class="math inline">\(n \longrightarrow \infty\)</span> ¿Qué ocurre?</li>
+<li>Considere <span class="math inline">\(n = 7\)</span>, <span class="math inline">\(\overline{x} = .99\)</span> y <span class="math inline">\(\alpha = .05\)</span>. Evalue el intervalo y comente si descubre algún tipo de patología (1pt)</li>
+<li>Evalue el íntervalo <span class="math inline">\(n \longrightarrow \infty\)</span> ¿Qué ocurre? (1pt)</li>
 </ol>
 <ol start="3" style="list-style-type: decimal">
 <li>Considere el siguiente problema de decisión:</li>
 </ol>
 <p>Freddy tiene que decidir entre usar su bicicleta y usar su coche para ir al trabajo. El mes es agosto y hay 62% de probabilidad de que llueva. Si no llueve y usa la moto, Freddy llega más rápido al trabajo y recibe una utilidad de .8. Si usa la moto y llueve, a pesar de llegar más rápido, se moja y percibe una utilidad de 0. Si por el contrario toma el coche y no llueve, estará atorado en el tráfico y percibe una utlidad de .6, Finalmente si llueve y usa el coche, esta´ra atorado en el tráfico pero al menos estará seco por lo que percibe una utiliad de 1.</p>
 <ol style="list-style-type: lower-alpha">
-<li>Plantee el problema de decisión de Freddy y especifique todos los elementos</li>
-<li>Dibuje el árbol de decisión</li>
-<li>Resuelva el problema por el criterio optimista</li>
-<li>Resuelva el problema por el criterio pesimista</li>
-<li>Resuelva el problema por el criterio de consecuencia más probable</li>
-<li>Resuelva el problema por el criterio de utilidad promedio</li>
-<li>Resuelva el problema por el criterio de utilidad esperada</li>
-<li>¿Es la utilidad de Freddy canónica?</li>
+<li>Plantee el problema de decisión de Freddy y especifique todos los elementos (2pt)</li>
+<li>Dibuje el árbol de decisión (1pt)</li>
+<li>Resuelva el problema por el criterio optimista (1pt)</li>
+<li>Resuelva el problema por el criterio pesimista (1pt)</li>
+<li>Resuelva el problema por el criterio de consecuencia más probable (1pt)</li>
+<li>Resuelva el problema por el criterio de utilidad promedio (1pt)</li>
+<li>Resuelva el problema por el criterio de utilidad esperada (1pt)</li>
+<li>¿Es la utilidad de Freddy canónica? (1pt)</li>
 </ol>
 </div>
 </div>
